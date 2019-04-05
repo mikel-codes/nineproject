@@ -1,0 +1,21 @@
+*/.env
+.env
+**.pyc
+*.py[cod]
+db.sqlite3
+__pycache__/
+*.py[cod]
+
+*.env
+venv/
+
+nineapp/__pycache__/*.pyc
+nineapp/__pycache__/__init__.cpython-36.pyc
+nineproject/oxone.json
+
+nineapp/static/
+nineapp/migrations/
+
+# SQLite database files
+
+*.sqlite3

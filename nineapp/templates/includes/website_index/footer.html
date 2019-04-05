@@ -1,0 +1,132 @@
+{% load static %}
+<footer class="bg-191 color-ccc" style="font-family: Lato">
+
+  <div class="container">
+    <div class="pt-50 pb-20 pos-relative">
+      <div class="abs-tblr pt-50 z--1 text-center">
+        <div class="h-80 pos-relative">
+          <img class="opacty-1 h-100 w-auto" src="{%  static "images/map.png"%} " alt=""></div>
+        </div>
+        <div class="row">
+
+
+          <div class="col-sm-3 col-lg-3 col-md-3">
+            <div class="mb-30">
+              <a class="foots logo"> 
+                <img src="{% static "images/blg.svg" %}" width="100" height="100">
+              </a>
+              <p class="mtb-20 color-ccc">
+                This is an internet based company that serves people the latest news, information, whats trending,
+                politics, entertainment and technology around the world.
+                This company simply holds a reputation to serving end users. have a blissful experience here
+              </p>
+              <p class="color-ash">
+                Copyright ©  
+                <script>document.write(new Date().getFullYear());</script> 
+                ceodevelopers
+              </p>
+            </div><!-- mb-30 -->
+          </div><!-- col-md-4 -->
+          <style>
+            .color-white:active, a:active, .active{
+              color: #4ECDC4;
+
+            }
+
+
+          </style>
+          <div class="col-sm-3 col-lg-3 col-md-3">
+            <div class="mb-30">
+              <h4 id="bottom" class="ptitle color-primary mb-10"><b>Quick Links</b></h4>
+              
+              <div>
+              {% if categories %}
+                {% for cat in categories %}
+                  <div class="mb-10" >
+                 <a class="color-white" 
+                 href="{% url "listposts" cat.slug %}"><b>{{cat.name}}</b></a>
+                  
+                  
+                  </div>
+
+                {%endfor%}
+
+              {%endif%}
+                <button class="btn btn-round btn-primary"  ng-click="show('top')">
+                      <i class="fa fa-arrow-up"></i>Go to Top
+                    </button>
+            </div>
+            </div><!-- mb-30 -->
+
+          </div><!-- col-md-4 -->
+          <div class="col-sm-3 col-lg-3 col-md-3">
+            <div class="mb-30">
+              <h5 class="color-primary mb-20"><b>EXPLORE</b></h5>
+              <div class="mb-20">
+                {% if head_post  %}
+                <a class="color-white" href="{% url "getpost" head_post.slug %}">
+                  <b>
+                    {{head_post.topic}} 
+                  </b>
+                </a>
+                <h6 class="mt-10">{{ head_post.modified}} </h6>
+                {%endif %}
+              </div>
+              {%if last_p%}
+              <div class="brdr-ash-1 opacty-2 mr-30"></div>
+             
+              <div class="mt-20">
+                <a class="color-white" href="{% url "getpost" last_p.slug %}">
+                  <b>
+                    {{last_p.topic}}
+                  </b></a>
+                <h6 class="mt-10">{{last_p.modified}} </h6>
+              </div>
+              {%endif%}
+            </div><!-- mb-30 -->
+          </div><!-- col-md-4 -->
+
+          <div class="col-sm-3 col-lg-3 col-md-3">
+            <div class="mb-30">
+              <h5 class="color-primary mb-20 text-center">
+                <b class="explore">Advertise</b>
+              </h5>
+              <div class="mb-20">
+                <div class="jumbotron bg-dark">
+                 <a href="{% url "contact" %}">
+                  <h3>Advertise Here</h3>
+                </a>
+              </div>
+
+              <a href="#" class=" text-center go-top">
+                <i class="fa fa-angle-up"></i>
+              </a>
+            </div><!-- mb-30 -->
+          </div><!-- col-md-4 -->
+          <a href="#" class=" text-center go-top">
+            <i class="fa fa-angle-up"></i>
+          </a>
+        </div><!-- row -->
+      </div><!-- ptb-50 -->
+
+      <div class="brdr-ash-1 opacty-2"></div>
+
+      <div class="oflow-hidden color-ash font-9 text-sm-center ptb-sm-5">
+
+        <ul class="float-left float-sm-none list-a-plr-10 list-a-plr-sm-5 list-a-ptb-15 list-a-ptb-sm-10">
+          <li><a class="pl-0 pl-sm-10" href="#">Terms &amp; Conditions</a></li>
+          <li><a href="#">Privacy policy</a></li>
+          <li><a href="{% url "contact" %}">Jobs advertising</a></li>
+          <li><a href="{% url 'contact' %}">Contact us</a></li>
+        </ul>
+        <ul class="float-right float-sm-none list-a-plr-10 list-a-plr-sm-5 list-a-ptb-15 list-a-ptb-sm-5">
+          <li><a class="pl-0 pl-sm-10" href="#"><i class="ion-social-facebook"></i></a></li>
+          <li><a href="#">  Copyright &copy; <script>document.write(new Date().getFullYear());</script> ceodevelopers</a></li>
+          <li><a href="#"><i class="ion-social-google"></i></a></li>
+          <li><a href="#"><i class="ion-social-instagram"></i></a></li>
+          <li><a href="#"><i class="ion-social-bitcoin"></i></a></li>
+        </ul>
+
+      </div><!-- oflow-hidden -->
+    </div><!-- container -->
+  </footer>

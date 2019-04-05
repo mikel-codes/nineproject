@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+{%load static%}
+<html class="perfect-scrollbar-off nav-close" lang="en">
+  <head>
+ {% include "noscript.html" %}
+  <meta charset="utf-8" >
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="Dashboard">
+    <title>{{request.user.username}}'s blogspace</title>
+       <link rel="shortcut icon" 
+        href="{% static "images/newicon.ico" %}" type="image/x-icon">
+    {%include "includes/dashboard/dash_static_files.html"%}
+    {%include "includes/ads.html"%}
+ <style type="text/css">
+    .rounded-circle{
+      
+      border: 2px solid green;
+    }
+  </style>
+{%block header%}
+{% endblock %}
+  </head>
+
+  <body class=""> 
+    <div class="wrapper">
+      <div class="sidebar" data-color="purple" data-background-color="white">
+        <div class="logo">
+          <a href="" class="simple-text logo-normal logout">
+            <b>
+              <i style="color:aquamarine" class="fa fa-dot-circle-o">
+              </i>&nbsp;{{request.user.username}}
+            </b>
+          </a>
+        </div>
+        <div class="sidebar-wrapper">
+          <form class="navbar-form">
+            <span class="bmd-form-group">
+              <div class="input-group no-border">
+                <input type="text" value="" class="form-control" placeholder="Search...">
+                <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                  <i class="fa fa-search"></i>
+                  <div class="ripple-container"></div>
+                </button>
+              </div></span>
+          </form>
+          {% include "includes/dashboard/dash_sidebar.html" %}
+
+
+        </div>
+      </div>
+
+      <div class="main-panel">
+        {% include "includes/dashboard/dash_navbar.html" %}
+        <div class="content">
+          <div class="container-fluid">
+            <!-- your content here -->
+            <div class="col-12 ">
+              {% include "includes/alerts.html" %}
+            </div>
+            <div class="row"> 
+              <div class="offset-md-9 col-md-3 col-sm-0  mb">
+                <a href="{% url "new_content" %}">  
+                  <button class='btn btn-success'>
+                    
+                    <span class="fa fa-plus"></span>
+                     Add Post
+                  </button>
+                </a>
+              </div>
+
+              {% block content %}
+                {% include "includes/dashboard/dash_animatedpost.html" %}
+                {% include "includes/dashboard/dash_panels.html" %}
+              {% endblock %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="wrapper">
+      </section>
+
+      <footer class="site-footer" style="color: #fff; background: #232322; border-top: 1px solid #444;">
+        <p class="text-center">
+          © 2018 <strong>made for purehub</strong>. 
+          All Rights Reserved
+        </p>
+        <div class="credits text-center">Created by DivWeb Engineers
+          <a href="#" class=" text-center go-top">
+            <i class="fa fa-angle-up"></i>
+          </a>
+        </div>
+      </div>
+    </footer>
+  </section>
+
+  {%include "includes/dashboard/admin_msg.html"%}
+</body>
+</html>
+
+
+

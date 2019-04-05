@@ -1,0 +1,118 @@
+{# template website/popular_posts.html #}
+{% extends "layouts/base.html" %}
+{%load static%}
+{%block title%}
+  {{req_post.topic}}
+{%endblock%}
+{% block head_content%}
+ <style type="text/css">
+
+    
+    span  a{
+      color: blue;
+      text-decoration: underline;
+
+    }
+
+  </style>
+  <script>
+  const readingTime = () => {
+  
+    const wordsPerMinute = 200;
+    const text = document.querySelector("#loop").innerHTML
+    const noOfWords = text.split(/\s/g).length;
+    const minutes = noOfWords / wordsPerMinute;
+    const readTime = Math.ceil(minutes);
+    document.querySelector("#rt").innerHTML = readTime
+};
+  
+  </script>
+
+<style type="text/css">
+  .img-thumbnail{
+    border: 2px solid gray; 
+    margin-right: .25em;
+    display: inline-block;
+    width: 8em;
+    height: 10em;
+    border-radius: 500rem;
+
+    /* margin-bottom: 0em; */
+  }
+  body{
+    color: rgb(64, 77, 91);
+    
+    
+  }
+</style>
+{% endblock %}
+{% block content %}
+
+<h3 class="mt-30 text-center"><b>{{req_post.topic}}</b></h3>
+<ul class="list-li-mr-20 mtb-15 text-center">
+  <li>
+ 
+  on {{ req_post.modified}}  <img src="{% static "images/out.png" %}" class="avatar" onload="readingTime()"> 
+  <b id="rt"></b> mins read 
+    <br>
+  <img src="{% static "images/eye.png" %}" class="avatar">viewed 
+  <view-dir  link="{% url "view_update" req_post.id %} ">&times;__views | NumFilter__
+  
+  </view-dir>
+
+
+</ul>
+<img src="{{ req_post.photos.url }}" alt="" width="10"  height="400"  />
+
+<span class="mtb-15 ml-0 text-left" id="loop" style="color:#222;  font-family: Lato;">
+  
+      {{ req_post.content | safe }}
+    
+
+</span>
+
+<h4 class="mt-30">
+              <div class="d-flex justify-content-between mt-2">
+
+                <div class="float-left">
+            {%if request.user.is_authenticated%}
+           <like-dir  
+                   usertoken='{{token}}'  
+                   id = "{{req_post.likes_on_post.id}}"
+                   liker="{{request.user.id}}" 
+                  count="{{req_post.likes_on_post.num_of_likes}}">
+                   __ likes | NumFilter __
+                 <i class="fa fa-thumbs-up" style="color: #e25e2b;"></i>
+             </like-dir>
+                  {%else%}
+                  <div data-toggle="modal"  data-target="#exampleModal3">
+                   {{req_post.likes_on_post.num_of_likes}} 
+                 <i class="fa fa-thumbs-up" style="color: #e25e2b; "></i>
+             </div>
+                  {%endif%}
+                 
+                </div>
+                <div class="float-right">
+                  {%for tag in req_post.tags_list%}
+                  <span class="badge badge-pill badge-primary">
+                  {{tag }}
+                </span>
+                  {%endfor%}
+                </div>
+              </div>
+              
+          </h4>  
+            
+
+
+{% endblock %}
+
+{%block disqus%}
+{% load disqus_tags %}
+
+{% disqus_num_replies %}
+{% load disqus_tags %}
+{% disqus_show_comments %}
+
+{%endblock%}
+
