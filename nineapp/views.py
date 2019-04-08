@@ -33,7 +33,7 @@ from .tokens import account_token
 import random
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from rest_framework.authtoken.models import Token
-from .models import View,Like,Clap, Post, Profile, Category, Clap
+from .models import View,Like,Clap, Post, Profile, Category, Clap, Profile
 from django.conf import settings
 
 
@@ -76,7 +76,7 @@ def index(request):
 
 def list_posts(request, slug=None):
     category = get_object_or_404(Category, slug=slug)
-    posts_from_category = Post.objects.filter(category=category).order_by('id', 'modified')
+    posts_from_category = Post.objects.filter(category=category).order_by('-id', '-modified')
     # for the explore footer
     head_post = Post.objects.all().first()  
     last_p = Post.objects.all().last()
@@ -176,16 +176,21 @@ def password_reset_confirm(request, uidb64, token):
         return redirect(reverse("reset_password"))
     else:
         return redirect("page_not_found")
-    
+
+
+
+
 #considering request.post as a dictionary get a value from a key(say request.POST.get("email"))
 def registration(request):
-	signupform = SignUpForm(request)
-	if request.POST:
-		signupform = SignUpForm(request, request.POST)
-		if signupform.is_valid():
-			signupform.save()
-			return HttpResponse('PLEASE CHECK EMAIL FOR FURTHER INSTRUCTIONS')
-	return render(request, "registration/signup.html",{"signupform": signupform, 'fterms': ("Username","Email")})
+    signupform = SignUpForm(request)
+    if request.POST:
+        signupform = SignUpForm(request, request.POST)
+        if signupform.is_valid():
+            signupform.save()
+            return HttpResponse('PLEASE CHECK EMAIL FOR FURTHER INSTRUCTIONS')
+    return render(request, "registration/signup.html",{"signupform": signupform, 'fterms': ("Username","Email")})
+
+
 
 
 def activate(request, uidb64, token):
@@ -201,6 +206,7 @@ def activate(request, uidb64, token):
     	user.save()
     	login(request, user)
     	messages.success(request,"registration completed successfully")    
+        
     	return redirect(reverse("dashboard", args=(user.username,)))
     else:
         return redirect("page_not_found")
@@ -238,18 +244,31 @@ def reset(request):
 @never_cache
 @login_required(login_url = "signin")
 def dashboard(request,  username):
-    username = request.user.username
-    user = get_object_or_404(User, username=username)
+    try:
+        username = request.user.username
+        profile = get_object_or_404(Profile, author=request.user)
+        
+        user = get_object_or_404(User, username=username)
+        try:
 
-    posts = Post.objects.filter(post_by=user.id).order_by("-modified")
-    count = posts.count()
-    user_claps = 0
-    for p in posts:
-        user_claps += p.clap.num_claps
+            posts = Post.objects.filter(post_by=user.id).order_by("-modified")
+            count = posts.count()
+            user_claps = 0
+            for p in posts:
+                user_claps += p.clap.num_claps
+        except Exception as e:
+            posts = None
+            count = 0
+            user_claps = 0
 
-    profile = get_object_or_404(Profile, author=user)
-    context = {'post_count': count, "posts":posts, "profile":profile, 'claps': user_claps}
-    return render(request, 'layouts/dashboard.html', context)
+        context = {'post_count': count, "posts":posts, "profile":profile, 'claps': user_claps}
+        return render(request, 'layouts/dashboard.html', context)
+    except Exception as e:
+        print("\n", e, "\n")
+        messages.info(request, "You are not authorised ")
+
+        logout(request)
+        return redirect(reverse("signin"))
 
 @login_required(login_url='signin')
 def userlogout(request):
@@ -314,7 +333,7 @@ def edit_profile(request, name):
     for p in Post.objects.filter(post_by=request.user):
         claps += p.clap.num_claps
     name = request.user.username 
-    profile = get_object_or_404(Profile, pk=request.user.id) or None
+    profile = get_object_or_404(Profile, pk=request.user.id)
     form = ProfileForm(request, request.POST or None, request.FILES or None, instance=profile)
     if form.is_valid():
         form.save()

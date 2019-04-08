@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 from decouple import config, Csv
 from google.oauth2 import service_account
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,7 +27,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: don't run with debug turned on in production!
 
 SECRET_KEY = config('SECRET_KEY')
-#ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+#ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.9blogspace.com']
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 #DEBUG = config('DEBUG', default=True, cast=bool)
 DEBUG=True
@@ -95,12 +96,22 @@ REST_FRAMEWORK = {
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+
+DATABASES = {
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL')
+    )
+}
+    
+
+"""
 DATABASES = {
     'default': {
-        'ENGINE' : 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+"""
 
 SITE_ID = 1
 
@@ -139,11 +150,11 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
-"""
+
 STATIC_URL = '/static/'
 MEDIA_URL  = '/media/'
 MEDIA_ROOT = 'media'
-
+"""
 #AUTH_USER_MODEL = 'nineapp.User'
 """
 # Add to your settings file
@@ -158,7 +169,7 @@ CONTENT_TYPES = ['image', 'video', 'pdf']
 # 250MB - 214958080
 # 500MB - 429916160
 MAX_UPLOAD_SIZE = "5242880"
-
+MAX_IMG_SIZE = '2121440'
 
 # static and media prefixes
 
@@ -169,21 +180,16 @@ STATIC_PREFIX="static"
 AWS_DEFAULT_ACL = None
 
 DEFAULT_FILE_STORAGE = config("GS_CLOUD_STORAGE")
+STATICFILES_STORAGE  = config("GS_CLOUD_STORAGE")
 STATICFILES_STORAGE  = 'nineproject.storages.gcloud.GsStaticCloud'
 GS_BUCKET_NAME = config('GS_STORAGE_BUCKET_NAME')
 
-
-# main link to start retrieving from buckets
-GCS_ROOT = "https://storage.googleapis.com/{bucket_name}/".format(
-    bucket_name=os.environ.get("GS_BUCKET_NAME")
-)
-
-STATIC_URL = "{gcs_root}{prefix}/".format(gcs_root=GCS_ROOT, prefix=STATIC_PREFIX)
-MEDIA_URL = "{gcs_root}{prefix}/".format(gcs_root=GCS_ROOT, prefix=MEDIA_PREFIX)
-
 GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-'nineproject/oxone.json'
+    'nineproject/oxone.json'
 )
+
+
+
 """
 
 """

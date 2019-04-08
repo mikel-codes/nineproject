@@ -19,8 +19,10 @@ from django.core.files.base import ContentFile
 from django.utils.encoding import python_2_unicode_compatible
 from utils.modelmixins import TimeMixin, MetaTagsMixin
 
+#from django.contrib.gis.utils import GeoIP
 from django.contrib.auth.models import Group
-from nineproject.storages.gcloud import GsPictureProfileCloud as gppc, GsThumbnailProfileCloud as gtpc
+
+from nineproject.storages.gcloud import GsPictureProfileCloud as gppc, GsPostCloud as gpostc
 # Create your models here.
 
 
@@ -33,13 +35,12 @@ class Profile(TimeMixin):
         (3, ''),
         )
     author = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    bio    = models.TextField(_("Describe Yourself"), max_length=200,error_messages = {'max_length': "Exceed limit of 200 characters)"})
+    bio    = models.TextField(_("Describe Yourself"), max_length=200,error_messages = {'max_length': "Exceed limit of 200 characters)"}, default="I am a blogger")
     role   = models.PositiveSmallIntegerField(choices=ROLES, default=1, null=True, blank=True)
-    ip_addr = models.GenericIPAddressField(protocol="ipv4", null=True)
+    ip_addr  = models.GenericIPAddressField(protocol="ipv4", null=True, blank=True)
     location = models.CharField(_("blogger's country"), max_length=30, blank=True)
-    picture =  models.ImageField(storage=gppc(), null=True, blank=True)
-    #picture = models.ImageField(upload_to="profiles", null=True, blank=True)
-
+    picture  = models.ImageField(storage=gppc(), null=True, blank=True)
+    
 
     def __str__(self):
         return self.author.get_full_name()
@@ -48,9 +49,6 @@ class Profile(TimeMixin):
     def save(self, *args, **kwargs):
         try:
             if self.picture:
-                #print(self.picture, "\n")
-                #print("Again", self.picture.url)
-                #with urlopen(self.picture.url) as imLink:
                 with BytesIO(self.picture.read()) as bytes_obj:
                     with Image.open(bytes_obj) as imgfile_obj:
                         new_bytes_obj = BytesIO()
@@ -61,8 +59,6 @@ class Profile(TimeMixin):
 
 
                         imgfile_obj.thumbnail((80,80), Image.ANTIALIAS)    
-                        #imgfile_obj.convert('JPEG')
-                        #edited_imgfile_obj = imgfile_obj.resize((80,80), Image.ANTIALIAS)
                       
                         imgfile_obj.save(new_bytes_obj, format="JPEG", quality=100)
                         new_bytes_obj.seek(0) # go to the first line on the stream of bytes
@@ -73,31 +69,11 @@ class Profile(TimeMixin):
                         self.picture.save('%s.jpg' % author_name.split('.')[0], suf, save=True)
                         #cleaned_data.get('picture') = InMemoryUploadedFile(new_bytes_obj,'ImageField', '%s.jpg' % self.request.username, 'image/jpeg', sys.getsizeof(new_bytes_obj),)
                     imgfile_obj.close()
-                super().save(*args, **kwargs)
+            super().save(*args, **kwargs)
         except Exception as e:
             print("Errors", e)
 
-        """
-            image_bytes = BytesIO(self.picture.read())
-            #fobj = storage.open(str(self.picture.url))
-            img_obj = Image.open(image_bytes)
-            image_out = BytesIO()
 
-            #Resize/modify for image and thumb
-            image = img_obj.resize((60,60), Image.ANTIALIAS)
-            image.save(image_out, format="JPEG", quality=100)
-            image_out.seek(0)
-
-            userimg = self.author.username.split('.')[0]
-            suf = SimpleUploadedFile(userimg, image_out.read(), content_type='image/jpeg')
-            self.picture.save('%s.jpg' % suf.name, suf, save=True)
-
-            super().save(*args, **kwargs)
-        except Exception as e:
-            import traceback 
-            traceback.print_exc()
-            print("", e, "")
-        """
 @python_2_unicode_compatible
 class NewsUsers(TimeMixin):
     email = models.EmailField(unique=True, max_length=30, blank=False, null=False, error_messages={'unique': 'This email has already been registered'})
@@ -145,8 +121,7 @@ class Post(TimeMixin, MetaTagsMixin):
     topic    = models.CharField(_("Topic"), max_length=255, unique=True, error_messages={'unique': 'This topic has already been used'})
     content  = models.TextField(_("Write Content"), max_length=10000)
     slug     = models.SlugField(unique=True, null=True, blank=True)
-    photos   = models.ImageField(storage=gppc(), blank=False,null=False)
-    #photos  = models.ImageField(upload_to="power/", blank=False,null=False)
+    photos   = models.ImageField(storage=gpostc(), blank=False,null=False)
     post_by  = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     tags     = models.TextField(max_length=200, blank=True, null=True)
       
@@ -166,6 +141,7 @@ class Post(TimeMixin, MetaTagsMixin):
         self.meta_keywords = self.tags
         self.meta_author = self.post_by.get_full_name()
         self.slug = slugify(self.topic).lower()
+
         super(Post, self).save()
 
 

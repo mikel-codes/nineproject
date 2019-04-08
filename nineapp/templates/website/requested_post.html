@@ -15,30 +15,37 @@
     }
 
   </style>
-  <script>
-  const readingTime = () => {
-  
-    const wordsPerMinute = 200;
-    const text = document.querySelector("#loop").innerHTML
-    const noOfWords = text.split(/\s/g).length;
-    const minutes = noOfWords / wordsPerMinute;
-    const readTime = Math.ceil(minutes);
-    document.querySelector("#rt").innerHTML = readTime
-};
-  
-  </script>
+ 
 
 <style type="text/css">
-  .img-thumbnail{
-    border: 2px solid gray; 
-    margin-right: .25em;
-    display: inline-block;
-    width: 8em;
-    height: 10em;
-    border-radius: 500rem;
+.navbar {
+    background-color: lightslategray;
+    font-size: 1em;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: white;
+    padding: 8px 5px 8px 5px;
+}
 
-    /* margin-bottom: 0em; */
-  }
+.navbar a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.navbar-brand {
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.navbar-item {
+    font-variant: small-caps;
+    margin-left: 30px;
+}
+
+.body-content {
+    padding: 5px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
   body{
     color: rgb(64, 77, 91);
     
@@ -47,7 +54,15 @@
 </style>
 {% endblock %}
 {% block content %}
+<!--div class='navbar'>
+  <div class='navbar-brand'>
+    Jee
 
+  </div>
+  <div class="navbar-item">
+    poloc
+  </div>
+</div -->
 <h3 class="mt-30 text-center"><b>{{req_post.topic}}</b></h3>
 <ul class="list-li-mr-20 mtb-15 text-center">
   <li>
@@ -64,7 +79,7 @@
 </ul>
 <img src="{{ req_post.photos.url }}" alt="" width="10"  height="400"  />
 
-<span class="mtb-15 ml-0 text-left" id="loop" style="color:#222;  font-family: Lato;">
+<span class="mtb-15" id="loop" style="color:#222;  font-family: Lato;">
   
       {{ req_post.content | safe }}
     
@@ -104,7 +119,18 @@
           </h4>  
             
 
-
+ <script>
+  const readingTime = () => {
+  
+    const wordsPerMinute = 200;
+    const text = document.querySelector("#loop").innerHTML
+    const noOfWords = text.split(/\s/g).length;
+    const minutes = noOfWords / wordsPerMinute;
+    const readTime = Math.ceil(minutes);
+    document.querySelector("#rt").innerHTML = readTime
+};
+  
+  </script>
 {% endblock %}
 
 {%block disqus%}

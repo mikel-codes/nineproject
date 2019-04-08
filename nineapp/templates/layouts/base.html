@@ -37,11 +37,12 @@
 }
 
 .img-thumbnail{
-    border: 2px solid gray; 
+    border: 2px solid darkgray; 
     margin-right: .25em;
     display: inline-block;
-    width: 8em;
+        width: 8em;
     height: 8em;
+    
     border-radius: 500rem;
 
     /* margin-bottom: 0em; */
@@ -98,9 +99,11 @@
                   
                 <h6>
                   <span style="float: left;">
-                {% if profile.picture %}
+                {% if profile.picture  %}
                   <img src="{{profile.picture.url}}"   class="rounded-circle img-thumbnail" />
-
+                  {%else %}
+                  <img src="{% static "images/blg.svg" %}" class="img-thumbnail" />
+                  <style type="text/css">.img-thumbnail{background-color: inherit; border: none; }</style>
                 {% endif %}
                 <br>
                 <b>{{req_post.post_by.get_full_name | title}}</b>

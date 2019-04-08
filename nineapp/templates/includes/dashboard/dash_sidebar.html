@@ -13,7 +13,7 @@
   </script>
 <style type="text/css">
   .img-thumbnail{
-    border: 2px solid gray; 
+    border: 2px solid black; 
     margin-right: .25em;
     display: inline-block;
     width: 8em;
@@ -36,7 +36,7 @@
       </p>
     {%else%}
       <p class="centered">
-        <img src="{% static "images/icon.jpg" %}" width="100" height="100" class="img thumbnail rounded-circle">
+        <img src="{% static "images/unknown.png" %}" width="100" height="100" class="img thumbnail rounded-circle">
         </p>
              <p class="centered">
         <b><small>{{ request.user.get_full_name }}</small> </b>

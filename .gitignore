@@ -13,7 +13,7 @@ nineapp/__pycache__/*.pyc
 nineapp/__pycache__/__init__.cpython-36.pyc
 nineproject/oxone.json
 
-nineapp/static/
+
 nineapp/migrations/
 
 # SQLite database files

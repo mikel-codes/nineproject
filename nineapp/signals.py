@@ -7,14 +7,19 @@ from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 from django.db.models.signals import post_save, pre_save
 from django.contrib.auth.models import User
-
+from django.http import HttpRequest as request
 from .models import Clap, Post, Like, Profile, View
+
+
+
+
 
 @receiver(post_save, sender=User, dispatch_uid="create_profile")
 def create_user_profile(sender, instance, created, **kwargs):
 	if instance.is_active is True:
 		Profile.objects.get_or_create(author=instance)
 		instance.profile.save()
+	
 
 
 @receiver(post_save, sender=Post, dispatch_uid="like")

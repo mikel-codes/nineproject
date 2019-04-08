@@ -112,6 +112,17 @@ class PostForm(forms.ModelForm):
         super(PostForm, self).__init__(*args, **kwargs)
         self.request = request
 
+    def clean_photos(self):
+        try:
+            filename, file_ext = os.path.splitext(self.cleaned_data['photos'].name)
+            print(filename, "\t", file_ext)
+            self.cleaned_data['photos'].name = "%s%s" % (slugify(self.cleaned_data['topic']).lower(), file_ext)
+            print("\n", self.cleaned_data['photos'].name)
+        except Exception as e:
+            print(e)
+        else:
+            return self.cleaned_data['photos']
+
     def save(self, commit=True):
         your_post = super(PostForm, self).save(commit=False)
         your_post.post_by = self.request.user
@@ -121,7 +132,8 @@ class PostForm(forms.ModelForm):
 
         
 class ProfileForm(forms.ModelForm):
-    bio = forms.CharField(label=_("Describe Yourself (not more than 200chars) "),widget=forms.Textarea(), max_length=100, help_text='use less than 200 characters')
+    bio = forms.CharField(label=_("Describe Yourself (not more than 200chars) "),widget=forms.Textarea(), max_length=201, help_text='use less than 200 characters')
+    
     class Meta:
         model = Profile
         fields = ('bio','picture')
@@ -129,41 +141,23 @@ class ProfileForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.request = request
 
-    """
-    def clean_picture(self):
-        try:
-            if self.cleaned_data['picture']:
-                with BytesIO(self.cleaned_data['picture'].read()) as bytes_obj:
-                    with Image.open(bytes_obj) as imgfile_obj:
-                        new_bytes_obj = BytesIO()
-                        # Resize/modify for image and thumb
-                        '''Convert to RGB if necessary'''
-                        if imgfile_obj.mode not in ('L', 'RGB'):
-                            imgfile_obj = imgfile_obj.convert('RGB')
+    def get_client_ip(self):
+        x_forwarded_for = self.request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0]
+        else:
+            ip = self.request.META.get('REMOTE_ADDR')
+        return ip
 
-
-                        imgfile_obj.thumbnail((100,100), Image.ANTIALIAS)    
-                        #imgfile_obj.convert('JPEG')
-                        #edited_imgfile_obj = imgfile_obj.resize((80,80), Image.ANTIALIAS)
-                      
-                        imgfile_obj.save(new_bytes_obj, format="JPEG", quality=100)
-                        new_bytes_obj.seek(0) # go to the first line on the stream of bytes
-
-                        
-
-                        suf = SimpleUploadedFile(os.path.split(self.cleaned_data.get('picture').name)[-1].split('.')[0], new_bytes_obj.read(), content_type='image/jpeg')
-                        self.cleaned_data['picture'].save('%s.jpg' % self.request.username.split('.')[0], suf, save=True)
-                        #cleaned_data.get('picture') = InMemoryUploadedFile(new_bytes_obj,'ImageField', '%s.jpg' % self.request.username, 'image/jpeg', sys.getsizeof(new_bytes_obj),)
-                    imgfile_obj.close()
-            super().save(*args, **kwargs)
-        except Exception as e:
-            print("Errors", e)
-    """
     def save(self, commit=True):
-        profile = super().save(commit=False)
-        profile.author = self.request.user
-        if commit:
-            profile.save()
+        try:
+            profile = super().save(commit=False)
+            profile.ip_addr = self.get_client_ip()
+            print("\n Coming from profile forms", profile.ip_addr)
+            if commit:
+                profile.save()
+        except Exception as e:
+            print("\n", e, "\n")
 
 
 def validate_file_extension(value):
@@ -181,7 +175,7 @@ class ContactForm(forms.Form):
     full_name = forms.CharField(required=True)
     company = forms.CharField(required=True, help_text='if you dont have, please enter none')
     phone = forms.CharField(validators=[RegexValidator(regex=r'^\+\d{1,3}\-\d{6,15}$', message="Enter a valid phone number")],
-                             required=True, help_text="+xxx-xxxxxxxxx  alias country code - number ")
+                             required=True, help_text="+xxx-xxxxxxxxx   -- > country code - number e.g +12-12929029202")
     sender_email = forms.EmailField(label=_("Your Email"), required=True)
     message = forms.CharField(label=_("Message"),required=True, widget=forms.Textarea())
     files   = forms.FileField(

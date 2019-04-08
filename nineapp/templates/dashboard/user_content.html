@@ -33,15 +33,16 @@
    
         {%for field in form.visible_fields %}
         <div class="form-group">
-          
-            <div class="control-sm-label" style="color:black">
+          <div class="control-sm-label" style="color:black">
               {{field.label}}
             </div>
             <div class='input-group'>
              {{field}}
              {{field.help_text}}
             <ul>
-              <li style="color:indianred;"><small>{{field.errors}}</small></li>
+              <li style="color:indianred;">
+                <small>{{field.errors}}</small>
+              </li>
             </ul>
           </div>
         </div>
