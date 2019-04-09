@@ -57,7 +57,7 @@ def newsletter(request):
     return context
 
 def index(request):
-    head_post  = Post.objects.all().first() or None
+    head_post  = Post.objects.all().first()
     categories = Category.objects.all()
     last_p = Post.objects.latest()
     top_blogs  = list(Post.objects.order_by("-id")[:5].values_list("topic", flat=True)).append([last_p, head_post])
@@ -92,10 +92,13 @@ def list_posts(request, slug=None):
 
 def getpost(request, slug=None):
     req_post = get_object_or_404(Post, slug=slug)
-    related_posts = set([random.choice(Post.objects.filter(category=req_post.category).exclude(pk=req_post.id)) for p in range(5)])
-
+    try:
+        related_posts = set([random.choice(Post.objects.filter(category=req_post.category).exclude(pk=req_post.id)) for p in range(5)])
+        posts    = set([random.choice(Post.objects.exclude(id__in=([c.id for c in related_posts]))) for p in range(5)])
+    except Exception as e:
+        related_posts = None
+        posts = None
     recipe_for_req = Post.objects.filter(pk=req_post.id)
-    posts    = set([random.choice(Post.objects.exclude(id__in=([c.id for c in related_posts]))) for p in range(5)])
     categories = Category.objects.all()
     head_post = Post.objects.all().first()
     last_p = Post.objects.latest()

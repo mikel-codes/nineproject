@@ -103,7 +103,8 @@
                   <img src="{{profile.picture.url}}"   class="rounded-circle img-thumbnail" />
                   {%else %}
                   <img src="{% static "images/blg.svg" %}" class="img-thumbnail" />
-                  <style type="text/css">.img-thumbnail{background-color: inherit; border: none; }</style>
+                  <style type="text/css">.img-thumbnail{background-color: inherit; border: none; }
+                  </style>
                 {% endif %}
                 <br>
                 <b>{{req_post.post_by.get_full_name | title}}</b>
@@ -218,8 +219,7 @@
                    <div class="msg" style="color: blue">
                       <small>{{msg}}</small>
                   </div>
-              <button type="submit"><i class="ion-ios-paperplane"></i></button>
-            </form>
+
           </div><!-- mtb-5 -->
           {% include 'includes/getpost_ad.html' %}
         </div>

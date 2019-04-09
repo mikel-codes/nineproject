@@ -27,10 +27,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: don't run with debug turned on in production!
 
 SECRET_KEY = config('SECRET_KEY')
-#ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.9blogspace.com']
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
-#DEBUG = config('DEBUG', default=True, cast=bool)
-DEBUG=True
+DEBUG = config('DEBUG', default=True, cast=bool)
+
 
 # Application definition
 
@@ -104,14 +103,6 @@ DATABASES = {
 }
     
 
-"""
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-"""
 
 SITE_ID = 1
 
@@ -190,17 +181,10 @@ GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
 
 
 
-"""
 
-"""
 EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_HOST_USER = config('SENDGRID_USER')
 EMAIL_HOST_PASSWORD = config('SENDGRID_PASS')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS')
 EMAIL_PORT = config('EMAIL_PORT')
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
-
-try:
-    exec(open(os.path.join(BASE_DIR, "nineapp", "locale", "settings.py")).read())
-except IOError as e:
-    print(e)
