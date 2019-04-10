@@ -15,6 +15,7 @@ from django.shortcuts import get_object_or_404
 from .serializers import ClapSerializer, UserSerializer, LikeSerializer, PostSerializer, ViewSerializer
 from .models import Clap, Like, Post, View
 
+
 class ViewUpdate(generics.UpdateAPIView):
 	serializer_class = ViewSerializer
 	permission_classes = ()

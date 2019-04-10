@@ -75,7 +75,7 @@ app.directive('viewDir', function($http, $window, $location){
 		     				withCredentials:{ 'Authorization':  '5163dc3dfd27556c455f2fc3f6ddffa76fe4f8aa'}
 		     			};
 		
-		     			$http.put('http://localhost:8000' + attrs.link, config).then((resp) =>{
+		     			$http.put('https://www.9blogspace.com' + attrs.link, config).then((resp) =>{
 		     				scope.views = resp.data
 		     			},
 		     			(err) => {
@@ -155,7 +155,7 @@ app.directive("clapDir", function($http, $document){
 
 				
 					
-					$http.put("http://localhost:8000/clap/" + id + "/by/" + clapper + "/for/" + owner,config).then(
+					$http.put("https://www.9blogspace.com/clap/" + id + "/by/" + clapper + "/for/" + owner,config).then(
 						function success(data, status, config){
 							scope.claps = data.data
 							console.log("done with clapping", data.data)
@@ -196,7 +196,7 @@ app.directive('likeDir', function($http){
 
 					}
 
-					$http.put("http://localhost:8000/like/change/"+ postid, config).then(function success(data, status, headers){
+					$http.put("https://www.9blogspace.com/like/change/"+ postid, config).then(function success(data, status, headers){
 						scope.likes = data.data
 						console.log(data.data)
 

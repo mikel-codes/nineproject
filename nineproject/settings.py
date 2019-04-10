@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'disqus'
 ]
 
+INSTALLED_APPS += ('django_summernote', )
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -171,7 +173,6 @@ STATIC_PREFIX="static"
 AWS_DEFAULT_ACL = None
 
 DEFAULT_FILE_STORAGE = config("GS_CLOUD_STORAGE")
-STATICFILES_STORAGE  = config("GS_CLOUD_STORAGE")
 STATICFILES_STORAGE  = 'nineproject.storages.gcloud.GsStaticCloud'
 GS_BUCKET_NAME = config('GS_STORAGE_BUCKET_NAME')
 
@@ -188,3 +189,7 @@ EMAIL_HOST_PASSWORD = config('SENDGRID_PASS')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS')
 EMAIL_PORT = config('EMAIL_PORT')
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
+
+
+SUMMERNOTE_THEME = 'bs4' 
+

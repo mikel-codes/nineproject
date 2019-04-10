@@ -98,6 +98,7 @@ def getpost(request, slug=None):
     except Exception as e:
         related_posts = None
         posts = None
+        
     recipe_for_req = Post.objects.filter(pk=req_post.id)
     categories = Category.objects.all()
     head_post = Post.objects.all().first()

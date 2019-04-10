@@ -28,8 +28,12 @@ from django.contrib.auth import get_user_model
 
 from .tokens import account_token
 from .models import Post, Category, Profile, NewsUsers, Clap
+from tinymce.widgets import TinyMCE
 
+from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 User = get_user_model()
+
+
 
 class SignUpForm(UserCreationForm):
     class Meta:
@@ -53,7 +57,7 @@ class SignUpForm(UserCreationForm):
         # find a user to match for the email
         try:
             User.objects.get(email=email)
-        except Exception as e:
+        except (Exception, IOError) as e:
             print("User Email is new, Preparing to save")
         else:
             raise forms.ValidationError("Email is already in use")
@@ -103,7 +107,7 @@ class PostForm(forms.ModelForm):
         attrs= {"class":"form-control reginput"}
         widgets = {
             'category': Select(attrs.copy()),
-            'topic':  TextInput(attrs.copy()), 'content':  Textarea({"rows":"20", "cols":"30", **attrs.copy()}),
+            'topic':  TextInput(attrs.copy()), 'content':  SummernoteWidget(),
             'tags':  TextInput({**attrs.copy(), 'placeholder': 'type a search keyword followed by a comma here', "data-role": "tagsinput"})
             }
        

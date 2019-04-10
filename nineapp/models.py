@@ -18,7 +18,7 @@ from django.contrib.postgres.fields import ArrayField
 from django.core.files.base import ContentFile
 from django.utils.encoding import python_2_unicode_compatible
 from utils.modelmixins import TimeMixin, MetaTagsMixin
-
+from tinymce.models import HTMLField
 #from django.contrib.gis.utils import GeoIP
 from django.contrib.auth.models import Group
 
@@ -119,7 +119,7 @@ class Post(TimeMixin, MetaTagsMixin):
     """docstring for Post"""
     category = models.ForeignKey(Category,models.CASCADE, related_name="posts_in_category")
     topic    = models.CharField(_("Topic"), max_length=255, unique=True, error_messages={'unique': 'This topic has already been used'})
-    content  = models.TextField(_("Write Content"), max_length=10000)
+    content  = models.TextField(_("Blog Content"), null=False, blank=False)
     slug     = models.SlugField(unique=True, null=True, blank=True)
     photos   = models.ImageField(storage=gpostc(), blank=False,null=False)
     post_by  = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

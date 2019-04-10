@@ -4,10 +4,15 @@ from django.contrib.auth.models import User
 from .models import Post, Category, Clap, Profile, Like
 # Register your models here.
 
+from django_summernote.admin import SummernoteModelAdmin
+class PostAdmin(SummernoteModelAdmin):
+	class Meta:
+		summernote_fields = ("content",)
+
 admin.site.register(Category)
 
 admin.site.register(Clap)
-admin.site.register(Post)
+admin.site.register(Post, PostAdmin)
 admin.site.register(Like)
 
 class ProfileInline(admin.StackedInline):
