@@ -28,9 +28,7 @@ from django.contrib.auth import get_user_model
 
 from .tokens import account_token
 from .models import Post, Category, Profile, NewsUsers, Clap
-from tinymce.widgets import TinyMCE
 
-from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 User = get_user_model()
 
 
@@ -107,7 +105,7 @@ class PostForm(forms.ModelForm):
         attrs= {"class":"form-control reginput"}
         widgets = {
             'category': Select(attrs.copy()),
-            'topic':  TextInput(attrs.copy()), 'content':  SummernoteWidget(),
+            'topic':  TextInput(attrs.copy()), 'content':  Textarea({**attrs.copy()}),
             'tags':  TextInput({**attrs.copy(), 'placeholder': 'type a search keyword followed by a comma here', "data-role": "tagsinput"})
             }
        

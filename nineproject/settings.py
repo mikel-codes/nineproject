@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'disqus'
 ]
 
-INSTALLED_APPS += ('django_summernote', )
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -191,5 +191,4 @@ EMAIL_PORT = config('EMAIL_PORT')
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 
 
-SUMMERNOTE_THEME = 'bs4' 
 
