@@ -2,12 +2,15 @@
 {% load static %}
 <html ng-app="mainApp">
   <head>
+        {%include "includes/ads.html"%}
+
      {% include "noscript.html" %}
     <title>{%block title%}{%endblock%}</title>
     {%block head_content%}{%endblock%}
        <link rel="shortcut icon"  href="{% static "images/newicon.ico" %}" type="image/x-icon">
     {%include "includes/website_index/static_files.html" %}  
-    {%include "includes/ads.html"%}
+    
+
     {{req_post.get_meta_tags}}
     <style type="text/css">
       .button:focus{
