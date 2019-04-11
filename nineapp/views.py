@@ -117,7 +117,8 @@ def getpost(request, slug=None):
         profile = get_object_or_404(Profile, pk=req_post.post_by)
     except:
         profile="Anonymous"
-    context = {'req_post': req_post, 'related_posts': related_posts, 'recipe_for_req': recipe_for_req, 'posts': posts, 'categories': categories, 'head_post': head_post, 'last_p': last_p, 'clap_count': clap_count,  'profile': profile}
+    apiKey="qyg9booc56vxgcp2hprjqey5yg92id22iani4etzttugrj7w"
+    context = {'req_post': req_post, 'related_posts': related_posts, 'recipe_for_req': recipe_for_req, 'posts': posts, 'categories': categories, 'head_post': head_post, 'last_p': last_p, 'clap_count': clap_count,  'profile': profile, api_key: 'apiKey'}
     context.update(context_1)
     return render(request, "website/requested_post.html", context)
 
