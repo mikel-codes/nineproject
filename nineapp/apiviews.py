@@ -38,7 +38,6 @@ class ClapUpdate(generics.UpdateAPIView):
 
 	def get_queryset(self):
 		queryset = Post.objects.filter(post_by=self.kwargs['user_pk'])
-		print("This is queryset ", queryset)
 		total = 0
 		for p in queryset:
 			total += p.clap.num_claps
@@ -47,22 +46,19 @@ class ClapUpdate(generics.UpdateAPIView):
 	def update(self, request, pk, user_pk, clapper_pk):
 		clap = get_object_or_404(Clap, pk=pk)
 		data = ClapSerializer(clap).data      # extract serialized data from saved clap object
-		print(data)
 		data['num_claps'] += request.data['num_claps']
 		if int(request.data['clapper']) not in data['clappers']:
-			print("\n not found\n")
+			
 			data['clappers'].append(request.data['clapper'])
 			
 			up_clap = ClapSerializer(instance=clap, data=data)
 			if up_clap.is_valid():
 				up_clap.save()
 				total = self.get_queryset()
-				print("\n\ntotal // ", total)
 				return Response(total, status=status.HTTP_200_OK)
 			else:
 				return Response(up_clap.errors, status=status.HTTP_400_BAD_REQUEST)
 		else:
-			print("\nyes Found\n")
 			return Response("you clapped here", status=status.HTTP_200_OK)
 
 
@@ -75,10 +71,8 @@ class UpdateLike(generics.UpdateAPIView):
 		data  = LikeSerializer(like_obj).data
 		data['num_of_likes'] = request.data['num_of_likes']
 		if int(request.data.get('liked_by')) not in data['liked_by']:
-			print("\n not found\n")
 			data['liked_by'].append(int(request.data.get('liked_by')))
 		else:
-			print("\nyes Found\n")
 			return Response("you already liked this", status=status.HTTP_200_OK)
 
 		up_like = LikeSerializer(instance=like_obj, data=data)
