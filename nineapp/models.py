@@ -118,7 +118,7 @@ class Category(TimeMixin, MetaTagsMixin):
 class Post(TimeMixin, MetaTagsMixin):
     """docstring for Post"""
     category = models.ForeignKey(Category,models.CASCADE, related_name="posts_in_category")
-    topic    = models.CharField(_("Topic"), max_length=255, unique=True, error_messages={'unique': 'This topic has already been used'})
+    topic    = models.CharField(_("Topic"), max_length=400, unique=True, error_messages={'unique': 'This topic has already been used', 'max_length':'The length should not exceed 500 characters'})
     content  = models.TextField(_("Blog Content"),  max_length=12000, null=False, blank=False)
     slug     = models.SlugField(unique=True, null=True, blank=True)
     photos   = models.ImageField(storage=gpostc(), blank=False,null=False)
