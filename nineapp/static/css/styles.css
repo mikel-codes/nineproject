@@ -448,15 +448,18 @@ header .main-menu li.drop-down a.mouseover + ul.drop-down-menu{ display: block;
 
 .nwsltr-primary-1{ position: relative; }
 	
-.nwsltr-primary-1 input{ height: 45px; display: block; width: 100%; padding: 0 65px 0 20px; 
-	border: 1px solid #F9B500; }
+.nwsltr-primary-1 input{ height: 45px; display: block; width: 100%; 
+	padding: 0 65px 0 20px; 
+	border: 1px solid gray; }
 
-.nwsltr-primary-1 button{ position: absolute; top: 1px; bottom: 1px; right: 1px; width: 45px; text-align: center; 
-	background: #F9B500; color: #000; }
+.nwsltr-primary-1 button{ position: absolute; top: 1px; 
+	bottom: 1px; right: 1px; width: 45px; 
+	text-align: center; 
+ }
 
 .nwsltr-primary-1 button i{ font-size: 1.3em; }
 
-.nwsltr-primary-1 button:hover{ background: #000; color: #fff; }
+.nwsltr-primary-1 button:hover{ box-shadow: none; background: #000; color: #fff; }
 
 
 .form-block input,
