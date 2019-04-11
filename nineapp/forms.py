@@ -99,7 +99,7 @@ class ResetPasswordForm(SetPasswordForm):
 
 class PostForm(forms.ModelForm):
     """ create a form to generate Posts"""
-    content = forms.CharField(min_length=500)
+    content = forms.CharField(label=_("Blog Content"), min_length=500, widget=forms.Textarea(attrs= { 'rows':"30", 'cols':'50'}))
     class Meta:
         model = Post
         fields = ("category","topic", "content", "photos", "tags")
