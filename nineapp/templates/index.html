@@ -28,12 +28,7 @@
               
               {% if last_p%}
                 <a class="pos-relative h-100 dplay-block" href="{% url "getpost" last_p.slug  %}">
-
-                  <div class="img-bg bg-1 bg-grad-layer-6" 
-                  >
-                  <img src="{{last_p.photos.url}}">
-
-                  </div>
+                  <div class="img-bg bg-1 bg-grad-layer-6" style="background: url({{ post.photos.url }}) no repeat center;"></div>
 
                   <div class="abs-blr color-white p-20 bg-sm-color-7">
                     <h3 class="mb-15 mb-sm-5 font-sm-13">
@@ -41,13 +36,13 @@
                     </h3>
                     <ul class="list-li-mr-20">
                       {% if last_p.post_by %}
-                      <li>by <span class="color-primary">
+                      <li>by<span class="color-primary">
                           <b>
                             {{last_p.post_by.get_full_name}}
                           </b></span> {{last_p.modified}}</li>
                       <li>{{last_p.likes_on_post.num_of_likes}} 
                  <i class="fa fa-thumbs-up" style="color: #e25e2b; "></i></li>
-                      <li><i class="color-primary mr-5 font-12 fa fa-comments"></i>20</li>
+                      <li><i class="color-primary mr-5 font-12 fa fa-comments"></i></li>
                       {%endif%}
                     </ul>
                   </div><!--abs-blr -->
@@ -71,7 +66,11 @@
                             <li><i class="color-primary mr-5 font-12 fa fa-flash"></i>
                               {{post.likes_on_post.num_of_likes}} 
                  <i class="fa fa-thumbs-up" style="color: #e25e2b; "></i></li>
-                 <li><i class="color-primary mr-5 font-12 fa fa-comments"></i>?</li>
+                  
+                 <li><i class="color-primary mr-5 font-12 fa fa-comments"></i>
+                           {% load disqus_tags %}
+        <a href="{{ last_p.get_absolute_url }}#disqus_thread" data-disqus-identifier="{{ last_p.id }}"></a>
+        {% disqus_num_replies %}</li>
                           </ul>
                         </div><!--abs-blr -->
                       </a><!-- pos-relative -->
