@@ -134,7 +134,7 @@ button.btn-search, button.btn-reset {
   border-radius: 15px;
   right: 0;
   transition: all 0.3s ease-in-out;
-  width: 50%;
+  width: 60%;
 }
 .sample.one input:focus, .sample.two input:focus {
   width: 100%;
@@ -154,7 +154,7 @@ button.btn-search, button.btn-reset {
   border-radius: 50%;
   height: 26px;
   right: 2px;
-  top: 2px;
+  /*top: 2px;*/
   transition: all 0.3s ease-in-out;
   width: 26px;
 }
@@ -167,7 +167,7 @@ button.btn-search, button.btn-reset {
   line-height: 20px;
   padding: 0;
   right: 5px;
-  top: 5px;
+  /*top: 5px;*/
   width: 20px;
   z-index: -1;
 }
@@ -265,9 +265,18 @@ button.btn-search, button.btn-reset {
               <a routerLinkActive="active" href="{% url 'payment' %}" class="nav-link">
                 <i class="fa fa-heart"></i><b>Support Us</b></a>
             </li-->
-            
-           
-        </ul>
+          </ul>
+        
+        <div class="sample two form-inline my-2 my-lg-0">
+  <input type="text" id="search" class="" name="search" aria-label="Search" placeholder="search">
+  <button type="submit" class="btn btn-search fa fa-search  "></button>
+  <button type="reset" class="btn btn-reset fa fa-times"></button>
+</div>
+
+      <!--input class="form-control mr-sm-2" type="search" placeholder="Search" >
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form-->
+      
     </div>
     <div class="mx-auto order-0">
         <a class="navbar-brand mx-auto" href="{% url 'indexpage' %}" style="font-family: Lato"> <b>
@@ -319,12 +328,9 @@ button.btn-search, button.btn-reset {
           {%endif%}
         </ul>
     </div>
+
+   
+</a>
+
 </nav>
 
-<div class="row">
-<div class="sample two">
-  <input type="text" id="search" name="search" placeholder="search">
-  <button type="submit" class="btn btn-search fa fa-search"></button>
-  <button type="reset" class="btn btn-reset fa fa-times"></button>
-</div>
-</div>
