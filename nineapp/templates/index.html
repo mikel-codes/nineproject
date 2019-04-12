@@ -28,7 +28,8 @@
               
               {% if last_p%}
                 <a class="pos-relative h-100 dplay-block" href="{% url "getpost" last_p.slug  %}">
-                  <div class="img-bg bg-1 bg-grad-layer-6" style="background: url({{ last_p.photos.url }}) no repeat center;"></div>
+                  <div class="img-bg bg-1 bg-grad-layer-6" 
+                  style="background: url({{ last_p.photos.url }}) no repeat center;"></div>
 
                   <div class="abs-blr color-white p-20 bg-sm-color-7">
                     <h3 class="mb-15 mb-sm-5 font-sm-13">
