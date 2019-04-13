@@ -1,17 +1,16 @@
-<!DOCTYPE html>
-{%load static%}
+<!doctype html>
+
 <html class="perfect-scrollbar-off nav-close" lang="en">
   <head>
-        {%include "includes/ads.html"%}
-
- {% include "noscript.html" %}
-  <meta charset="utf-8" >
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {%include "includes/ads.html"%}
+    {% include "noscript.html" %}
+    <meta charset="utf-8" >
+    <title>{{request.user.username}}'s blogspace</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="Dashboard">
-    <title>{{request.user.username}}'s blogspace</title>
-       <link rel="shortcut icon" 
-        href="{% static "images/newicon.ico" %}" type="image/x-icon">
+    {%load static%}
+  <link rel="shortcut icon" href="{% static "images/newicon.ico" %}" type="image/x-icon">
     {%include "includes/dashboard/dash_static_files.html"%}
  <style type="text/css">
     .rounded-circle{

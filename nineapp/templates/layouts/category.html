@@ -1,12 +1,14 @@
-<!DOCTYPE html>
-{%load static%}
-<html ng-app="mainApp">
+<!doctype html>
+
+<html lang="en" ng-app="mainApp">
   <head>
-      
-    <title>{%block title%}{%endblock%}</title>
-      {%include "includes/ads.html"%}
+   {%include "includes/ads.html"%}
 
      {% include "noscript.html" %}
+     <meta charset="utf-8">
+    <title>{%block title%}{%endblock%}</title>
+ 
+     {%load static%}
        <link rel="shortcut icon"  href="{% static "images/newicon.ico" %}" type="image/x-icon">
            <meta name="viewport" content="width=device-width, initial-scale=1">
            {{category.get_meta_tags}}

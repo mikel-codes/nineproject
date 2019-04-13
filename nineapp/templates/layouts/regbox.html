@@ -1,14 +1,16 @@
-<!DOCTYPE html>
-{%load staticfiles%}
+<!doctype html>
 
-<html>
+
+<html lang="en">
 <head>
-      {%include "includes/ads.html"%}
+    {%include "includes/ads.html"%}
 
-   {% include "noscript.html" %}
+     {% include "noscript.html" %}
+     <meta charset="utf-8">
    <title>{% block title %} {%endblock%}</title>
+   {%load static%}
    <link rel="shortcut icon"  href="{% static "images/newicon.ico" %}" type="image/x-icon">
-   <meta charset="utf-8">
+  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     

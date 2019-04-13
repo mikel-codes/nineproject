@@ -1,6 +1,6 @@
-<!DOCTYPE html>
-{%load static%}
-<html ng-app="mainApp">
+<!doctype html>
+
+<html lang="en" ng-app="mainApp">
   <head>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script>
@@ -9,13 +9,42 @@
     enable_page_level_ads: true
   });
 </script>
-    {% include "noscript.html" %}
 
+    {% include "noscript.html" %}
+    
+<meta charset="utf-8">
     <title>{%block title%} Welcome{%endblock%} </title>
+    {%load static%}
        <link rel="shortcut icon"  href="{% static "images/fav3.ico" %}" type="image/x-icon">
     {%include "includes/website_index/static_files.html"%}
-      
+      {%if last_p%}
+      {{last_p.get_meta_tags}}
+      {%endif%}
 
+
+        {% if top_posts %}
+      {%for p in top_posts%}
+      {{p.get_meta_tags}}
+      {%endfor%}
+      {%endif%}
+
+      {% if related_posts_first %}
+    {% for post in related_posts_first %}
+    {{post.get_meta_tags}}
+    {%endfor%}
+    {%endif%}
+
+      {% if side_posts %}
+    {% for post in side_posts %}
+    {{post.get_meta_tags}}
+    {%endfor%}
+    {%endif%}
+
+     {% if recent_posts %}
+    {% for post in recent_posts %}
+    {{post.get_meta_tags}}
+    {%endfor%}
+    {%endif%}
   </head>
   <body ng-controller="defaultCtrl">
     
@@ -33,8 +62,7 @@
               
               {% if last_p%}
                 <a class="pos-relative h-100 dplay-block" href="{% url "getpost" last_p.slug  %}">
-                  <div class="img-bg bg-1 bg-grad-layer-6" 
-                  style="background: url({{ last_p.photos.url }}) no repeat center;"></div>
+                  <div class="img-bg bg-1 bg-grad-layer-6" style="background: url('{{ last_p.photos.url }}') no repeat center;"></div>
 
                   <div class="abs-blr color-white p-20 bg-sm-color-7">
                     <h3 class="mb-15 mb-sm-5 font-sm-13">
