@@ -18,4 +18,3 @@ nineapp/locale/
 # SQLite database files
 
 *.sqlite
-nineproject/settings.py
