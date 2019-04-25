@@ -73,11 +73,12 @@ app.directive('viewDir', function($http, $window, $location){
 				console.log("Hurray")
 		     	$http.get($location.absUrl()).then((res) => {
 		     		scope.$watch(attrs, () => {
+							 
 		     			const config =  {
 		     				withCredentials:{ 'Authorization':  '5163dc3dfd27556c455f2fc3f6ddffa76fe4f8aa'}
 		     			};
 		
-		     			$http.put("https://"+ $location.$$host + attrs.link, config).then((resp) =>{
+		     			$http.put("https://"+ $location.$$host + "/" + attrs.link, config).then((resp) =>{
 		     				scope.views = resp.data
 		     			},
 		     			(err) => {
