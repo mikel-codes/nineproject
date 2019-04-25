@@ -72,14 +72,12 @@ app.directive('viewDir', function($http, $window, $location){
 				//$document.element("script").
 				console.log("Hurray")
 		     	$http.get($location.absUrl()).then((res) => {
-						 console.log($location.absUrl())
-						 console.log("This is for location", $location.$$host)
 		     		scope.$watch(attrs, () => {
 		     			const config =  {
 		     				withCredentials:{ 'Authorization':  '5163dc3dfd27556c455f2fc3f6ddffa76fe4f8aa'}
 		     			};
 		
-		     			$http.put($location.$$host + attrs.link, config).then((resp) =>{
+		     			$http.put("https://"+ $location.$$host + attrs.link, config).then((resp) =>{
 		     				scope.views = resp.data
 		     			},
 		     			(err) => {
@@ -159,7 +157,7 @@ app.directive("clapDir", function($http, $document){
 
 				
 					
-					$http.put($location.$$host + "/clap/" + id + "/by/" + clapper + "/for/" + owner, config).then(
+					$http.put("https://" + $location.$$host + "/clap/" + id + "/by/" + clapper + "/for/" + owner, config).then(
 						function success(data, status, config){
 							scope.claps = data.data
 							console.log("done with clapping", data.data)
@@ -200,7 +198,7 @@ app.directive('likeDir', function($http){
 
 					}
 
-					$http.put($location.$$host + "/like/change/"+ postid, config).then(function success(data, status, headers){
+					$http.put("https://" + $location.$$host + "/like/change/"+ postid, config).then(function success(data, status, headers){
 						scope.likes = data.data
 						console.log(data.data)
 
