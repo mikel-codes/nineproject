@@ -78,7 +78,7 @@ app.directive('viewDir', function($http, $window, $location){
 		     				withCredentials:{ 'Authorization':  '5163dc3dfd27556c455f2fc3f6ddffa76fe4f8aa'}
 		     			};
 		
-		     			$http.put("https://"+ $location.$$host + "/" + attrs.link, config).then((resp) =>{
+		     			$http.put("https://"+ $location.$$host + attrs.link, config).then((resp) =>{
 		     				scope.views = resp.data
 		     			},
 		     			(err) => {
@@ -133,7 +133,7 @@ app.run(['$rootScope', '$location','$document', function($rootScope, $location, 
 
 
 
-app.directive("clapDir", function($http, $document){
+app.directive("clapDir", function($http, $document, $location){
 	return{
 		restrict: "EACM",
 		link: function(scope, element, attrs){
@@ -179,7 +179,7 @@ app.directive("clapDir", function($http, $document){
 });
 
 
-app.directive('likeDir', function($http){
+app.directive('likeDir', function($http, $location){
 	return {
 		restrict: "EACM",
 		link: function(scope, element, attrs){
