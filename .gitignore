@@ -17,4 +17,5 @@ nineapp/migrations/
 nineapp/locale/
 # SQLite database files
 
-*.sqlite3
+*.sqlite
+nineproject/settings.py

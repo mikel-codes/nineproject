@@ -14,11 +14,11 @@ from django.template.defaultfilters import slugify
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile, InMemoryUploadedFile
 from django.core.files.storage import default_storage as storage
-from django.contrib.postgres.fields import ArrayField
+##from django.contrib.postgres.fields import ArrayField
 from django.core.files.base import ContentFile
 from django.utils.encoding import python_2_unicode_compatible
 from utils.modelmixins import TimeMixin, MetaTagsMixin
-from tinymce.models import HTMLField
+#from tinymce.models import HTMLField
 #from django.contrib.gis.utils import GeoIP
 from django.contrib.auth.models import Group
 

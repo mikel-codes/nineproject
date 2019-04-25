@@ -19,7 +19,7 @@ from django.core.files.storage import default_storage as storage
 from django.core.validators import validate_email, RegexValidator
 from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
-from django.contrib.postgres.forms import SimpleArrayField
+#from django.contrib.postgres.forms import SimpleArrayField
 from django.core.files.uploadedfile import SimpleUploadedFile, InMemoryUploadedFile
 
 from django.utils.encoding import force_text, force_bytes
@@ -55,7 +55,7 @@ class SignUpForm(UserCreationForm):
         # find a user to match for the email
         try:
             User.objects.get(email=email)
-        except (Exception, IOError) as e:
+        except (Exception, IOError):
             print("User Email is new, Preparing to save")
         else:
             raise forms.ValidationError("Email is already in use")
@@ -84,7 +84,7 @@ class SignUpForm(UserCreationForm):
             email.send(fail_silently=True)
             if commit():
                 user_obj.save()
-        except Exception as e:
+        except Exception:
             pass
         else:
             return user_obj

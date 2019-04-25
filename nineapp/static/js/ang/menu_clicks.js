@@ -36,8 +36,11 @@ app.directive("menuDir", function(){
 }
 }).controller("menuCtrl", function($scope, $location,$window){
 	$scope.getClass = function(url){
-		if($location.url() === url)
+		if($location.url() === url){
+			console.log("This is for location", $location)
 			return "active"
+
+		}
 		else
 			return ""
 
@@ -69,13 +72,14 @@ app.directive('viewDir', function($http, $window, $location){
 				//$document.element("script").
 				console.log("Hurray")
 		     	$http.get($location.absUrl()).then((res) => {
-		     		console.log($location.absUrl())
+						 console.log($location.absUrl())
+						 console.log("This is for location", $location.$$host)
 		     		scope.$watch(attrs, () => {
 		     			const config =  {
 		     				withCredentials:{ 'Authorization':  '5163dc3dfd27556c455f2fc3f6ddffa76fe4f8aa'}
 		     			};
 		
-		     			$http.put('https://www.9blogspace.com' + attrs.link, config).then((resp) =>{
+		     			$http.put($location.$$host + attrs.link, config).then((resp) =>{
 		     				scope.views = resp.data
 		     			},
 		     			(err) => {
@@ -155,7 +159,7 @@ app.directive("clapDir", function($http, $document){
 
 				
 					
-					$http.put("https://www.9blogspace.com/clap/" + id + "/by/" + clapper + "/for/" + owner,config).then(
+					$http.put($location.$$host + "/clap/" + id + "/by/" + clapper + "/for/" + owner, config).then(
 						function success(data, status, config){
 							scope.claps = data.data
 							console.log("done with clapping", data.data)
@@ -196,7 +200,7 @@ app.directive('likeDir', function($http){
 
 					}
 
-					$http.put("https://www.9blogspace.com/like/change/"+ postid, config).then(function success(data, status, headers){
+					$http.put($location.$$host + "/like/change/"+ postid, config).then(function success(data, status, headers){
 						scope.likes = data.data
 						console.log(data.data)
 
