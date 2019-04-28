@@ -95,7 +95,7 @@ def getpost(request, slug=None):
     try:
         related_posts = set([random.choice(Post.objects.filter(category=req_post.category).exclude(pk=req_post.id)) for p in range(5)])
         posts    = set([random.choice(Post.objects.exclude(id__in=([c.id for c in related_posts]))) for p in range(5)])
-    except Exception as e:
+    except Exception:
         related_posts = None
         posts = None
         
@@ -108,7 +108,7 @@ def getpost(request, slug=None):
     try:
         for post in Post.objects.filter(post_by=req_post.post_by):
             clap_count += int(post.clap.num_claps)
-    except Exception as e:
+    except Exception:
         clap_count = 0
     if request.user.is_authenticated:
          token = str(Token.objects.get_or_create(user=request.user)[0].key)
@@ -156,7 +156,8 @@ def email_password_reset(request):
         mail = EmailMessage("Please use the Reset link ",
             message,
             to=[email],
-            headers = {'Reply-To': 'noreply@divweb.com'}
+            reply_to=['noreply@9blogspace.com'],
+            headers = {'Reply-To': 'noreply@9blogspace.com'}
             )
         mail.attach_alternative(message, "text/html")
         mail.content_subtype = "html"
@@ -199,21 +200,19 @@ def registration(request):
 
 def activate(request, uidb64, token):
     try:
-    	uid = urlsafe_base64_decode(uidb64).decode()
-    	user = User.objects.get(pk=uid)
-    except Exception as e:
+        uid = urlsafe_base64_decode(uidb64).decode()
+        user = User.objects.get(pk=uid)
+        if account_token.check_token(user, token):
+            user.refresh_from_db()
+            user.is_active = True
+            user.save()
+            login(request, user)
+            messages.success(request,"registration completed successfully")
+            return redirect(reverse("dashboard", args=(user.username,)))
+    except Exception:
         user = None
-        
-    if user is not None and account_token.check_token(user, token):
-    	user.refresh_from_db()
-    	user.is_active = True
-    	user.save()
-    	login(request, user)
-    	messages.success(request,"registration completed successfully")    
-        
-    	return redirect(reverse("dashboard", args=(user.username,)))
-    else:
         return redirect("page_not_found")
+
 
 def userlogin(request):
     
@@ -317,7 +316,7 @@ def delete_post(request, pk):
     try:
         post = get_object_or_404(Post, id=pk)
         post.delete()
-    except Exception as e:
+    except Exception:
         return redirect("page_not_found")
     else:
         messages.info(request, "The post was successfully removed")

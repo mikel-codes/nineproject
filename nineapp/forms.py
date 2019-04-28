@@ -69,13 +69,18 @@ class SignUpForm(UserCreationForm):
         mail_message = render_to_string("activate_acct_mail.html", {
             'user': user_obj,
             'domain': current_site.domain,
-            'uid': urlsafe_base64_encode(force_bytes(user_obj.pk)).decode(),
+            'uid': urlsafe_base64_encode(force_bytes(user_obj.pk)),
             'token':account_token.make_token(user_obj)
             })
 
         to_email = self.cleaned_data.get('email')
-        email=EM(mail_subject, mail_message, to=[to_email] ,
-                 headers = {'Reply-To': 'noreply@blog.com'})
+        email=EM(
+            mail_subject, 
+            mail_message, 
+            to=[to_email] ,
+            reply_to=['noreply@9blogspace.com'],
+            headers = {'message-id': 'noreply@9blogspace.com', 'format':'flowed'}
+            )
         email.content_subtype = "html"
         email.mixed_type = "related"
         email.attach_alternative(mail_message, "text/html")
