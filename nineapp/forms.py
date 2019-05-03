@@ -69,7 +69,7 @@ class SignUpForm(UserCreationForm):
         mail_message = render_to_string("activate_acct_mail.html", {
             'user': user_obj,
             'domain': current_site.domain,
-            'uid': urlsafe_base64_encode(force_bytes(user_obj.pk)),
+            'uid': urlsafe_base64_encode(force_bytes(user_obj.pk)).decode(),
             'token':account_token.make_token(user_obj)
             })
 
