@@ -224,19 +224,23 @@ src: local('Montserrat-Regular'), url(https://fonts.gstatic.com/s/montserrat/v7/
                          <tr></tr>
                         <tr align="center">
                           <td class="btn button-color" align="center" style="font-size: 0.9em; font-family: Lato; color: white; width: 80%">
-                          <a style="text-decoration: none;  color: white;display: inline-block;
-                          border-radius: 4px;
-                          background-color: #f4511e;
-                          border: none;
-                          color: #FFFFFF;
-                          text-align: center;
-                          font-size: 20px;
-                          padding: 10px;
+                          <a style="
+                              text-decoration: none; 
+                              color: white;display: inline-block;
+                              border-radius: 4px;
+                              background-color: #f4511e;
+                              border: none;
+                              color: #FFFFFF;
+                              text-align: center;
+                              font-size: 20px;
+                              padding: 10px;
 
-                          width: auto;
-                          transition: all 0.5s;
-                          cursor: pointer;
-                          margin: 5px;" href="https://{{ domain }}{% url 'activate' uidb64=uid token=token %}">
+                              width: auto;
+                              transition: all 0.5s;
+                              cursor: pointer;
+                              margin: 5px;"
+                          
+                              href= "https://{{ domain }}{% url 'activate' uidb64=uid token=token %}">
                             COMPLETE REGISTRATION</a>
                           </td>
                           </tr>
