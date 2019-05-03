@@ -111,7 +111,7 @@ class PostForm(forms.ModelForm):
         attrs= {"class":"form-control reginput"}
         widgets = {
             'category': Select(attrs.copy()),
-            'topic':  TextInput(attrs.copy()), 'content':  Textarea({'rows': '30', 'cols': '40',**attrs.copy()}),
+            'topic': TextInput(attrs.copy()), 'content':  Textarea({'rows': '30', 'cols': '40',**attrs.copy()}),
             'tags':  TextInput({**attrs.copy(), 'placeholder': 'type a search keyword followed by a comma here', "data-role": "tagsinput"})
             }
        
