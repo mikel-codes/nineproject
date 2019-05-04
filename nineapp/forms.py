@@ -78,8 +78,7 @@ class SignUpForm(UserCreationForm):
             mail_subject, 
             mail_message, 
             to=[to_email] ,
-            reply_to=['noreply@9blogspace.com'],
-            headers = {'message-id': 'noreply@9blogspace.com', 'format':'flowed'}
+            headers = {'message-id': 'admin',  'format':'flowed', 'Reply-To': 'noreply@9blogspace.com'}
             )
         email.content_subtype = "html"
         email.mixed_type = "related"
@@ -87,15 +86,11 @@ class SignUpForm(UserCreationForm):
         
         try:
             email.send(fail_silently=True)
-            if commit():
+            if commit:
                 user_obj.save()
-        except Exception:
+        except Exception as e:
+            print("\n", e)
             pass
-        else:
-            return user_obj
-        
-        if commit:
-                user_obj.save()
        
 
 class ResetPasswordForm(SetPasswordForm):
@@ -161,7 +156,7 @@ class ProfileForm(forms.ModelForm):
         try:
             profile = super().save(commit=False)
             profile.ip_addr = self.get_client_ip()
-            print("\n Coming from profile forms", profile.ip_addr)
+            print("\n Coming from profile forms \n", profile.ip_addr)
             if commit:
                 profile.save()
         except Exception as e:
@@ -235,7 +230,7 @@ class ContactForm(forms.Form):
             email.attach_alternative(mail_message, "text/html")
             email.content_subtype = "html"
             email.mixed_type = "related"
-            email.send(fail_silently=False)
+            email.send(fail_silently=True)
         except (BadHeaderError, Exception) as e:
         	print("OVERALL CONTACT ERRORS ", e)
 

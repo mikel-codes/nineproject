@@ -6,6 +6,8 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from itertools import chain
 
+
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
@@ -209,8 +211,9 @@ def activate(request, uidb64, token):
             login(request, user)
             messages.success(request,"registration completed successfully")
             return redirect(reverse("dashboard", args=(user.username,)))
-    except Exception:
+    except Exception as e:
         user = None
+        print("found this exception while trying to activate ", e)
         return redirect("page_not_found")
 
 
