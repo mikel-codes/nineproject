@@ -78,7 +78,9 @@ class SignUpForm(UserCreationForm):
             mail_subject, 
             mail_message, 
             to=[to_email],
-            headers = {'Reply-To': 'team@9blogspace.com', 'Message-ID' : 'webmaster', 'To' : "%s <%s>".format(user_obj.get_full_name(), to_email)}
+            reply_to='noreply@9blogspace.com',
+            message_id = '@9blogspace'
+
             )
         email.content_subtype = "html"
         try:
@@ -225,8 +227,6 @@ class ContactForm(forms.Form):
             		print("Error >> ", e)
 
             email.attach_alternative(mail_message, "text/html")
-            email.content_subtype = "html"
-            email.mixed_type = "related"
             email.send(fail_silently=True)
         except (BadHeaderError, Exception) as e:
         	print("OVERALL CONTACT ERRORS ", e)
