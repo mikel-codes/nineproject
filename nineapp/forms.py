@@ -77,7 +77,8 @@ class SignUpForm(UserCreationForm):
         email=EM(
             mail_subject, 
             mail_message, 
-            to=[to_email] 
+            to=[to_email],
+            headers = {'Reply-To': 'team@9blogspace.com', 'Message-ID' : 'webmaster', 'To' : "%s <%s>".format(user_obj.get_full_name(), to_email)}
             )
         email.content_subtype = "html"
         try:
@@ -212,7 +213,7 @@ class ContactForm(forms.Form):
                         "New ContactForm Submission Tagged %s" % cleaned_data['subject'],
                         mail_message,
                         to=['gatezdomain@gmail.com'],
-                headers = {'Reply-To': cleaned_data['sender_email'] }
+                        headers = {'Reply-To': cleaned_data['sender_email'] }
                 )
             if cleaned_data['files']:
             	try:
