@@ -1,0 +1,66 @@
+<div class="col-md-12">
+  <div class="form-panel">
+    <section class="task-panel tasks-widget">
+      <div class="panel-heading">
+        {% load static %}
+        <img src="{% static "images/dealpost.svg" %}" height="30" />
+        <div class="pull-left">
+          <h4> <i class="fa fa-spin fa-globe"></i>  {{ post_count }} </h4>
+        </div>
+        <br />
+      </div>
+      <div class="panel-body">
+        <div class="task-content">
+          <ul class="task-list">
+            {% if posts %}
+            {% for post in posts %}
+              <li class="task-done">
+                <div class="task-checkbox">
+                  <input class="list-child" value="" type="checkbox">
+                </div>
+                <div class="task-title">
+                  <span class="task-title-sp"><b>{{ post.category}}</b> 
+                    <i class='fa fa-caret-right'></i> {{post.topic}}
+                  </span>
+                  <span class="badge bg-theme" id="momentum">
+                     {{ post.modified | date:"Y/m/d H:i:m"}}
+                  </span>
+                     <span style="margin-left: 3px;">
+                     {{post.clap.num_claps}}<i class="fa fa-thumbs-up"></i>
+                  </span>
+                  <div class="pull-right hidden-phone">
+                    <button class="btn btn-success btn-xs">
+                      <i class=" fa fa-check"></i></button>
+                    <a href="{% url "edit_post" post.id %}">
+                      <button class="btn btn-primary btn-xs  tooltips"
+                          data-original-title="edit" data-placement="bottom">
+                        <i class="fa fa-pencil"></i>
+                      </button>
+                    </a>
+                    <a href="#" id="delete">
+                      <button class="btn btn-danger btn-xs tooltips"
+                          data-original-title="delete" data-placement="bottom">
+                        <i class="fa fa-trash-o "></i>
+
+                      </button>
+                    </a>
+                  </div>
+                </div>
+
+              </li>
+            {%endfor%}
+            {% endif%}
+          </ul>
+
+          <div class=" add-task-row">
+            <a class="btn btn-success btn-sm pull-left" href="{% url "new_content" %}">Add Post</a>
+            <a class="btn btn-default bg-default btn-sm pull-right" href="#">
+              Done, Edit , Delete
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+

@@ -1,0 +1,133 @@
+{# templates/login.html #}
+{% extends "layouts/regbox.html" %}
+{%block title%}
+Log in to blog
+{%endblock%}
+{% block header %}
+  {%load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static "css/normalize.css" %} " />
+<link rel="stylesheet" type="text/css" href="{% static "css/demo.css" %} " />
+
+<link rel="stylesheet" type="text/css" href="{% static "css/set2.css" %}">
+  <!--container for alerts -->
+
+<style>
+.rounded-circle{
+  border: 2px solid gray;
+  margin:0;
+  padding: 0;
+  overflow: hidden;
+}
+
+form .form-control:focus{
+  box-shadow: none;
+  border: 1px solid gray;
+}
+</style>
+{%endblock%}
+{% block content %}
+  <div class="container text-center">
+
+    {% if errors %}
+      <div class="alert alert-danger">
+        {{ errors }}
+      </div>
+    {%endif%}
+
+{%include "includes/alerts.html" %}
+  </div>
+
+  <!--login-form-container -->
+  <div class="container">
+       <div class="vertical-form" style="border: 1px 1px 1px 0px solid black; border-color: red;">
+          <section class="content bgcolor-4">
+            <h2 class="form-login-heading" style="background: white;">
+              <img src="{% static "images/blg.svg" %}" width="80" height="80">
+            </h2>
+
+            <form method="post" action="{% url "signin" %}" style="margin-top: 10px;">
+              {%csrf_token%}
+              <h4 class="text-center">Log in to Continue</h4>
+              <span class="input input--chisato">
+                <input type="text" class= "input__field input__field--chisato" id="user" name="username"/>
+                <label class= "input__label input__label--chisato" for="user">
+                  <span class= "input__label-content input__label-content--chisato"  data-content="Username">Username
+                  </span>
+                </label>
+              </span>
+
+              <span class="input input--chisato">
+                <input type="password" class="input__field input__field--chisato"   id="pass" name="password"/>
+                <label class="input__label input__label--chisato"   for="pass">
+                  <span class="input__label-content input__label-content--chisato"  data-content="Password">Password</span>
+                </label>
+              </span>
+
+ <span class="input input--chisato">
+          <div class='input-group-sm mb-2'>
+          <button type="submit" value="Log In" class="btn btn-block btn-secondary">
+            <i class="fa fa-lock"></i>
+          Log In
+          </button>
+               <p class="float-left" style="color:#444;">
+          New Guest? <a href="{%url "reg"%}">Sign Up!</a>
+        </p>
+        <p> 
+           <a data-toggle="modal" href="{% url "email_reset" %}" data-target="#myModal" class="float-right">
+           Forgot Password?</a>
+        </p>
+      
+
+        </div>
+        
+     
+    </span>
+      </form>
+      </section>
+
+ {% include "includes/register/forgot_pass.html" %}
+ 
+ 
+</div>
+
+<script type="text/javascript" src="{% static "js/classie.js" %}"></script>
+ 
+    <script>
+      (function() {
+        // trim polyfill : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
+        if (!String.prototype.trim) {
+          (function() {
+            // Make sure we trim BOM and NBSP
+            var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
+            String.prototype.trim = function() {
+              return this.replace(rtrim, '');
+            };
+          })();
+        }
+
+        [].slice.call( document.querySelectorAll( 'input.input__field' ) ).forEach( function( inputEl ) {
+          // in case the input is already filled..
+          if( inputEl.value.trim() !== '' ) {
+            classie.add( inputEl.parentNode, 'input--filled' );
+          }
+
+          // events:
+          inputEl.addEventListener( 'focus', onInputFocus );
+          inputEl.addEventListener( 'blur', onInputBlur );
+        } );
+
+        function onInputFocus( ev ) {
+          classie.add( ev.target.parentNode, 'input--filled' );
+        }
+
+        function onInputBlur( ev ) {
+          if( ev.target.value.trim() === '' ) {
+            classie.remove( ev.target.parentNode, 'input--filled' );
+          }
+        }
+      })();
+    </script>
+
+{% endblock %}
+

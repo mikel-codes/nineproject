@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en" ng-app="mainApp">
+  <head>
+    {%include "includes/ads.html"%}
+     {% include "noscript.html" %}
+     <meta charset="utf-8">
+    <title>{%block title%}{%endblock%}</title>
+    {% load static %}
+       
+     
+    {%block head_content%}{%endblock%}
+       <link rel="shortcut icon"  href="{% static "images/newicon.ico" %}" type="image/x-icon">
+    {%include "includes/website_index/static_files.html" %}  
+    
+
+    {{req_post.get_meta_tags}}
+    <style type="text/css">
+      .button:focus{
+  outline: none;
+}
+.button:after {
+  content: "";
+  background: #90EE90;
+/*
+  position: absolute;
+  padding-top: 300%;
+  padding-left: 350%;
+  margin-left: -20px!important;
+  margin-top: -120%;
+  */
+  opacity: 0;
+  outline: none;
+  transition: all 0.8s
+}
+
+.button:active:after {
+  padding: 0;
+  outline: none;
+  margin: 0;
+  opacity: 1;
+  transition: 0s
+}
+
+.img-thumbnail{
+    border: 2px solid darkgray; 
+    margin-right: .25em;
+    display: inline-block;
+        width: 8em;
+    height: 8em;
+    
+    border-radius: 500rem;
+
+    /* margin-bottom: 0em; */
+  }
+    </style>
+  </head>
+
+  <body ng-controller="defaultCtrl">
+    
+    {%autoescape on%}
+    <header>
+      {% include "includes/website_index/navs.html" %}
+    </header>
+    <!-- container -->
+
+    <section>
+
+      <div class="container">
+     
+        <div class="row">
+          <div class="col-md-12 col-lg-8">
+
+            {% block content %}
+
+              {% if post %}
+                <h3 class="mt-30"><b>{{post.topic}}</b></h3>
+                <ul class="list-li-mr-20 mtb-15">
+                  on {{ post.modified | date:" Y:m:d  H:i " }}</li>
+                  
+                  <li>
+                     {% include "includes/website_index/comment_svg.html"%} 
+                     {% load disqus_tags %}
+        <a href="{{ post.get_absolute_url }}#disqus_thread" data-disqus-identifier="{{ post.id }}"></a>
+                     {% disqus_num_replies %}
+
+                   </li>
+                </ul>
+                {%if post.photos %}                                  
+                  <img src="{{post.photos.url}}" style="width:50%;">
+                {% endif %}
+                <p class="mtb-15">{{ post.content}}</p>
+               
+              {% endif %}
+             
+            {% endblock %}
+
+            {%if profile %}
+              <div class="quote-primary mt-10">
+                <div class="d-flex justify-content-between mt-2">
+
+                  <div class="float-left">
+                  
+             
+                  
+                <h6>
+                  <span style="float: left;">
+                {% if profile.picture  %}
+                  <img src="{{profile.picture.url}}"   class="rounded-circle img-thumbnail" />
+                  {%else %}
+                  <img src="{% static "images/blg.svg" %}" class="img-thumbnail" />
+                  <style type="text/css">.img-thumbnail{background-color: inherit; border: none; }
+                  </style>
+                {% endif %}
+                <br>
+                <b>{{req_post.post_by.get_full_name | title}}</b>
+                  
+                
+                  
+                  </span>
+                    <span>
+                       *{{profile.bio | linebreaks}}*
+                 
+                    </span>
+                </h6>
+
+                </div>
+        
+                <div class="float-right">
+                <h6>  
+
+                  <clap-dir clapid="{{req_post.clap.id}}" 
+                  usertoken="'{{token}}'" 
+                  owner="{{req_post.post_by.id}}"
+                  clapper = "{{request.user.id}}"
+                  counter="{{clap_count}}" >
+
+
+                  {% include "includes/clapsholder.html"%}
+                  <b>__claps | NumFilter __  </b>
+              </clap-dir></h6>
+            </div>
+          </div>
+                <!--
+                    <div class="float-right" div class="d-flex justify-content-between mt-2">
+                    <div class="float-left"> </div> -->
+
+            
+            </div><!-- quote-primary -->
+          {%endif%}
+
+          {%include 'includes/modal_login.html'%}
+
+          <div class="brdr-ash-1 opacty-5"></div>
+          {% if posts %}
+
+            <h4 class="p-title mt-50 text-left" style="font-family: Lato;"><b>YOU MAY ALSO LIKE</b></h4>
+            <div class="row">
+              {% for post in posts %}
+                <div class="col-sm-4">
+                  {% if post.photos %}
+                    <img src="{{post.photos.url}}" alt="" height="200" width="350">
+                  {%endif%}
+                  <h4 class="pt-20">
+                    <a href="{% url "getpost" post.slug %}">
+                      <b>{{post.topic | truncatechars:25}}</b>
+                    </a>
+                  </h4>
+                  <ul class="list-li-mr-20 pt-10 mb-30">
+                    <li class="color-lite-black">
+                      <a href="{% url "getpost" post.slug %}" class="color-black">
+                        <b>
+                          <i class="fa fa-dot-circle"></i>
+                          &nbsp;{{post.category}}
+                        </b>
+                      </a>
+                      
+                      <span id="momentum">  
+                        {{ post.modified | date:"Y/m/d H:i:m"}}
+                      </span>
+                    </li>
+                    <li>
+              
+                      {{post.post_views}} views
+                      
+                    </li>
+                    <li> 
+                             
+                      {% load disqus_tags %}
+      <a href="{% url 'getpost' post.slug %}#disqus_thread" data-disqus-identifier="{{ post.id }}"></a>
+                    {% disqus_num_replies %}
+                  </li>
+                  </ul>
+                </div><!-- col-sm-4 -->
+              {%endfor%}
+            </div>
+          {% endif%}
+          
+          <div class="brdr-ash-1 opacty-5"></div>
+            <h4 class="p-title mt-50 text-left" style="font-family: Lato;"><b>COMMENTS</b></h4>
+        {%block disqus%}
+        {%endblock%}
+        
+
+        </div>
+        
+
+        <div class="d-none d-md-block d-lg-none col-md-3"></div>         
+        <div class="col-md-6 col-lg-4">
+          <div class="pl-20 pl-md-0">
+            <div class="mtb-50">
+              {% include "includes/website_index/related_posts.html" %}
+            </div>
+          </div>
+          <div class="mtb-50 mb-md-0 text-left" style="font-family: Lato;">
+            <h4 class="p-title"><b>NEWSLETTER</b></h4>
+            <p class="mb-20">Subscribe to our newsletter to get notification about new updates,
+              information, discount, etc..</p>
+           <form class="nwsltr-primary-1" action="{% url 'getpost' req_post.slug %}" method="POST">
+                   {%csrf_token%}
+                    {{newsform}}
+                    <button type="submit" class="btn btn-success btn-round"><i class="fa fa-paper-plane"></i></button>
+                   
+                  </form>
+                   <div class="msg" style="color: blue">
+                      <small>{{msg}}</small>
+                  </div>
+
+          </div><!-- mtb-5 -->
+          {% include 'includes/getpost_ad.html' %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+{% include "includes/website_index/footer.html" %}
+
+{%endautoescape%}
+  </body>
+
+</html>
+
+

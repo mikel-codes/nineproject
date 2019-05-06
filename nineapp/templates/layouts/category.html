@@ -1,0 +1,88 @@
+<!doctype html>
+
+<html lang="en" ng-app="mainApp">
+  <head>
+   {%include "includes/ads.html"%}
+
+     {% include "noscript.html" %}
+     <meta charset="utf-8">
+    <title>{%block title%}{%endblock%}</title>
+ 
+     {%load static%}
+       <link rel="shortcut icon"  href="{% static "images/newicon.ico" %}" type="image/x-icon">
+           <meta name="viewport" content="width=device-width, initial-scale=1">
+           {{category.get_meta_tags}}
+    {% include "includes/website_index/static_files.html" %}
+
+  </head>
+  <body ng-controller="defaultCtrl">
+    <header>
+      {%include "includes/website_index/navs.html" %}
+    </header>
+
+    <div class="container mt-10 mb-10 pt-10 pb-10" >
+        <div class="row">
+          <div class="col-lg-10 col-md-10 col-sm-10">
+            {% block content %}
+
+            {% endblock %}
+ 
+          </div>
+          
+          <div class="col-sm-2 col-lg-2 col-md-2 mt-50 pt-100">
+            <div class="jumbotron text-center bg-light">
+              Sponsored Ads
+            </div>
+            <div class="jumbotron text-center bg-light">
+              Sponsored Ads
+            </div>
+            <div class="jumbotron text-center bg-light">
+              Sponsored Ads
+            </div>
+            <div class="jumbotron text-center bg-light">
+              Sponsored Ads
+            </div>
+          </div>
+        
+        </div>
+        <div class="col-sm-10 col-md-10 col-lg-10">
+       <div class="d-flex justify-content-between mt-2" style="font-size: 1.2em;">
+
+      
+    
+
+    <div class="float-left">
+      {% if posts.has_previous %}
+        <a href="?page={{ posts.previous_page_number }}" style="font-size: 1.2em;"><i class="fas fa-x fa-chevron-circle-left"></i>P</a>
+      {%endif%}
+    </div>
+<a href="#">Page {{ posts.number }} of {{ posts.paginator.num_pages }}
+     </a>
+    <div class="float-right">
+      {% if posts.has_next %}
+        <a href="?page={{ posts.next_page_number }}" style="font-size: 1.2em;">
+          N<i class="fas fa-x fa-chevron-circle-right"></i>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+    </div>
+      <div class="d-none d-md-block d-lg-none col-md-3"></div>         
+      <div class="col-md-6 col-lg-4">
+        <div class="pl-20 pl-md-0">
+          <div class="mtb-50">
+            
+            {% include "includes/website_index/related_posts.html" %}
+            
+          </div>
+        </div>
+      </div>
+       <div class="d-none d-md-block d-lg-none col-md-3"></div> 
+
+   
+   </div>
+    <footer>
+      {%include "includes/website_index/footer.html" %}
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,70 @@
+{# template 'users/create_content'#}
+{% extends "layouts/dashboard.html" %}
+{% load static%}
+{%block header%}
+
+ <script src="{% static "js/tagsinput.js" %}"></script>
+ <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=qyg9booc56vxgcp2hprjqey5yg92id22iani4etzttugrj7w"></script> 
+   <script>tinymce.init({ selector:'textarea' });</script>
+ <link rel="stylesheet" type="text/css" href="{% static "css/tagsinput.css" %}">
+{%endblock%}
+{% block content %}
+    {%load i18n %}
+{% comment %}Translators: View verb{% endcomment %}
+
+   
+     
+    <h3><i class="fa fa-pencil"></i> Post A Content To Viewers </h3>
+  <div class="form-panel" style="width: 100%;">
+<style type="text/css">
+  label{
+    color: #333;
+    font-weight: 300px;
+  }
+</style>
+  <div class="form-panel">
+    <form method="post" class="form-horizontal" action="" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% if form.errors%}
+        <p class="alert alert-danger centered"> 
+        Form could not be saved 
+      </p>
+      {% endif %}
+   
+        <legend>{{legend | upper}}</legend>
+   
+        {%for field in form.visible_fields %}
+        <div class="form-group">
+          <div class="control-sm-label" style="color:black">
+              {{field.label}}
+            </div>
+            <div class='input-group'>
+             {{field}}
+             {{field.help_text}}
+            <ul>
+              <li style="color:indianred;">
+                <small>{{field.errors}}</small>
+              </li>
+            </ul>
+          </div>
+        </div>
+       
+
+       
+
+
+        {% endfor %}
+  
+
+
+
+    
+        <input type="submit" class="btn btn-block btn-success text-center" value="CREATE MY POST">
+      </div>
+    </form>
+  </div>
+
+
+
+
+{% endblock %}

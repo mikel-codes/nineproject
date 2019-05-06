@@ -1,0 +1,64 @@
+
+<div class="black-bg">
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top black-bg">
+        <div class="container-fluid">
+          <div class="navbar-wrapper black-bg">
+           <a href="{% url "indexpage" %}" class="logo"><span style="text-transform: lowercase"><i class="fa fa-home"></i></span></b></a></a>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end">
+            <form class="navbar-form">
+              <span class="bmd-form-group"><div class="input-group no-border">
+                <input type="text" value="" class="form-control" placeholder="Search...">
+                <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                  <i class="fa fa-search"></i>
+                  <div class="ripple-container"></div>
+                </button>
+              </div></span>
+            </form>
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link logout" data-toggle="modal" href="#" data-target="#myModal">
+              <i class="fa fa-envelope-o"> </i>Admin
+                </a>
+              </li>
+              <!-- your navbar here -->
+            </ul>
+
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                 <a class="nav-link logout" href="{% url "reset_password" %}">
+                  <i class="fa fa-key"></i>Change Password
+                </a>
+              </li>
+              <!-- your navbar here -->
+            </ul>
+            
+
+      
+
+                 <ul class="navbar-nav">
+              <li class="nav-item">
+
+              <a class="nav-link logout" 
+              href="{% url "logout" %}">
+                <i class="fa fa-sign-out"></i>Logout</a></li>
+            
+    </ul>
+              </li>
+              <!-- your navbar here -->
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+</div>
+
+
+
+
