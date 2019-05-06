@@ -77,13 +77,9 @@ class SignUpForm(UserCreationForm):
         email=EM(
             mail_subject, 
             mail_message, 
-            to=[to_email] ,
-            headers = {'message-id': 'admin',  'format':'flowed', 'Reply-To': 'noreply@9blogspace.com'}
+            to=[to_email] 
             )
         email.content_subtype = "html"
-        email.mixed_type = "related"
-        email.attach_alternative(mail_message, "text/html")
-        
         try:
             email.send(fail_silently=True)
             if commit:
