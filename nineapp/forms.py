@@ -78,7 +78,7 @@ class SignUpForm(UserCreationForm):
             mail_subject, 
             mail_message, 
             to=[to_email],
-            reply_to='noreply@9blogspace.com',
+            reply_to=['noreply@9blogspace.com'],
             headers = {'Message-ID': '@9blogspace.com'}
 
             )
