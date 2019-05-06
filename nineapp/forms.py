@@ -79,7 +79,7 @@ class SignUpForm(UserCreationForm):
             mail_message, 
             to=[to_email],
             reply_to='noreply@9blogspace.com',
-            message_id = '@9blogspace'
+            headers = {'Message-ID': '@9blogspace.com'}
 
             )
         email.content_subtype = "html"
