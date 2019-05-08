@@ -16,5 +16,7 @@ nineproject/oxone.json
 nineapp/migrations/
 nineapp/locale/
 # SQLite database files
-
+Pipfile
 *.sqlite
+PipFile
+*/Pipfile

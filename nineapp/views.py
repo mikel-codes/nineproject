@@ -6,8 +6,6 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from itertools import chain
 
-
-
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
@@ -22,7 +20,7 @@ from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_text, force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.core.mail import EmailMessage, send_mail, BadHeaderError, EmailMultiAlternatives
+from django.core.mail import EmailMessage, send_mail, BadHeaderError, EmailMultiAlternatives as EM
 
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
@@ -199,10 +197,9 @@ def registration(request):
 
 
 
-
 def activate(request, uidb64, token):
     try:
-        uid = urlsafe_base64_decode(uidb64).decode()
+        uid = force_text(urlsafe_base64_decode(uidb64)).decode()
         user = User.objects.get(pk=uid)
         if account_token.check_token(user, token):
             user.refresh_from_db()
@@ -252,8 +249,7 @@ def reset(request):
 def dashboard(request,  username):
     try:
         username = request.user.username
-        profile = get_object_or_404(Profile, author=request.user)
-        
+        profile = get_object_or_404(Profile, author=request.user)  
         user = get_object_or_404(User, username=username)
         try:
 

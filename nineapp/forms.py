@@ -21,9 +21,9 @@ from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
 #from django.contrib.postgres.forms import SimpleArrayField
 from django.core.files.uploadedfile import SimpleUploadedFile, InMemoryUploadedFile
-
-from django.utils.encoding import force_text, force_bytes
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.template.loader import get_template
+from django.utils.encoding import  force_bytes
+from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth import get_user_model
 
 from .tokens import account_token
@@ -32,13 +32,12 @@ from .models import Post, Category, Profile, NewsUsers, Clap
 User = get_user_model()
 
 
-
 class SignUpForm(UserCreationForm):
     class Meta:
         model  = User
         fields = ("first_name", "last_name", "username", "password1", "password2", 'email')
-        attrs= {"class":"form-control reginput"}
-        widgets = {
+        attrs  = {"class":"form-control reginput"}
+        widgets= {
             'first_name': TextInput({**attrs.copy(), "autofocus": "true", "required": "true"}), 'last_name':  TextInput({**attrs.copy(), "required": "true"}),
             'username'  : TextInput(attrs.copy()),
             'email'     : TextInput(attrs.copy()),
@@ -47,9 +46,11 @@ class SignUpForm(UserCreationForm):
     def __init__(self, request, *args, **kwargs):
         super(SignUpForm, self).__init__(*args, **kwargs)
         self.request = request
+        
         self.fields['password1'].widget.attrs.update({"class":"form-control reginput"})
         self.fields['password2'].widget.attrs.update({"class":"form-control reginput"})
-
+        
+    
     def clean_email(self):
         email = self.cleaned_data.get("email").lower()
         # find a user to match for the email
@@ -60,36 +61,36 @@ class SignUpForm(UserCreationForm):
         else:
             raise forms.ValidationError("Email is already in use")
         return email
-
-    def save(self, commit=True):
-        user_obj = super(SignUpForm, self).save(commit=False)
-        user_obj.is_active = False
-        current_site = get_current_site(self.request)
-        mail_subject = "Account Activation"
-        mail_message = render_to_string("activate_acct_mail.html", {
-            'user': user_obj,
-            'domain': current_site.domain,
-            'uid': urlsafe_base64_encode(force_bytes(user_obj.pk)).decode(),
-            'token':account_token.make_token(user_obj)
+    
+    
+    def save(self, *args, commit=True, **kwargs):
+        user = super().save(commit=False)
+        user.is_active = False
+        if commit:
+            user.save()
+            print("This for saved user", user)
+            mail_subject = "Activate Your Account"
+            mail_message  = render_to_string('activate_acct_mail.html', {
+                'user':   user,
+                "domain" : get_current_site(self.request).domain,      
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)).decode(),
+                'token':account_token.make_token(user)
             })
 
-        to_email = self.cleaned_data.get('email')
-        email=EM(
-            mail_subject, 
-            mail_message, 
-            to=[to_email],
-            reply_to=['noreply@9blogspace.com'],
-            headers = {'Message-ID': '@9blogspace.com'}
+            try:
+                email = EM(
+                    mail_subject, 
+                    mail_message, 
+                    to=[user.email],
+                    headers = {'Reply-To': 'noreply@9blogspace.com'}
+                    )
 
-            )
-        email.content_subtype = "html"
-        try:
-            email.send(fail_silently=True)
-            if commit:
-                user_obj.save()
-        except Exception as e:
-            print("\n", e)
-            pass
+                email.send(fail_silently=True)
+            except Exception as e:
+                print("\n", e)
+            
+
+
        
 
 class ResetPasswordForm(SetPasswordForm):
@@ -100,9 +101,9 @@ class PostForm(forms.ModelForm):
     """ create a form to generate Posts"""
     content = forms.CharField(label=_("Blog Content"), min_length=500, widget=forms.Textarea(attrs= { 'rows':"30", 'cols':'50'}))
     class Meta:
-        model = Post
+        model  = Post
         fields = ("category","topic", "content", "photos", "tags")
-        attrs= {"class":"form-control reginput"}
+        attrs  = {"class":"form-control reginput"}
         widgets = {
             'category': Select(attrs.copy()),
             'topic': TextInput(attrs.copy()), 'content':  Textarea({'rows': '30', 'cols': '40',**attrs.copy()}),
@@ -130,7 +131,7 @@ class PostForm(forms.ModelForm):
         your_post.post_by = self.request.user
         if commit:
             your_post.save()
-        return your_post
+        
 
         
 class ProfileForm(forms.ModelForm):
@@ -181,9 +182,9 @@ class ContactForm(forms.Form):
     sender_email = forms.EmailField(label=_("Your Email"), required=True)
     message = forms.CharField(label=_("Message"),required=True, widget=forms.Textarea())
     files   = forms.FileField(
-        label=_("Select File to Upload"), 
-        required=False,
-        validators=[validate_file_extension],
+        label = _("Select File to Upload"), 
+        required = False,
+        validators = [validate_file_extension],
         widget = forms.ClearableFileInput(attrs={'multiple': True, 'accept':["image/*","video/*",".pdf"]}))
 
     def __init__(self, request, *args, **kwargs):
@@ -199,7 +200,8 @@ class ContactForm(forms.Form):
 
           
         return content
-
+    
+    
     def save(self):
         cleaned_data = self.cleaned_data
         try:
@@ -215,7 +217,7 @@ class ContactForm(forms.Form):
                         "New ContactForm Submission Tagged %s" % cleaned_data['subject'],
                         mail_message,
                         to=['gatezdomain@gmail.com'],
-                        headers = {'Reply-To': cleaned_data['sender_email'] }
+                headers = {'Reply-To': cleaned_data['sender_email'] }
                 )
             if cleaned_data['files']:
             	try:
@@ -227,6 +229,8 @@ class ContactForm(forms.Form):
             		print("Error >> ", e)
 
             email.attach_alternative(mail_message, "text/html")
+            email.content_subtype = "html"
+            email.mixed_type = "related"
             email.send(fail_silently=True)
         except (BadHeaderError, Exception) as e:
         	print("OVERALL CONTACT ERRORS ", e)

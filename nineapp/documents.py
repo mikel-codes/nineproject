@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 from __future__ import unicode_literals
 
-from django_elasticsearch_dsl import DocType, Index, fields
+from ______init______ import DocType, Index, fields
 from django.contrib.auth.models import User
 from .models import Post, Category
 

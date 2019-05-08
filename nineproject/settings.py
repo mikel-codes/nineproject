@@ -183,15 +183,18 @@ GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
 
 #STATICFILES_DIRS = [os.path.join(BASE_DIR, 'nineapp/static'),]
 
-
 SEND_GRID_API_KEY = config('SGRID_API_KEY')
 EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_HOST_USER = config('SENDGRID_USER')
 EMAIL_HOST_PASSWORD = config('SENDGRID_PASS')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS')
 EMAIL_PORT = config('EMAIL_PORT')
+
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 EMAIL_BACKEND = config('BACKEND')
 
 DISQUS_API_KEY = config('DISQUS_API_KEY')
 DISQUS_WEBSITE_SHORTNAME = config('DISQUS_WEBSITE_SHORTNAME')
+
+
+ 
