@@ -70,8 +70,8 @@ class SignUpForm(UserCreationForm):
             user.save()
             print("This for saved user", user)
             mail_subject = "Activate Your Account"
-            mail_message  = render_to_string('activate_acct_mail.html', {
-                'user':   user,
+            mail_message = render_to_string('activate_acct_mail.html', {
+                'user'   :   user,
                 "domain" : get_current_site(self.request).domain,      
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)).decode(),
                 'token':account_token.make_token(user)
@@ -84,7 +84,7 @@ class SignUpForm(UserCreationForm):
                     to=[user.email],
                     headers = {'Reply-To': 'noreply@9blogspace.com'}
                     )
-
+                email.attach_alternative(mail_message, "text/html")
                 email.send(fail_silently=True)
             except Exception as e:
                 print("\n", e)
