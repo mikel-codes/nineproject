@@ -68,7 +68,7 @@
         {% endfor %}
   
     
-        <input type="submit"  id="submit" class="btn btn-block btn-success text-center"  
+        <input type="submit" onclick="submit()"  id="submit" class="btn btn-block btn-success text-center"  
          value="CREATE MY POST">
       </form>
     </div>
@@ -77,9 +77,14 @@
   
 
 <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=qyg9booc56vxgcp2hprjqey5yg92id22iani4etzttugrj7w"></script> 
+<script>
+  function submit(){
+    document.forms[0].submit();
+  }
+  </script>
    <script> tinymce.init({
             selector: 'textarea',
-            width: 500,
+            width: 800,
             height: 600,
             setup: function (ed) {
                 ed.on('keyup',  (e) => { 
@@ -106,12 +111,20 @@
 
         const x  = document.getElementById('text_errors')
         if (count > max) {
+          x.style.display = 'block';
             x.innerText = "Maximum " + max + " characters allowed." 
             
         }
+        else{
+          x.style.display = 'none';
+        }
         if (count < min){
+          x.style.display = 'block';
             x.innerText = "Minimum " + min + " characters is allowed"
           
+        }
+        else{
+          x.style.display = 'none';
         }
         if (count > max || count < min){
            subm.setAttribute("disabled", "disabled")
