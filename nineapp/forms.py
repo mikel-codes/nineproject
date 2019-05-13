@@ -25,7 +25,7 @@ from django.template.loader import get_template
 from django.utils.encoding import  force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth import get_user_model
-
+from tinymce.widgets import TinyMCE
 from .tokens import account_token
 from .models import Post, Category, Profile, NewsUsers, Clap
 
@@ -97,16 +97,21 @@ class ResetPasswordForm(SetPasswordForm):
     """helps to autogenerate change password  form"""
     pass
 
+class TinyMCEWidget(TinyMCE):
+    def use_required_attribute(self, *args):
+        return False
+
 class PostForm(forms.ModelForm):
     """ create a form to generate Posts"""
-    content = forms.CharField(label=_("Blog Content"), min_length=500, widget=forms.Textarea(attrs= { 'rows':"30", 'cols':'50'}))
+
+    #content = forms.CharField(label=_("Blog Content"), min_length=500, widget=forms.Textarea(attrs= { 'rows':"30", 'cols':'50', 'name': 'content', 'id': 'id_content'}))
     class Meta:
         model  = Post
         fields = ("category","topic", "content", "photos", "tags")
         attrs  = {"class":"form-control reginput"}
         widgets = {
             'category': Select(attrs.copy()),
-            'topic': TextInput(attrs.copy()),
+            'topic': TextInput(attrs.copy()), 
             'tags':  TextInput({**attrs.copy(), 'placeholder': 'type a search keyword followed by a comma here', "data-role": "tagsinput"})
             }
        
