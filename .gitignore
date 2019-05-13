@@ -20,3 +20,5 @@ Pipfile
 *.sqlite
 PipFile
 */Pipfile
+vscode/*
+*vscode*

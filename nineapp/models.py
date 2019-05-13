@@ -34,18 +34,19 @@ class Profile(TimeMixin):
         (2, 'superblogger'),
         (3, ''),
         )
+    
     author = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     bio    = models.TextField(_("Describe Yourself"), max_length=200,error_messages = {'max_length': "Exceed limit of 200 characters)"}, default="I am a blogger")
     role   = models.PositiveSmallIntegerField(choices=ROLES, default=1, null=True, blank=True)
     ip_addr  = models.GenericIPAddressField(protocol="ipv4", null=True, blank=True)
     location = models.CharField(_("blogger's country"), max_length=30, blank=True)
     picture  = models.ImageField(storage=gppc(), null=True, blank=True)
-    
+
 
     def __str__(self):
         return self.author.get_full_name()
 
-    
+
     def save(self, *args, **kwargs):
         try:
             if self.picture:
@@ -58,8 +59,8 @@ class Profile(TimeMixin):
                             imgfile_obj = imgfile_obj.convert('RGB')
 
 
-                        imgfile_obj.thumbnail((80,80), Image.ANTIALIAS)    
-                      
+                        imgfile_obj.thumbnail((80,80), Image.ANTIALIAS)
+
                         imgfile_obj.save(new_bytes_obj, format="JPEG", quality=100)
                         new_bytes_obj.seek(0) # go to the first line on the stream of bytes
 
@@ -90,14 +91,14 @@ class Category(TimeMixin, MetaTagsMixin):
     """docstring for Category"""
     name = models.CharField(_("Category Name"), unique=True, max_length=255, blank=False, null=False)
     slug = models.SlugField(unique=True,null=True, blank=True, max_length=300)
-    
+
     class Meta:
         verbose_name= _("Category")
         verbose_name_plural = _("Categories")
 
     def __str__(self):
         return self.name
-        
+
     def save(self, *args, **kwargs):
         self.meta_keywords = self.name
         self.meta_author = "administrator 9bloggers"
@@ -108,7 +109,7 @@ class Category(TimeMixin, MetaTagsMixin):
 
 
 #the blogger has 1(single) object clap created for him which can be updated
-#the clapper has many objects he can update through 
+#the clapper has many objects he can update through
 
 
 
@@ -124,7 +125,7 @@ class Post(TimeMixin, MetaTagsMixin):
     photos   = models.ImageField(storage=gpostc(), blank=False,null=False)
     post_by  = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     tags     = models.TextField(max_length=200, blank=True, null=True)
-      
+
     class Meta:
         verbose_name= _("Post")
         verbose_name_plural= _("Posts")
@@ -142,7 +143,11 @@ class Post(TimeMixin, MetaTagsMixin):
         self.meta_author = self.post_by.get_full_name()
         self.slug = slugify(self.topic).lower()
 
-        super(Post, self).save()
+        try:
+            super(Post, self).save()
+        except Exception as e:
+            print("\n\nErrors Occurred", e, "\n\n")
+
 
 
 
@@ -169,13 +174,13 @@ class Clap(TimeMixin):
         verbose_name = "Clap"
         verbose_name_plural = "Claps"
 
-    
+
 
     def __str__(self):
         return str(self.num_claps)
 
 
-    
+
 
 @python_2_unicode_compatible
 class Like(TimeMixin):
@@ -187,7 +192,7 @@ class Like(TimeMixin):
     class Meta:
         verbose_name = _("Like")
         verbose_name_plural = _("Likes")
-        
+
 
     def __str__(self):
         return str(self.num_of_likes)

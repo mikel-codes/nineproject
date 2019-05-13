@@ -60,7 +60,7 @@ def index(request):
     head_post  = Post.objects.all().first()
     categories = Category.objects.all()
     last_p = Post.objects.latest()
-    top_blogs  = list(Post.objects.order_by("-id")[:5].values_list("topic", flat=True)).append([last_p, head_post])
+    top_blogs = list(Post.objects.order_by("-id")[:5].values_list("topic", flat=True)).append([last_p, head_post])
     context_1 = newsletter(request)
     if head_post:
         related_posts_first = Post.objects.filter(category=head_post.category).order_by("topic", "modified").exclude(pk=head_post.id)[:1]
@@ -149,7 +149,7 @@ def email_password_reset(request):
         message = render_to_string("activate_reset_password.html", {
             "email" : email,
             "domain" : get_current_site(request).domain,
-            "uid" : urlsafe_base64_encode(force_bytes(user.pk)).decode(),
+            "uid" : urlsafe_base64_encode(force_bytes(user.pk)),
             "token" : account_token.make_token(user)
         })
 
@@ -172,7 +172,7 @@ def email_password_reset(request):
 
 
 def password_reset_confirm(request, uidb64, token):
-    uid = force_text(urlsafe_base64_decode(uidb64))
+    uid = urlsafe_base64_decode(uidb64).decode()
     user = get_object_or_404(pk=uid)
     user = None
     if user.is_active and account_token.check_token(user, token):
@@ -191,7 +191,7 @@ def registration(request):
     if request.POST:
         signupform = SignUpForm(request, request.POST)
         if signupform.is_valid():
-            signupform.save()
+            signupform.save*()
             return HttpResponse('PLEASE CHECK EMAIL FOR FURTHER INSTRUCTIONS / ALSO CHECK SPAM FOLDER INCASE')
     return render(request, "registration/signup.html",{"signupform": signupform, 'fterms': ("Username","Email")})
 
@@ -200,7 +200,7 @@ def registration(request):
 def activate(request, uidb64, token):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
-        user = User.objects.get(pk=uid)
+        user = User.objects.get(username=uid)
         if account_token.check_token(user, token):
             user.refresh_from_db()
             user.is_active = True

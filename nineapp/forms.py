@@ -71,10 +71,10 @@ class SignUpForm(UserCreationForm):
             print("This for saved user", user)
             mail_subject = "Activate Your Account"
             mail_message = render_to_string('activate_acct_mail.html', {
-                'user'   :   user,
+                'user'   : user,
                 "domain" : get_current_site(self.request).domain,      
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)).decode(),
-                'token':account_token.make_token(user)
+                'uid':     urlsafe_base64_encode(force_bytes(user.pk)).decode(),
+                'token':   account_token.make_token(user)
             })
 
             try:
@@ -106,7 +106,7 @@ class PostForm(forms.ModelForm):
         attrs  = {"class":"form-control reginput"}
         widgets = {
             'category': Select(attrs.copy()),
-            'topic': TextInput(attrs.copy()), 'content':  Textarea({'rows': '30', 'cols': '40',**attrs.copy()}),
+            'topic': TextInput(attrs.copy()),
             'tags':  TextInput({**attrs.copy(), 'placeholder': 'type a search keyword followed by a comma here', "data-role": "tagsinput"})
             }
        
