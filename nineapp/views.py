@@ -191,7 +191,7 @@ def registration(request):
     if request.POST:
         signupform = SignUpForm(request, request.POST)
         if signupform.is_valid():
-            signupform.save*()
+            signupform.save()
             return HttpResponse('PLEASE CHECK EMAIL FOR FURTHER INSTRUCTIONS / ALSO CHECK SPAM FOLDER INCASE')
     return render(request, "registration/signup.html",{"signupform": signupform, 'fterms': ("Username","Email")})
 
