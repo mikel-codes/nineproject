@@ -80,7 +80,7 @@
       <div class="col-md-6 col-sm-8 col-lg-4">
        
             <div class="row">
-              <a href="{% url "getpost" post.slug %}">
+              <a href="{% url 'getpost' post.slug %}">
               <div class="box shadow mb-0 mr-6">
                 <img src="{{post.photos.url}}" width="200" height="200">
                 <div class="d-flex justify-content-between mt-2">
@@ -109,7 +109,7 @@
                     {% if post.post_by.profile.picture %}
                       <img src="{{post.post_by.profile.picture.url}}" class="rounded-circle img-thumbnail avatar"/>
                     {%else%}
-                      <img src="{% static "images/icon.jpg" %}" 
+                      <img src="{% static 'images/icon.jpg' %}" 
                         class="rounded-circle img-thumbnail avatar mr-4">
                     |
            

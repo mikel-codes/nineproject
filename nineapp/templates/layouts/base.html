@@ -9,7 +9,7 @@
        
      
     {%block head_content%}{%endblock%}
-       <link rel="shortcut icon"  href="{% static "images/newicon.ico" %}" type="image/x-icon">
+       <link rel="shortcut icon"  href="{% static 'images/newicon.ico' %}" type="image/x-icon">
     {%include "includes/website_index/static_files.html" %}  
     
 
@@ -42,7 +42,7 @@
 }
 
 .img-thumbnail{
-    border: 2px solid darkgray; 
+    border: 2px solid #007bff; 
     margin-right: .25em;
     display: inline-block;
         width: 8em;
@@ -52,6 +52,19 @@
 
     /* margin-bottom: 0em; */
   }
+    body{
+    box-sizing: border-box;
+    
+    word-wrap: break-word;
+    font-family: 'Montserrat', 'Lato';
+    background-color: #fff;
+}
+ p {
+   margin: 0 0 0 0px; 
+   text-align: left; 
+   color: #222;
+   font-family: 'Montserrat', 'Lato';
+}
     </style>
   </head>
 
@@ -107,7 +120,7 @@
                 {% if profile.picture  %}
                   <img src="{{profile.picture.url}}"   class="rounded-circle img-thumbnail" />
                   {%else %}
-                  <img src="{% static "images/blg.svg" %}" class="img-thumbnail" />
+                  <img src="{% static 'images/blg.svg' %}" class="img-thumbnail" />
                   <style type="text/css">.img-thumbnail{background-color: inherit; border: none; }
                   </style>
                 {% endif %}
@@ -117,7 +130,7 @@
                 
                   
                   </span>
-                    <span>
+                    <span style="color: darkgreen; text-align: left;">
                        *{{profile.bio | linebreaks}}*
                  
                     </span>
@@ -153,7 +166,7 @@
           <div class="brdr-ash-1 opacty-5"></div>
           {% if posts %}
 
-            <h4 class="p-title mt-50 text-left" style="font-family: Lato;"><b>YOU MAY ALSO LIKE</b></h4>
+            <h4 class="p-title mt-50 text-left" style="font-family: Raleway;"><b>YOU MAY ALSO LIKE</b></h4>
             <div class="row">
               {% for post in posts %}
                 <div class="col-sm-4">
@@ -161,13 +174,13 @@
                     <img src="{{post.photos.url}}" alt="" height="200" width="350">
                   {%endif%}
                   <h4 class="pt-20">
-                    <a href="{% url "getpost" post.slug %}">
+                    <a href="{% url 'getpost' post.slug %}">
                       <b>{{post.topic | truncatechars:25}}</b>
                     </a>
                   </h4>
                   <ul class="list-li-mr-20 pt-10 mb-30">
                     <li class="color-lite-black">
-                      <a href="{% url "getpost" post.slug %}" class="color-black">
+                      <a href="{% url 'getpost' post.slug %}" class="color-black">
                         <b>
                           <i class="fa fa-dot-circle"></i>
                           &nbsp;{{post.category}}
@@ -211,7 +224,7 @@
               {% include "includes/website_index/related_posts.html" %}
             </div>
           </div>
-          <div class="mtb-50 mb-md-0 text-left" style="font-family: Lato;">
+          <div class="mtb-50 mb-md-0 text-left" style="font-family: Raleway;">
             <h4 class="p-title"><b>NEWSLETTER</b></h4>
             <p class="mb-20">Subscribe to our newsletter to get notification about new updates,
               information, discount, etc..</p>

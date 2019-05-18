@@ -16,7 +16,7 @@
 <meta charset="utf-8">
     <title>{%block title%} Welcome{%endblock%} </title>
     {%load static%}
-       <link rel="shortcut icon"  href="{% static "images/fav3.ico" %}" type="image/x-icon">
+       <link rel="shortcut icon"  href="{% static 'images/fav3.ico' %}" type="image/x-icon">
     {%include "includes/website_index/static_files.html"%}
       {%if last_p%}
       {{last_p.get_meta_tags}}
@@ -62,7 +62,7 @@
             <div class="pb-5 pr-5 pr-sm-0 float-left float-sm-none w-2-3 w-sm-100 h-100 h-sm-300x">
               
               {% if last_p%}
-                <a class="pos-relative h-100 dplay-block" href="{% url "getpost" last_p.slug  %}">
+                <a class="pos-relative h-100 dplay-block" href="{% url 'getpost' last_p.slug  %}">
                   <div class="img-bg bg-1 bg-grad-layer-6" style="background: url('{{ last_p.photos.url }}') no repeat center;"></div>
 
                   <div class="abs-blr color-white p-20 bg-sm-color-7">
@@ -89,7 +89,7 @@
               {% if related_posts_first %}
                 {% for post in related_posts_first %}
                   <div class="pl-5 pb-5 pl-sm-0 ptb-sm-5 pos-relative h-50">
-                    <a class="pos-relative h-100 dplay-block" href="{% url "getpost" post.slug  %}">
+                    <a class="pos-relative h-100 dplay-block" href="{% url 'getpost' post.slug  %}">
 
                       <div class="img-bg bg-2 bg-grad-layer-6" 
                           style="background: url({{ post.photos.url }}) no repeat center;"></div>
@@ -174,13 +174,13 @@
                           <img class="card-img-top" src="{{post.photos.url}}" height="200" width="200" alt="Card image cap">
                           <div class="card-body">
                             <h3 class="card-title">
-                              <a href="{% url "getpost" post.slug %}" class="card-link">
+                              <a href="{% url 'getpost' post.slug %}" class="card-link">
                                 <b>{{post.topic| truncatewords:3}}</b>
                               </a>
                             </h3>
 
 
-                            <a href="{% url "getpost" post.slug  %}" class="btn btn-sm btn-round btn-primary">    
+                            <a href="{% url 'getpost' post.slug  %}" class="btn btn-sm btn-round btn-primary">    
                               <b><i class="fa fa-dot-circle-o"></i>
                               &nbsp;{{post.category}}</b>
                             </a>
@@ -198,7 +198,7 @@
                 <div class="pl-20 pl-md-0">
                   <ul class="list-block list-li-ptb-15 list-btm-border-white bg-primary text-center">
                     <div class="jumbotron bg-light">
-        <h3><a href ="{% url "contact"   %}">Sponsored Ad Here</a></h3>
+        <h3><a href ="{% url 'contact'   %}">Sponsored Ad Here</a></h3>
                     </div>
                   </ul>
 
@@ -206,7 +206,7 @@
                     <h4 class="p-title"><b>MOST VIEWED</b></h4>
                     {%if side_posts%}
                     {% for post in side_posts %}
-                      <a class="oflow-hidden pos-relative mb-20 dplay-block" href="{% url "getpost" post.slug  %}">
+                      <a class="oflow-hidden pos-relative mb-20 dplay-block" href="{% url 'getpost' post.slug  %}">
                         <div class="wh-100x abs-tlr">
                           <img src="{{post.photos.url}}" width="80" height="80" alt=""></div>
                         <div class="ml-120 min-h-100x">
@@ -249,11 +249,7 @@
 
       {%include "includes/website_index/footer.html"%}
     {%endautoescape%}
-     <script type="text/javascript">
-                     $(function($) {
-                       $("div.msg").delay(2000).hide()
-                     })(jQuery);
-        </script>
+
       </script>
     </li>
   </ul>

@@ -277,16 +277,16 @@ button.btn-search, button.btn-reset {
           <a routerLinkActive="active" class="nav-link" href="">Go to Quick Links</a>
             </li>
               <li class="nav-item">
-          <a routerLinkActive="active" class="nav-link" href="{% url "signin" %}">
+          <a routerLinkActive="active" class="nav-link" href="{% url 'signin' %}">
         Log In
           </a>
         </li>
           <li  class="nav-item">
-        <a routerLinkActive="active" class="nav-link" href="{% url "reg" %}">
+        <a routerLinkActive="active" class="nav-link" href="{% url 'reg' %}">
         Join Us</a>
       </li>
        <li class="nav-item">
-        <a routerLinkActive="active" class="nav-link" href="{% url "contact" %}">
+        <a routerLinkActive="active" class="nav-link" href="{% url 'contact' %}">
         Contact Us</a>
       </li>
      
@@ -302,7 +302,7 @@ button.btn-search, button.btn-reset {
           {%else%}
     <a href="{% url 'dashboard' request.user.username %}" class="nav-link d-flex align-items-center">
     
-       <img src="{% static "images/icon.jpg" %}" class=" rounded-circle img-thumbnail  avatar" >
+       <img src="{% static 'images/icon.jpg' %}" class=" rounded-circle img-thumbnail  avatar" >
        </a>
         {%endif%}
 

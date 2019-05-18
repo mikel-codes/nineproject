@@ -6,22 +6,20 @@
 {%endblock%}
 {% block head_content%}
  <style type="text/css">
-
-    
     span  a{
       color: blue;
       text-decoration: underline;
-
     }
 
+   
   </style>
  
 
-<style type="text/css">
+<!--style type="text/css">
 .navbar {
     background-color: lightslategray;
     font-size: 1em;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
     color: white;
     padding: 8px 5px 8px 5px;
 }
@@ -48,7 +46,7 @@
     
     
   }
-</style>
+</style!-->
 {% endblock %}
 {% block content %}
 <!--div class='navbar'>
@@ -60,15 +58,15 @@
     poloc
   </div>
 </div -->
-<h3 class="mt-30 text-center"><b>{{req_post.topic}}</b></h3>
+<h3 class="mt-30 text-center" style="font-family: Montserrat;"><b>{{req_post.topic}}</b></h3>
 <ul class="list-li-mr-20 mtb-15 text-center">
   <li>
  
-  on {{ req_post.modified}}  <img src="{% static "images/out.png" %}" class="avatar" onload="readingTime()"> 
+  on {{ req_post.modified}}  <img src="{% static 'images/out.png' %}" class="avatar" onload="readingTime()"> 
   <b id="rt"></b> mins read 
     <br>
-  <img src="{% static "images/eye.png" %}" class="avatar">viewed 
-  <view-dir  link="{% url "view_update" req_post.id %} ">&times;__views | NumFilter__
+  <img src="{% static 'images/eye.png' %}" class="avatar">viewed 
+  <view-dir  link="{% url 'view_update' req_post.id %} ">&times;__views | NumFilter__
   
   </view-dir>
 
@@ -76,7 +74,7 @@
 </ul>
 <img src="{{ req_post.photos.url }}" alt="" width="10"  height="400"  />
 
-<span class="mtb-15" id="loop" style="color:#222;  font-family: Raleway;">
+<span class="mtb-15" id="loop" style="text-align:  left;">
   
       {{ req_post.content | safe }}
     

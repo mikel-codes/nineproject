@@ -10,15 +10,16 @@
   <meta name="description" content="">
   <meta name="author" content="Dashboard">
     {%load static%}
-  <link rel="shortcut icon" href="{% static "images/newicon.ico" %}" type="image/x-icon">
+  <link rel="shortcut icon" href="{% static 'images/newicon.ico' %}" type="image/x-icon">
     {%include "includes/dashboard/dash_static_files.html"%}
  <style type="text/css">
     .rounded-circle{
       
-      border: 2px solid gray;
+      border: 2px solid skyblue;
       background: white;
     }
   </style>
+
 {%block header%}
 {% endblock %}
   </head>
@@ -61,7 +62,7 @@
             </div>
             <div class="row"> 
               <div class="offset-md-9 col-md-3 col-sm-0  mb">
-                <a href="{% url "new_content" %}">  
+                <a href="{% url 'new_content' %}">  
                   <button class='btn btn-success'>
                     
                     <span class="fa fa-plus"></span>
@@ -95,7 +96,9 @@
       </div>
     </footer>
   </section>
+<script data-cfasync='false' type='text/javascript' src='//p350946.clksite.com/adServe/banners?tid=350946_686270_0&type=footer&size=26'></script>
 
+<script data-cfasync='false' type='text/javascript' src='//p350946.clksite.com/adServe/banners?tid=350946_686270_4'></script><div class="offset-md-4 col-md-4 col-sm-4 ">
   {%include "includes/dashboard/admin_msg.html"%}
 </body>
 </html>
