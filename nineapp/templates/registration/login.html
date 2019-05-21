@@ -1,39 +1,42 @@
 {# templates/login.html #}
 {% extends "layouts/regbox.html" %}
-{%block title%}
-Log in to blog
-{%endblock%}
+
+{%block title%}Log in to blog{%endblock%}
 {% block header %}
   {%load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static "css/normalize.css" %} " />
-<link rel="stylesheet" type="text/css" href="{% static "css/demo.css" %} " />
+<link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %} " />
+<link rel="stylesheet" type="text/css" href="{% static 'css/demo.css' %} " />
 
-<link rel="stylesheet" type="text/css" href="{% static "css/set2.css" %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/set2.css' %}">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
   <!--container for alerts -->
 
 <style>
-.rounded-circle{
-  border: 2px solid gray;
-  margin:0;
-  padding: 0;
-  overflow: hidden;
-}
+  .rounded-circle{
+    border: 2px solid gray;
+    margin:0;
+    padding: 0;
+    overflow: hidden;
+  }
 
-form .form-control:focus{
-  box-shadow: none;
-  border: 1px solid gray;
-}
+  form .form-control:focus{
+    box-shadow: none;
+    border: 1px solid gray;
+  }
 </style>
 {%endblock%}
-{% block content %}
-  <div class="container text-center">
 
-    {% if errors %}
-      <div class="alert alert-danger">
-        {{ errors }}
-      </div>
-    {%endif%}
+
+{% block content %}
+<div class="container text-center">
+  {% if errors %}
+    <div class="alert alert-danger">
+      {{ errors }}
+    </div>
+  {%endif%}
 
 {%include "includes/alerts.html" %}
   </div>
@@ -71,10 +74,10 @@ form .form-control:focus{
           Log In
           </button>
                <p class="float-left" style="color:#444;">
-          New Guest? <a href="{%url "reg"%}">Sign Up!</a>
+          New Guest? <a href="{%url 'reg' %}">Sign Up!</a>
         </p>
         <p> 
-           <a data-toggle="modal" href="{% url "email_reset" %}" data-target="#myModal" class="float-right">
+           <a data-toggle="modal" href="{% url 'email_reset' %}" data-target="#myModal" class="float-right">
            Forgot Password?</a>
         </p>
       
@@ -91,7 +94,7 @@ form .form-control:focus{
  
 </div>
 
-<script type="text/javascript" src="{% static "js/classie.js" %}"></script>
+<script type="text/javascript" src="{% static 'js/classie.js' %}"></script>
  
     <script>
       (function() {
