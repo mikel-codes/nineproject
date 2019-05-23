@@ -46,10 +46,10 @@
        <div class="vertical-form" style="border: 1px 1px 1px 0px solid black; border-color: red;">
           <section class="content bgcolor-4">
             <h2 class="form-login-heading" style="background: white;">
-              <img src="{% static "images/blg.svg" %}" width="80" height="80">
+              <img src="{% static 'images/blg.svg' %}" width="80" height="80">
             </h2>
 
-            <form method="post" action="{% url "signin" %}" style="margin-top: 10px;">
+            <form method="post" action="{% url 'signin' %}" style="margin-top: 10px;">
               {%csrf_token%}
               <h4 class="text-center">Log in to Continue</h4>
               <span class="input input--chisato">
