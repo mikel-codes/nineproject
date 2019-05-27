@@ -199,7 +199,7 @@ def registration(request):
 
 def activate(request, uidb64, token):
     try:
-        uid = force_text(urlsafe_base64_decode(uidb64))
+        uid = force_text(urlsafe_base64_decode(uidb64)).decode()
         user = User.objects.get(username=uid)
         if account_token.check_token(user, token):
             user.refresh_from_db()
