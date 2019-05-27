@@ -31,9 +31,9 @@ urlpatterns = [
         
         path("disabled/javascript", no_js, name="no_js"),
         path('oops!',page_not_found, name="page_not_found" ),
-        path("topic/<str:slug>", getpost, name ="getpost"),
-        path("delete/<pk>", delete_post, name='deletepost'),
-        path("<str:name>/profile", edit_profile, name="edit_profile"),
+        path('topic/<str:slug>', getpost, name ="getpost"),
+        path('delete/<pk>', delete_post, name='deletepost'),
+        path('<str:name>/profile', edit_profile, name="edit_profile"),
         # --------------- ------------------ -------------
         #Payments
         path('funding/', stripepay, name='payment'),

@@ -47,32 +47,6 @@ class Profile(TimeMixin):
         return self.author.get_full_name()
 
 
-    def save(self, *args, **kwargs):
-        try:
-            if self.picture:
-                with BytesIO(self.picture.read()) as bytes_obj:
-                    with Image.open(bytes_obj) as imgfile_obj:
-                        new_bytes_obj = BytesIO()
-                        # Resize/modify for image and thumb
-                        '''Convert to RGB if necessary'''
-                        if imgfile_obj.mode not in ('L', 'RGB'):
-                            imgfile_obj = imgfile_obj.convert('RGB')
-
-
-                        imgfile_obj.thumbnail((80,80), Image.ANTIALIAS)
-
-                        imgfile_obj.save(new_bytes_obj, format="JPEG", quality=100)
-                        new_bytes_obj.seek(0) # go to the first line on the stream of bytes
-
-                        author_name = self.author.username
-
-                        suf = SimpleUploadedFile(os.path.split(self.picture.name)[-1].split('.')[0], new_bytes_obj.read(), content_type='image/jpeg')
-                        self.picture.save('%s.jpg' % author_name.split('.')[0], suf, save=True)
-                        #cleaned_data.get('picture') = InMemoryUploadedFile(new_bytes_obj,'ImageField', '%s.jpg' % self.request.username, 'image/jpeg', sys.getsizeof(new_bytes_obj),)
-                    imgfile_obj.close()
-            super().save(*args, **kwargs)
-        except Exception as e:
-            print("Errors", e)
 
 
 @python_2_unicode_compatible

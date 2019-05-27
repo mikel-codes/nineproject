@@ -276,15 +276,24 @@ button.btn-search, button.btn-reset {
             <li class="nav-item" ng-click="show('bottom')">
           <a routerLinkActive="active" class="nav-link" href="">Go to Quick Links</a>
             </li>
-              <li class="nav-item">
-          <a routerLinkActive="active" class="nav-link" href="{% url 'signin' %}">
-        Log In
-          </a>
+            {% if  not request.user.is_authenticated %}
+             <li class="nav-item">
+              <a routerLinkActive="active" class="nav-link" href="{% url 'signin' %}">Log In</a>
         </li>
           <li  class="nav-item">
         <a routerLinkActive="active" class="nav-link" href="{% url 'reg' %}">
         Join Us</a>
       </li>
+      {%else %}
+      <li class="nav-item">
+          <a class="nav-link text-center"  href="{% url 'edit_profile' request.user %}">Edit Profile
+          </a>
+        </li>
+           <li class="nav-item">
+        <a routerLinkActive="active" class="nav-link" href="{% url 'dashboard' request.user %}">Go To Dashboard</a>
+      </li>
+
+      {% endif %}
        <li class="nav-item">
         <a routerLinkActive="active" class="nav-link" href="{% url 'contact' %}">
         Contact Us</a>

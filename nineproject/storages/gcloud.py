@@ -4,7 +4,7 @@
 
 from django.conf import settings
 from storages.backends.gcloud import GoogleCloudStorage
-from urllib.parse import urljoin
+
 
 
 class GsPostCloud(GoogleCloudStorage):

@@ -5,6 +5,7 @@ import os.path
 from PIL import Image
 from io import StringIO, BytesIO
 
+import sys, os
 
 from django import forms 
 from django.forms import PasswordInput, TextInput, Textarea, Select, HiddenInput
@@ -139,14 +140,16 @@ class PostForm(forms.ModelForm):
 
         
 class ProfileForm(forms.ModelForm):
-    bio = forms.CharField(label=_("Describe Yourself (not more than 200chars) "),widget=forms.Textarea(), max_length=201, help_text='use less than 200 characters')
-    
+    bio = forms.CharField(label=_("Describe Yourself (not more than 300chars) "),widget=forms.Textarea(), max_length=301, help_text='use less than 300 characters')
+    ip_addr = forms.GenericIPAddressField(label=_('IP Address'), widget=forms.HiddenInput(), required=False)
     class Meta:
         model = Profile
-        fields = ('bio','picture')
+        fields = ('bio','picture', 'ip_addr')
     def __init__(self, request, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.request = request
+        self.ip_addr = '1.1.1.1'
+        
 
     def get_client_ip(self):
         x_forwarded_for = self.request.META.get('HTTP_X_FORWARDED_FOR')
@@ -156,15 +159,38 @@ class ProfileForm(forms.ModelForm):
             ip = self.request.META.get('REMOTE_ADDR')
         return ip
 
-    def save(self, commit=True):
+    def clean_ip_addr(self):
+        self.cleaned_data['ip_addr'] = self.get_client_ip()
+        print("value for ip set to ", self.cleaned_data['ip_addr'])
+        return self.cleaned_data['ip_addr']
+
+    def clean_picture(self, *args, **kwargs):
         try:
-            profile = super().save(commit=False)
-            profile.ip_addr = self.get_client_ip()
-            print("\n Coming from profile forms \n", profile.ip_addr)
-            if commit:
-                profile.save()
+            if self.cleaned_data['picture']:
+                with BytesIO(self.cleaned_data['picture'].read()) as bytes_obj:
+                    print("Coming from picture ",bytes_obj)
+                    with Image.open(bytes_obj) as imgfile_obj:
+                        new_bytes_obj = BytesIO()
+                        # Resize/modify for image and thumb
+                        '''Convert to RGB if necessary'''
+                        if imgfile_obj.mode not in ('L', 'RGB'):
+                            imgfile_obj = imgfile_obj.convert('RGB')
+                        imgfile_obj.thumbnail((80,80), Image.ANTIALIAS)
+                        imgfile_obj.save(new_bytes_obj, format="JPEG", quality=100)
+
+                        new_bytes_obj.seek(0) # go to the first line on the stream of bytes
+                        author_name = self.request.user.username
+                        
+                        self.cleaned_data['picture'] = SimpleUploadedFile(os.path.split(self.cleaned_data['picture'].name)[-1].split('.')[0], new_bytes_obj.read(), content_type='image/jpeg')
+                        self.cleaned_data['picture'].name = "%s.jpg" % self.request.user.username
+
+                        print("Pictures identity" , self.cleaned_data['picture'])
+
+                        
+                    imgfile_obj.close()
+            return self.cleaned_data['picture']
         except Exception as e:
-            print("\n", e, "\n")
+            print("Errors", e)
 
 
 def validate_file_extension(value):

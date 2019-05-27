@@ -6,16 +6,16 @@
     <form method="post" action="" enctype="multipart/form-data">
       {% csrf_token %}
       {% if form.errors%}
-        <divv  class="alert alert-danger centered"> 
+        <div  class="alert alert-warning centered"> 
           <h3> Form could not be saved  </h3>
-       <p>{{form.errors}}</p>
+       <p><font color=red>{{form.errors}}</font></p>
       </div>
       {% endif %}
       <div class="vertical-form">
         <legend>{{legend | upper}}</legend>
 
         {%for field in form.visible_fields %}
-          <div class='form-group'>
+          <div class='form-group input group'>
             <div class="control-label">
               {{field.label_tag}}
             </div>

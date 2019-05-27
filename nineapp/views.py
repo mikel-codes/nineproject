@@ -332,17 +332,20 @@ def search_site(request):
 
 @login_required(login_url="signin")
 def edit_profile(request, name):
-    claps = 0
-    for p in Post.objects.filter(post_by=request.user):
-        claps += p.clap.num_claps
-    name = request.user.username 
-    profile = get_object_or_404(Profile, pk=request.user.id)
-    form = ProfileForm(request, request.POST or None, request.FILES or None, instance=profile)
-    if form.is_valid():
-        form.save()
-        messages.info(request, "Hurray! you now own a work profile")
-        return redirect(reverse("dashboard", args=(request.user.username,)))
-    return render(request, "dashboard/profile.html", {'form':form, 'legend': "edit profile", 'profile':profile, 'claps': claps})
+    try:
+        claps = 0
+        for p in Post.objects.filter(post_by=request.user):
+            claps += p.clap.num_claps
+        name = request.user.username 
+        profile = get_object_or_404(Profile, pk=request.user.id)
+        form = ProfileForm(request, request.POST or None, request.FILES or None, instance=profile)
+        if form.is_valid():
+            form.save()
+            messages.info(request, "Hurray! you now own a work profile")
+            return redirect(reverse("dashboard", args=(request.user.username,)))
+        return render(request, "dashboard/profile.html", {'form':form, 'legend': "edit profile", 'profile':profile, 'claps': claps})
+    except Exception as e:
+        print('I could not save this profile form , reasons are \n', e)
 
 
 def page_not_found(request):

@@ -13,7 +13,7 @@
   </script>
 <style type="text/css">
   .img-thumbnail{
-    border: 2px solid black; 
+    border: 2px solid orangered; 
     margin-right: .25em;
     display: inline-block;
     width: 8em;
@@ -26,7 +26,7 @@
   <li class="nav-item active">
     {% if profile.picture %}
       <p class="centered">
-        <img src="{{ profile.picture.url  }}" 
+        <img src="{{ profile.picture.url }}" 
         
         class="rounded-circle img-thumbnail">
       </p>
@@ -36,12 +36,13 @@
       </p>
     {%else%}
       <p class="centered">
-        <img src="{% static "images/unknown.png" %}" width="100" height="100" class="img thumbnail rounded-circle">
+        <img src="{% static 'images/unknown.png' %}" width="100" height="100" class="img thumbnail rounded-circle">
         </p>
              <p class="centered">
         <b><small>{{ request.user.get_full_name }}</small> </b>
       </p>
         {%endif%}
+
 
   
       </li>
@@ -60,14 +61,14 @@
       {%endif%}
       <li class="nav-item">
         <a class="nav-link text-center" 
-        href="{% url "dashboard" request.user %}">
+        href="{% url 'dashboard' request.user %}">
           <i class="fa fa-notepad"></i>
           <p>My BlogSpace</p>
         </a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link text-center"  href="{% url "dashboard" request.user%}">
+        <a class="nav-link text-center"  href="{% url 'dashboard' request.user%}">
           {% include "includes/svg_clap.html" %} {{claps}}
         </p>
 
@@ -75,25 +76,27 @@
       </li>
     
       <li class="nav-item">
-        <a class="nav-link text-center"  href="{% url "edit_profile" request.user%}">
+        <a class="nav-link text-center"  href="{% url 'edit_profile' request.user%}">
           <i class="fa fa-megaphone"></i>
           <p>About Profile </p>
         </a>
       </li>
        <li class="navbar-form nav-item ">
         <a class="nav-link text-center"  
-        href="{% url "reset_password" %}">
+        href="{% url 'reset_password' %}">
           <i class="fa fa-key"></i>
           <p>Change Password </p>
         </a>
       </li>
 
         <li class="navbar-form nav-item ">
-        <a class="nav-link"  href="{% url "logout" %}">
+        <a class="nav-link"  href="{% url 'logout' %}">
           <i class="fa fa-sign-out"></i>
           <p>Logout </p>
         </a>
       </li>
+}
+}
 
  </ul>
  
