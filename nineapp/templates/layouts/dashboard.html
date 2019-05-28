@@ -3,12 +3,11 @@
 <html class="perfect-scrollbar-off nav-close" lang="en">
   <head>
     {%include "includes/ads.html"%}
-    {% include "noscript.html" %}
-    <meta charset="utf-8" >
     <title>{{request.user.username}}'s blogspace</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="Dashboard">
+ <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name='description' content="dashboard for users">
+
       <meta name="google-site-verification" content="Rwqs47WxmdshII1MGi2_Ji5MMG8-OGnsogTG0WxdiHA" />
 
     {%load static%}
@@ -100,8 +99,12 @@
   </section>
 <!-- include 'includes/revenue_hits.html' -->
   {%include "includes/dashboard/admin_msg.html"%}
+<footer>
+   {% include "noscript.html" %}
 
+</footer>
 </body>
+
 </html>
 
 

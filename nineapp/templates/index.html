@@ -2,6 +2,7 @@
 
 <html lang="en" ng-app="mainApp">
   <head>
+
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script>
   (adsbygoogle = window.adsbygoogle || []).push({
@@ -10,13 +11,13 @@
   });
 
 </script>
+ <title> 9blogspace - Write your Story </title>
+ <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    {% include "noscript.html" %}
-    
-<meta charset="utf-8" />
     <meta name="google-site-verification" content="Rwqs47WxmdshII1MGi2_Ji5MMG8-OGnsogTG0WxdiHA" />
 
-    <title> 9blogspace </title>
+    
     {%load static%}
        <link rel="shortcut icon"  href="{% static 'images/fav3.ico' %}" type="image/x-icon">
     {%include "includes/website_index/static_files.html"%}
@@ -52,6 +53,14 @@
   body{
     font-family: 'Raleway', 'Lato';
   }
+  /*.img-bg.bg-gd{
+    background-image: url('{{ last_p.photos.url }}');
+  }
+  */
+
+  .rounded-circle{
+    border: 2px solid #e25e2b;
+  }
 </style>
 
   </head>
@@ -69,12 +78,22 @@
             <div class="pb-5 pr-5 pr-sm-0 float-left float-sm-none w-2-3 w-sm-100 h-100 h-sm-300x">
               {% if last_p %}
                 <a class="pos-relative h-100 dplay-block" href="{% url 'getpost' last_p.slug  %}">
-                  <div class="img-bg bg-1 bg-grad-layer-6" style="background: url('{{ last_p.photos.url }}') no repeat center;"></div>
+                  <div class="img-bg bg-1 bg-grad-layer-6" style='background-image: url({{last_p.photos.url}}); background-repeat: no-repeat;'></div>
                     <div class="abs-blr color-white p-20 bg-sm-color-7">
-                      <h3 class="mb-15 mb-sm-5 font-sm-13"><b>{{last_p.topic}}</b></h3>
+                      <h1 class="mb-15 ml-0 mb-sm-5  text-left font-sm-13 h3"><b>{{last_p.topic}}</b></h1>
                         <ul class="list-li-mr-20">
                           {% if last_p.post_by %}
-                            <li>by <span class="color-primary"><b>{{last_p.post_by.get_full_name}}</b></span> 
+                    
+                            <li>  {%if last_p.author.profile.picture %}
+                              <img src="{{last_p.author.profile.picture.url}}" class="rounded-circle img-thumbnail avatar" />
+                            {%else%}
+                            <img src="{% static 'images/icon.jpg' %}" 
+                        class="rounded-circle img-thumbnail avatar">
+                        {%endif%}
+        
+                          <b class="color-primary"> {{last_p.post_by.get_full_name}}</b>
+                        </li>
+                        <li>
                               {{last_p.modified}}
                             </li>
                           

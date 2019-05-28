@@ -2,9 +2,10 @@
 <html lang="en" ng-app="mainApp">
   <head>
     {%include "includes/ads.html"%}
-     {% include "noscript.html" %}
-     <meta charset="utf-8">
     <title>{%block title%}{%endblock%}</title>
+
+     
+     <meta charset="utf-8">
     {% load static %}
        
      
@@ -130,7 +131,7 @@
                 
                   
                   </span>
-                    <span style="color: darkgreen; text-align: left;">
+                    <span class="ml-0 text-left" style="color: darkgreen; ">
                        *{{profile.bio | linebreaks}}*
                  
                     </span>

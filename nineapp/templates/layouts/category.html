@@ -3,11 +3,11 @@
 <html lang="en" ng-app="mainApp">
   <head>
    {%include "includes/ads.html"%}
-
+  <title>{%block title%}{%endblock%}</title>
      {% include "noscript.html" %}
-     <meta charset="utf-8">
-    <title>{%block title%}{%endblock%}</title>
- 
+    
+  
+  <meta charset="utf-8" />
      {%load static%}
        <link rel="shortcut icon"  href="{% static 'images/newicon.ico' %}" type="image/x-icon">
            <meta name="viewport" content="width=device-width, initial-scale=1">
