@@ -11,7 +11,7 @@
   });
 
 </script>
- <title> 9blogspace - Write your Story </title>
+ <title> 9blogspace - {{last_p.topic | truncatechars:40 }} </title>
  <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -53,10 +53,7 @@
   body{
     font-family: 'Raleway', 'Lato';
   }
-  /*.img-bg.bg-gd{
-    background-image: url('{{ last_p.photos.url }}');
-  }
-  */
+
 
   .rounded-circle{
     border: 2px solid #e25e2b;
@@ -85,10 +82,10 @@
                           {% if last_p.post_by %}
                     
                             <li>  {%if last_p.author.profile.picture %}
-                              <img src="{{last_p.author.profile.picture.url}}" class="rounded-circle img-thumbnail avatar" />
+                              <img src="{{last_p.author.profile.picture.url}}" class="rounded-circle img-thumbnail avatar"  alt="{{last_p.post_by.get_full_name}}"/>
                             {%else%}
                             <img src="{% static 'images/icon.jpg' %}" 
-                        class="rounded-circle img-thumbnail avatar">
+                        class="rounded-circle img-thumbnail avatar"  alt="{{last_p.post_by.get_full_name}}">
                         {%endif%}
         
                           <b class="color-primary"> {{last_p.post_by.get_full_name}}</b>
@@ -224,7 +221,7 @@
                         <h5 class="">
                           <span class="float-left">
 
-                            <img src='{% static "images/thumb.png" %}'  /></span>
+                            <img src='{% static "images/thumb.png" %}'  alt="time logo for post" /></span>
                           <span class="float-left" id="momentum">{{post.modified | date:"Y/m/d H:i:m" }}
                           </span>  
                           <span class="float-right">
@@ -281,7 +278,7 @@
                     {% for post in side_posts %}
                       <a class="oflow-hidden pos-relative mb-20 dplay-block" href="{% url 'getpost' post.slug  %}">
                         <div class="wh-100x abs-tlr">
-                          <img src="{{post.photos.url}}" width="80" height="80" alt=""></div>
+                          <img src="{{post.photos.url}}" width="80" height="80" alt="{{post.topic| truncatechars:10}}"></div>
                         <div class="ml-120 min-h-100x">
                           <h5><b>{{post.topic}}</b></h5>
                           <h6 class="color-lite-black pt-10">by <span class="color-black"><b>

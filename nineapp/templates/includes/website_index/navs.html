@@ -307,13 +307,13 @@ button.btn-search, button.btn-reset {
           {% if request.user.profile.picture%}
         <a href="{% url 'dashboard' request.user %}" class="nav-link d-flex align-items-center" routerLinkActive="active">
          
-            <img src="{{request.user.profile.picture.url}}" class="rounded-circle img-thumbnail  avatar">
+            <img src="{{request.user.profile.picture.url}}" class="rounded-circle img-thumbnail  avatar"  alt="{{request.user.get_full_name}}">
           
           </a>
           {%else%}
     <a href="{% url 'dashboard' request.user.username %}" class="nav-link d-flex align-items-center">
     
-       <img src="{% static 'images/icon.jpg' %}" class=" rounded-circle img-thumbnail  avatar" >
+       <img src="{% static 'images/icon.jpg' %}" class=" rounded-circle img-thumbnail  avatar"   alt="{{request.user.get_full_name}}">
        </a>
         {%endif%}
 

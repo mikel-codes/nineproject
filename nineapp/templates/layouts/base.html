@@ -100,7 +100,7 @@
                    </li>
                 </ul>
                 {%if post.photos %}                                  
-                  <img src="{{post.photos.url}}" style="width:50%;">
+                  <img src="{{post.photos.url}}" style="width:50%;" alt="{{post.topic | truncatechars:10}}">
                 {% endif %}
                 <p class="mtb-15">{{ post.content}}</p>
                
@@ -119,9 +119,9 @@
                 <h6>
                   <span style="float: left;">
                 {% if profile.picture  %}
-                  <img src="{{profile.picture.url}}"   class="rounded-circle img-thumbnail" />
+                  <img src="{{profile.picture.url}}"   class="rounded-circle img-thumbnail" alt="profile.picture"/>
                   {%else %}
-                  <img src="{% static 'images/blg.svg' %}" class="img-thumbnail" />
+                  <img src="{% static 'images/blg.svg' %}" class="img-thumbnail"  alt="profile.picture"/>
                   <style type="text/css">.img-thumbnail{background-color: inherit; border: none; }
                   </style>
                 {% endif %}
@@ -172,7 +172,7 @@
               {% for post in posts %}
                 <div class="col-sm-4">
                   {% if post.photos %}
-                    <img src="{{post.photos.url}}" alt="" height="200" width="350">
+                    <img src="{{post.photos.url}}" alt="" height="200" width="350" alt="profile.picture" />
                   {%endif%}
                   <h4 class="pt-20">
                     <a href="{% url 'getpost' post.slug %}">

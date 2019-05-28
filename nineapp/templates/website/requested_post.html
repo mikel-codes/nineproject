@@ -62,18 +62,17 @@
 <ul class="list-li-mr-20 mtb-15 text-center">
   <li>
  
-  on {{ req_post.modified}}  <img src="{% static 'images/out.png' %}" class="avatar" onload="readingTime()"> 
+  on {{ req_post.modified}}  <img src="{% static 'images/out.png' %}" class="avatar" alt="book icon" onload="readingTime()"> 
   <b id="rt"></b> mins read 
     <br>
-  <img src="{% static 'images/eye.png' %}" class="avatar">viewed 
+  <img src="{% static 'images/eye.png' %}" class="avatar" alt='view icon'>viewed 
   <view-dir  link="{% url 'view_update' req_post.id %} ">&times;__views | NumFilter__
   
   </view-dir>
 
 
 </ul>
-<img src="{{ req_post.photos.url }}" alt="" width="10"  height="400"  />
-
+<img src="{{ req_post.photos.url }}"  width="10"  height="400" alt="{{req_post.topic | truncatechars:10}}" />
 <span class="mtb-15" id="loop" style="text-align:  left;">
   
       {{ req_post.content | safe }}

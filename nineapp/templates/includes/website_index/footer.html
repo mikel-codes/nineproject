@@ -6,7 +6,7 @@
     <div class="pt-50 pb-20 pos-relative">
       <div class="abs-tblr pt-50 z--1 text-center">
         <div class="h-80 pos-relative">
-          <img class="opacty-1 h-100 w-auto" src="{%  static 'images/map.png'%} " alt=""></div>
+          <img class="opacty-1 h-100 w-auto" src="{%  static 'images/map.png'%} " alt="footer background"></div>
         </div>
         <div class="row">
 
@@ -14,15 +14,17 @@
           <div class="col-sm-3 col-lg-3 col-md-3">
             <div class="mb-30">
               <a class="foots logo"> 
-                <img src="{% static 'images/blg.svg' %}" width="100" height="100">
+                <img src="{% static 'images/blg.svg' %}" width="100" height="100" alt="9blogspace icon">
               </a>
               <p class="mtb-20 color-ccc">
                 Is a virtual company that connects bloggers and empowers you the blogger, to share your blogs world wide in 
                 politics, entertainment and technology etc.
                 <br>
-                <pre>
-                ** Read, Learn, Blog **
-              </pre>
+                
+                <b>your space | your story</b>
+                <br>
+                <i class="fa fa-star"></i>Write Read Learn Blog<i class="fa fa-star"></i>
+              
               </p>
               <p class="color-ash">
                 Copyright ©  
@@ -48,7 +50,7 @@
                 {% for cat in categories %}
                   <div class="mb-10" >
                  <a class="color-white" 
-                 href="{% url "listposts" cat.slug %}"><b>{{cat.name}}</b></a>
+                 href="{% url 'listposts' cat.slug %}"><b>{{cat.name}}</b></a>
                   
                   
                   </div>
