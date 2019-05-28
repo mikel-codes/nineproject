@@ -113,10 +113,12 @@ class Post(TimeMixin, MetaTagsMixin):
         return self.tags.split(',')
 
     def save(self):
-        self.meta_name = self.topic
         self.meta_keywords = self.tags
+        self.meta_description = '%s: %s' % (self.category.name, self.topic)
         self.meta_author = self.post_by.get_full_name()
         self.slug = slugify(self.topic).lower()
+        self.meta_copyright = str(self.modified)
+
 
         try:
             super(Post, self).save()

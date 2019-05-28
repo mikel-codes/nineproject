@@ -13,7 +13,9 @@
 
     {% include "noscript.html" %}
     
-<meta charset="utf-8">
+<meta charset="utf-8" />
+    <meta name="google-site-verification" content="Rwqs47WxmdshII1MGi2_Ji5MMG8-OGnsogTG0WxdiHA" />
+
     <title> 9blogspace </title>
     {%load static%}
        <link rel="shortcut icon"  href="{% static 'images/fav3.ico' %}" type="image/x-icon">
@@ -23,10 +25,10 @@
       {%endif%}
 
 
-        {% if top_posts %}
-      {%for p in top_posts%}
-      {{p.get_meta_tags}}
-      {%endfor%}
+      {% if top_posts %}
+        {%for p in top_posts%}
+          {{p.get_meta_tags}}
+        {%endfor%}
       {%endif%}
 
       {% if related_posts_first %}
