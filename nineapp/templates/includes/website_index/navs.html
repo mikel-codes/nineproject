@@ -243,7 +243,7 @@ button.btn-search, button.btn-reset {
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2" ng-controller="timeCtrl">
         <ul class="navbar-nav mr-auto  text-center">
             <li class="nav-item active">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="#" title="">
                   <font color="#4ECDC4;">
           <b>__ today __</b></font></a>
             </li>
@@ -265,7 +265,7 @@ button.btn-search, button.btn-reset {
       
     </div>
     <div class="mx-auto order-0">
-        <a class="navbar-brand mx-auto" href="{% url 'indexpage' %}" style="font-family: Lato"> <b>
+        <a class="navbar-brand mx-auto" href="{% url 'indexpage' %}" title='' style="font-family: Lato"> <b>
     <span>9blo</span><font color="#4ECDC4">gspace</font>.c<i class="fa fa-globe-africa" aria-hidden="true"></i>m</a></b>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
             <span class="navbar-toggler-icon"></span>
@@ -276,28 +276,28 @@ button.btn-search, button.btn-reset {
         <ul class="navbar-nav ml-auto font-12">
             
             <li class="nav-item" ng-click="show('bottom')">
-          <a routerLinkActive="active" class="nav-link" href="">Go to Quick Links</a>
+          <a routerLinkActive="active" class="nav-link" href="" title="">Go to Quick Links</a>
             </li>
             {% if  not request.user.is_authenticated %}
              <li class="nav-item">
-              <a routerLinkActive="active" class="nav-link" href="{% url 'signin' %}">Log In</a>
+              <a routerLinkActive="active" class="nav-link" href="{% url 'signin' %}" title="">Log In</a>
         </li>
           <li  class="nav-item">
-        <a routerLinkActive="active" class="nav-link" href="{% url 'reg' %}">
+        <a routerLinkActive="active" class="nav-link" href="{% url 'reg' %}" title="">
         Join Us</a>
       </li>
       {%else %}
       <li class="nav-item">
-          <a class="nav-link text-center"  href="{% url 'edit_profile' request.user %}">Edit Profile
+          <a class="nav-link text-center"  href="{% url 'edit_profile' request.user %}" title="">Edit Profile
           </a>
         </li>
            <li class="nav-item">
-        <a routerLinkActive="active" class="nav-link" href="{% url 'dashboard' request.user %}">Go To Dashboard</a>
+        <a routerLinkActive="active" class="nav-link" href="{% url 'dashboard' request.user %}" title="">Go To Dashboard</a>
       </li>
 
       {% endif %}
        <li class="nav-item">
-        <a routerLinkActive="active" class="nav-link" href="{% url 'contact' %}">
+        <a routerLinkActive="active" class="nav-link" href="{% url 'contact' %}" title="">
         Contact Us</a>
       </li>
      
@@ -305,13 +305,13 @@ button.btn-search, button.btn-reset {
         <li class="nav-item" >
 
           {% if request.user.profile.picture%}
-        <a href="{% url 'dashboard' request.user %}" class="nav-link d-flex align-items-center" routerLinkActive="active">
+        <a href="{% url 'dashboard' request.user %}" title="" class="nav-link d-flex align-items-center" routerLinkActive="active">
          
             <img src="{{request.user.profile.picture.url}}" class="rounded-circle img-thumbnail  avatar"  alt="{{request.user.get_full_name}}">
           
           </a>
           {%else%}
-    <a href="{% url 'dashboard' request.user.username %}" class="nav-link d-flex align-items-center">
+    <a href="{% url 'dashboard' request.user.username %}"  title=""  class="nav-link d-flex align-items-center">
     
        <img src="{% static 'images/icon.jpg' %}" class=" rounded-circle img-thumbnail  avatar"   alt="{{request.user.get_full_name}}">
        </a>

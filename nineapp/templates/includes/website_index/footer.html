@@ -13,9 +13,9 @@
 
           <div class="col-sm-3 col-lg-3 col-md-3">
             <div class="mb-30">
-              <a class="foots logo"> 
+              <p class="foots logo"> 
                 <img src="{% static 'images/blg.svg' %}" width="100" height="100" alt="9blogspace icon">
-              </a>
+              </p>
               <p class="mtb-20 color-ccc">
                 Is a virtual company that connects bloggers and empowers you the blogger, to share your blogs world wide in 
                 politics, entertainment and technology etc.
@@ -49,8 +49,7 @@
               {% if categories %}
                 {% for cat in categories %}
                   <div class="mb-10" >
-                 <a class="color-white" 
-                 href="{% url 'listposts' cat.slug %}"><b>{{cat.name}}</b></a>
+                 <a class="color-white" href="{% url 'listposts' cat.slug %}" title=''><b>{{cat.name}}</b></a>
                   
                   
                   </div>
@@ -70,7 +69,7 @@
               <h5 class="color-primary mb-20"><b>EXPLORE</b></h5>
               <div class="mb-20">
                 {% if head_post  %}
-                <a class="color-white" href="{% url "getpost" head_post.slug %}">
+                <a class="color-white" href="{% url 'getpost' head_post.slug %}" title=''>
                   <b>
                     {{head_post.topic}} 
                   </b>
@@ -82,7 +81,7 @@
               <div class="brdr-ash-1 opacty-2 mr-30"></div>
              
               <div class="mt-20">
-                <a class="color-white" href="{% url "getpost" last_p.slug %}">
+                <a class="color-white" href="{% url 'getpost' last_p.slug %}" title=''>
                   <b>
                     {{last_p.topic}}
                   </b></a>
@@ -112,12 +111,12 @@
 </script>
               </div>
 
-              <a href="#" class=" text-center go-top">
+              <a href="#" title="" class=" text-center go-top">
                 <i class="fa fa-angle-up"></i>
               </a>
             </div><!-- mb-30 -->
           </div><!-- col-md-4 -->
-          <a href="#" class=" text-center go-top">
+          <a href="#" title="" class=" text-center go-top">
             <i class="fa fa-angle-up"></i>
           </a>
         </div><!-- row -->
@@ -130,15 +129,15 @@
         <ul class="float-left float-sm-none list-a-plr-10 list-a-plr-sm-5 list-a-ptb-15 list-a-ptb-sm-10">
           <li><a class="pl-0 pl-sm-10" href="#">Terms &amp; Conditions</a></li>
           <li><a href="#">Privacy policy</a></li>
-          <li><a href="{% url "contact" %}">Jobs advertising</a></li>
-          <li><a href="{% url 'contact' %}">Contact us</a></li>
+          <li><a href="{% url 'contact' %}" title=''>Jobs advertising</a></li>
+          <li><a href="{% url 'contact' %}" title=''>Contact us</a></li>
         </ul>
         <ul class="float-right float-sm-none list-a-plr-10 list-a-plr-sm-5 list-a-ptb-15 list-a-ptb-sm-5">
-          <li><a class="pl-0 pl-sm-10" href="#"><i class="ion-social-facebook"></i></a></li>
+          <li><a class="pl-0 pl-sm-10" href="#" title=""><i class="ion-social-facebook"></i></a></li>
           <li><a href="#">  Copyright &copy; <script>document.write(new Date().getFullYear());</script> ceodevelopers</a></li>
-          <li><a href="#"><i class="ion-social-google"></i></a></li>
-          <li><a href="#"><i class="ion-social-instagram"></i></a></li>
-          <li><a href="#"><i class="ion-social-bitcoin"></i></a></li>
+          <li><a href="#" title=""><i class="ion-social-google"></i></a></li>
+          <li><a href="#" title=""><i class="ion-social-instagram"></i></a></li>
+          <li><a href="#" title=""><i class="ion-social-bitcoin"></i></a></li>
         </ul>
 
       </div><!-- oflow-hidden -->
