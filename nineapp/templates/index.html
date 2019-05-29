@@ -22,34 +22,7 @@
     {%load static%}
     <link rel="shortcut icon"  href="{% static 'images/fav3.ico' %}" type="image/x-icon">
     {%include "includes/website_index/static_files.html"%}
-      {%if last_p%}
-      {{last_p.get_meta_tags}}
-      {%endif%}
-
-
-      {% if top_posts %}
-        {%for p in top_posts%}
-          {{p.get_meta_tags}}
-        {%endfor%}
-      {%endif%}
-
-      {% if related_posts_first %}
-    {% for post in related_posts_first %}
-    {{post.get_meta_tags}}
-    {%endfor%}
-    {%endif%}
-
-      {% if side_posts %}
-    {% for post in side_posts %}
-    {{post.get_meta_tags}}
-    {%endfor%}
-    {%endif%}
-
-     {% if recent_posts %}
-    {% for post in recent_posts %}
-    {{post.get_meta_tags}}
-    {%endfor%}
-    {%endif%}
+    
     <style type="text/css">
   body{
     font-family: 'Raleway', 'Lato';
@@ -83,7 +56,7 @@
                   <div class="img-bg bg-1 bg-grad-layer-6" style='background-image: url({{last_p.photos.url}}); 
                   background-repeat: no-repeat;'></div>
                     <div class="abs-blr color-white p-20 bg-sm-color-7">
-                      <h3 class="mb-15 ml-0 mb-sm-5  text-left font-sm-13 h4"><b>{{last_p.topic}}</b></h3>
+                      <h2 class="mb-15 ml-0 mb-sm-5  text-left font-sm-13 h4"><b>{{last_p.topic}}</b></h2>
                         <ul class="list-li-mr-20">
                           {% if last_p.post_by %}
                     
