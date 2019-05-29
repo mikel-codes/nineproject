@@ -11,15 +11,16 @@
   });
 
 </script>
- <title> 9blogspace - Write Read Learn Blog </title>
+ <title> 9blogspace -  Your Space To Write Read Learn Blog </title>
  <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <meta name="google-site-verification" content="Rwqs47WxmdshII1MGi2_Ji5MMG8-OGnsogTG0WxdiHA" />
-
+    <meta name="keyword" content="home index 9blogspace bloggers website">
+    <meta name="description" content="9blogspace is a rich space for online blogging. if you love to read explore write blog, then this is your hub. follow up and join the stream of bloggers:)">
     
     {%load static%}
-       <link rel="shortcut icon"  href="{% static 'images/fav3.ico' %}" type="image/x-icon">
+    <link rel="shortcut icon"  href="{% static 'images/fav3.ico' %}" type="image/x-icon">
     {%include "includes/website_index/static_files.html"%}
       {%if last_p%}
       {{last_p.get_meta_tags}}
@@ -65,7 +66,7 @@
     <header>
       {% include "includes/website_index/navs.html" %}
     </header>
-    <h1 style="display: none;">9blogspace.com - Your Space To Write Read Learn Blog</h1>
+    
     {%autoescape on%}
       
       
