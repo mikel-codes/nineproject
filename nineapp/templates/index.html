@@ -234,8 +234,16 @@
                           <img class="card-img-top" src="{{post.photos.url}}" height="200" width="200" alt="image loading...">
                           <div class="card-body">
                             <h3 class="card-title">
-                              <a href="{% url 'getpost' post.slug %}" class="card-link">
+                              <a href="{% url 'getpost' post.slug %}" class="card-link" {%if post.topic|length >= 19 %} title='{{post.topic}}' {%endif%} />
+                              {{ post.topic | length}}
                                 <b>{{post.topic| truncatewords:3}}</b>
+                              
+                              
+                              
+                            
+                              
+                              
+                                
                               </a>
                             </h3>
 

@@ -175,7 +175,7 @@
                     <img src="{{post.photos.url}}" alt="" height="200" width="350" alt="profile.picture" />
                   {%endif%}
                   <h4 class="pt-20">
-                    <a href="{% url 'getpost' post.slug %}">
+                    <a href="{% url 'getpost' post.slug %}" {%if post.topic|length >= 19 %} title='{{post.topic}}' {%endif%}>
                       <b>{{post.topic | truncatechars:25}}</b>
                     </a>
                   </h4>
