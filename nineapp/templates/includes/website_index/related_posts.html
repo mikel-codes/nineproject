@@ -7,7 +7,7 @@
    href="{% url 'getpost'  post.slug %}#">
     <div class="wh-100x abs-tlr">
       {%if post.photos %}
-        <img src= "{{post.photos.url}}" height='80' alt=""/>
+        <img src= "{{post.photos.url}}" height='80' alt="{{post.topic}}"/>
       {%endif%}
     </div>
     <div class="ml-120 min-h-100x">
