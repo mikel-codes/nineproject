@@ -280,24 +280,24 @@ button.btn-search, button.btn-reset {
             </li>
             {% if  not request.user.is_authenticated %}
              <li class="nav-item">
-              <a routerLinkActive="active" class="nav-link" href="{% url 'signin' %}" title="">Log In</a>
+              <a  class="nav-link" href="{% url 'signin' %}" title="">Log In</a>
         </li>
           <li  class="nav-item">
-        <a routerLinkActive="active" class="nav-link" href="{% url 'reg' %}" title="">
+        <a  class="nav-link text-center" href="{% url 'reg' %}" title="">
         Join Us</a>
       </li>
       {%else %}
       <li class="nav-item">
-          <a class="nav-link text-center"  href="{% url 'edit_profile' request.user %}" title="">Edit Profile
+          <a class="nav-link"  href="{% url 'edit_profile' request.user %}" title="">Edit Profile
           </a>
         </li>
            <li class="nav-item">
-        <a routerLinkActive="active" class="nav-link" href="{% url 'dashboard' request.user %}" title="">Go To Dashboard</a>
+        <a class="nav-link" href="{% url 'dashboard' request.user %}" title="">Go To Dashboard</a>
       </li>
 
       {% endif %}
        <li class="nav-item">
-        <a routerLinkActive="active" class="nav-link" href="{% url 'contact' %}" title="">
+        <a class="nav-link" href="{% url 'contact' %}" title="">
         Contact Us</a>
       </li>
      
@@ -305,13 +305,13 @@ button.btn-search, button.btn-reset {
         <li class="nav-item" >
 
           {% if request.user.profile.picture%}
-        <a href="{% url 'dashboard' request.user %}" title="" class="nav-link d-flex align-items-center" routerLinkActive="active">
+        <a href="{% url 'dashboard' request.user %}" title="" class="nav-link" routerLinkActive="active">
          
             <img src="{{request.user.profile.picture.url}}" class="rounded-circle img-thumbnail  avatar"  alt="{{request.user.get_full_name}}">
           
           </a>
           {%else%}
-    <a href="{% url 'dashboard' request.user.username %}"  title=""  class="nav-link d-flex align-items-center">
+    <a href="{% url 'dashboard' request.user.username %}"  title=""  class="nav-link ">
     
        <img src="{% static 'images/icon.jpg' %}" class=" rounded-circle img-thumbnail  avatar"   alt="{{request.user.get_full_name}}">
        </a>

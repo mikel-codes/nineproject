@@ -11,7 +11,7 @@
   });
 
 </script>
- <title> 9blogspace - {{last_p.topic | truncatechars:40 }} </title>
+ <title> 9blogspace - Write Read Learn Blog </title>
  <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -62,11 +62,14 @@
 
   </head>
   <body ng-controller="defaultCtrl">
-    
+    <header>
+      {% include "includes/website_index/navs.html" %}
+    </header>
+    <h1 style="display: none;">9blogspace.com - Your Space To Write Read Learn Blog</h1>
     {%autoescape on%}
-      <header>
-        {% include "includes/website_index/navs.html" %}
-      </header>
+      
+      
+      
 
       <div class="container mt-10">
         <div class="h-600x h-sm-auto">
@@ -75,9 +78,10 @@
             <div class="pb-5 pr-5 pr-sm-0 float-left float-sm-none w-2-3 w-sm-100 h-100 h-sm-300x">
               {% if last_p %}
                 <a class="pos-relative h-100 dplay-block" href="{% url 'getpost' last_p.slug  %}" title="">
-                  <div class="img-bg bg-1 bg-grad-layer-6" style='background-image: url({{last_p.photos.url}}); background-repeat: no-repeat;'></div>
+                  <div class="img-bg bg-1 bg-grad-layer-6" style='background-image: url({{last_p.photos.url}}); 
+                  background-repeat: no-repeat;'></div>
                     <div class="abs-blr color-white p-20 bg-sm-color-7">
-                      <h1 class="mb-15 ml-0 mb-sm-5  text-left font-sm-13 h3"><b>{{last_p.topic}}</b></h1>
+                      <h3 class="mb-15 ml-0 mb-sm-5  text-left font-sm-13 h4"><b>{{last_p.topic}}</b></h3>
                         <ul class="list-li-mr-20">
                           {% if last_p.post_by %}
                     
@@ -137,10 +141,10 @@
                   <div class="pl-5 pb-5 pl-sm-0 ptb-sm-5 pos-relative h-50">
                     <a class="pos-relative h-100 dplay-block" href="{% url 'getpost' post.slug  %}" title="">
 
-                      <div class="img-bg bg-2 bg-grad-layer-6" style="background: url({{ post.photos.url }}) no repeat center;"></div>
+                      <div class="img-bg bg-2 bg-grad-layer-6" style="background: url({{ post.photos.url }}) no-repeat center;"></div>
 
                         <div class="abs-blr color-white p-20 bg-sm-color-7">
-                          <h4 class="mb-10 mb-sm-5"><b>{{post.topic}}</b></h4>
+                          <h5 class="mb-10 mb-sm-5"><b>{{post.topic}}</b></h5>
                           <ul class="list-li-mr-20">
                             <li>{{post.modified}}</li>
                             <li><i class="color-primary mr-5 font-12 fa fa-flash"></i>
@@ -148,7 +152,7 @@
                               <i class="fa fa-thumbs-up" style="color: #e25e2b; "></i></li>
                               <li><i class="color-primary mr-5 font-12 fa fa-comments"></i>
                            {% load disqus_tags %}
-              href="{{ last_p.get_absolute_url }}#disqus_thread" data-disqus-identifier="{{ last_p.id }}" title=""></a>
+              <a href="{{ last_p.get_absolute_url }}#disqus_thread" data-disqus-identifier="{{ last_p.id }}" title=""></a>
               {% disqus_num_replies %}</li>
                           </ul>
                         </div><!--abs-blr -->
@@ -212,13 +216,13 @@
           <div class="container">
             <div class="row">
               <div class="col-md-12 col-lg-8">
-                <h4 class="p-title"><b>TOP POSTS</b></h4>
+                <h4 class=" p-title"><b>TOP POSTS</b></h4>
                 <div class="row">
 
                   {% if recent_posts %}
                     {% for post in recent_posts %}
                       <div class="col-sm-6">
-                        <h5 class="">
+                        
                           <span class="float-left">
 
                             <img src='{% static "images/thumb.png" %}'  alt="time logo for post" /></span>
@@ -227,13 +231,13 @@
                           <span class="float-right">
                          
                             <!--{% include "includes/website_index/comment_svg.html"%} -->
-                          </span>  </h5>   
+                          </span>    
 
                         <div class="card  mb-40 ml-20" style="width:18rem; height:20rem;">
 
                           <img class="card-img-top" src="{{post.photos.url}}" height="200" width="200" alt="image loading...">
                           <div class="card-body">
-                            <h3 class="card-title">
+                            <h4 class="card-title">
                               <a href="{% url 'getpost' post.slug %}" class="card-link" {%if post.topic|length >= 19 %} title='{{post.topic}}' {%endif%} />
                              
                                 <b>{{post.topic| truncatewords:3}}</b>
@@ -245,11 +249,11 @@
                               
                                 
                               </a>
-                            </h3>
+                            </h4>
 
 
-                            <a href="{% url 'getpost' post.slug  %}" class="btn btn-sm btn-round btn-primary">    
-                              <b><i class="fa fa-dot-circle-o"></i>
+                            <a href="{% url 'getpost' post.slug  %}" title="">    
+                              <b class="badge badge-secondary">
                               &nbsp;{{post.category}}</b>
                             </a>
                           </div>
@@ -267,16 +271,11 @@
                   <ul class="list-block list-li-ptb-15 list-btm-border-white bg-primary text-center">
                     <div class="jumbotron bg-light">
                       <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Life's Sweetness -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-6147336652058243"
-     data-ad-slot="2775206229"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+          <!-- Life's Sweetness -->
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6147336652058243" data-ad-slot="2775206229"
+                data-ad-format="auto" data-full-width-responsive="true">
+            </ins>
+            <script> (adsbygoogle = window.adsbygoogle || []).push({}); </script>
                     </div>
                   </ul>
 
@@ -288,9 +287,9 @@
                         <div class="wh-100x abs-tlr">
                           <img src="{{post.photos.url}}" width="80" height="80" alt="{{post.topic| truncatechars:10}}"></div>
                         <div class="ml-120 min-h-100x">
-                          <h5><b>{{post.topic}}</b></h5>
-                          <h6 class="color-lite-black pt-10">by <span class="color-black"><b>
-                              </b></span> {{post.modified}}</h6>
+                          <p class='h6'><b>{{post.topic}}</b></p>
+                          <p class="color-lite-black pt-10">by <span class="color-black"><b>
+                              </b></span> {{post.modified}}</p>
                         </div>
                       </a><!-- oflow-hidden -->
                     {%endfor%}
@@ -327,19 +326,10 @@
 
       {%include "includes/website_index/footer.html"%}
     {%endautoescape%}
-
-      </script>
-    </li>
-  </ul>
-</div>
-</a>
-</div>
-</div>
-</div>
-</div>
-
-  </body>
+</body>
 </html>
+     
+
 
 
 
