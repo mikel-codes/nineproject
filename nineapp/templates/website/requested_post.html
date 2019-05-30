@@ -5,10 +5,9 @@
   {{req_post.topic}}
 {%endblock%}
 {% block head_content%}
-{%for tag in req_post.tags_list %}
-  <meta name='keywords' content='{{tag}}'>
-{%endfor%}
-<meta name="description" id="momentum" content= "{{req_post.modified | date:'Y/m/d H:i:m' }} - {{req_post.content | truncatewords:10}}">
+
+<meta name='keywords' content='{{req_post.tag}}' >
+<meta name="description" content= "{{req_post.modified | date:'Y/m/d H:i:m' }} - {{req_post.content | truncatewords:10}}">
 
  <style type="text/css">
     span  a{

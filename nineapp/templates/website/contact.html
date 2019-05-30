@@ -10,10 +10,10 @@
     
     <link rel="shortcut icon"  href="{% static 'images/newicon.ico' %}" type="image/x-icon">
          <meta name="google-site-verification" content="Rwqs47WxmdshII1MGi2_Ji5MMG8-OGnsogTG0WxdiHA" />
-
-    
+         <meta name="description" content="you can rech us for adverts jobs placement, partnerships and other concerns, we are here to reply your requests immediately">
     {%include "includes/website_index/static_files.html"%}
-<style type="text/css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/contact.css' %}">
+<!--style type="text/css">
    .files input {
     outline: 2px dashed #92b0b3;
     outline-offset: -10px;
@@ -62,7 +62,7 @@
   label{
     font-weight: bold;
   }
-</style>
+</style -->
     <base href="{% url 'indexpage' %}" />
   </head>
  
@@ -184,8 +184,8 @@
 
     </section>
 
-    <script type="text/javascript" src="{% static "js/contact.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/upload.js" %}"></script>
+    <script type="text/javascript" src="{% static 'js/contact.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/upload.js' %}"></script>
     {% include "includes/website_index/footer.html" %}
 
   </body>
