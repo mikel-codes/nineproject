@@ -2,6 +2,9 @@
 <html lang="en" ng-app="mainApp">
   <head>
     {%include "includes/ads.html"%}
+    <script async custom-element="amp-auto-ads"
+        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+</script>
     <title>{%block title%}{%endblock%}</title>
 
      
@@ -70,7 +73,9 @@
   </head>
 
   <body ng-controller="defaultCtrl">
-    
+    <amp-auto-ads type="adsense"
+              data-ad-client="ca-pub-6147336652058243">
+</amp-auto-ads>
     {%autoescape on%}
     <header>
       {% include "includes/website_index/navs.html" %}
@@ -87,7 +92,7 @@
             {% block content %}
 
               {% if post %}
-                <h3 class="mt-30"><b>{{post.topic}}</b></h3>
+                <h4 class="mt-30"><b>{{post.topic}}</b></h4>
                 <ul class="list-li-mr-20 mtb-15">
                   on {{ post.modified | date:" Y:m:d  H:i " }}</li>
                   

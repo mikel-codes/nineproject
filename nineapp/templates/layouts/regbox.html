@@ -4,6 +4,9 @@
 <html lang="en">
 <head>
     {%include "includes/ads.html"%}
+    <script async custom-element="amp-auto-ads"
+        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+</script>
    <title>{% block title %} {%endblock%}</title>
           <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,6 +29,9 @@
   </head>
 
 <body class="regbody">
+  <amp-auto-ads type="adsense"
+              data-ad-client="ca-pub-6147336652058243">
+</amp-auto-ads>
   <div class="row">
     {%block content%}
     {% endblock %}
