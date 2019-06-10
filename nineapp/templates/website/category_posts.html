@@ -1,33 +1,10 @@
 {# template "website/category_posts.html" #}
-
 {% extends "layouts/category.html" %}
-
-
 {%block title%}
-  {{category.name}}
+{{category.name}}
 {%endblock%}
-
-{%block content %}
-
+{%block head_content %}
 <style type="text/css">
-  
-.row {
-  margin: 0rem;
-}
-
-
-.box {
-  background: #fff;
-  border-radius: 0.3rem;
-  height: 15rem;
-  width: 15rem;
-}
-.button:focus{
-  outline: none;
-}
-.button:after {
-  content: "";
-  background: #90EE90;
 /*
   position: absolute;
   padding-top: 300%;
@@ -35,6 +12,17 @@
   margin-left: -20px!important;
   margin-top: -120%;
   */
+/*
+  .row {
+    margin: 0rem;
+  }
+
+.button:focus{
+  outline: none;
+}
+  .button:after {
+  content: "";
+  background: #90EE90;
   opacity: 0;
   outline: none;
   transition: all 0.8s
@@ -47,109 +35,99 @@
   opacity: 1;
   transition: 0s
 }
- .avatar{
-  margin-right: .25em;
-  display: inline-block;
-  width: 2em;
-  height: 2em;
-  border-radius: 500rem;
-  
-  /*margin-bottom: 0em;*/
+*/
+
+.box {
+    background: #fff;
+    border-radius: 0.3rem;
+    height: 15rem;
+    width: 16rem;
+    margin-right: 2em;
 }
 
+.avatar {
+    display: inline-block;
+    width: 2em;
+    height: 2em;
+    border-radius: 500rem;
 
+    /*margin-bottom: 0em;*/
+}
+
+#circle {
+    width: 2em;
+    height: 2em;
+    margin-right: .25em;
+    display: inline-block;
+
+    border-radius: 50%;
+    font-size: 10px;
+    color: white;
+    line-height: 20px;
+    text-align: center;
+    background-color: gray;
+    background-size: 150% 150%;
+
+    background-repeat: no-repeat;
+    background-position: 97% 75%;
+}
 </style>
-
-
-{% load static %}
-
-
-  {%if not posts %}
-    <div class="row">
-      <div class="jumbotron text-center bg-light">
+{% endblock %}
+{% block content %}
+{%if not posts %}
+<div class="row">
+    <div class="jumbotron text-center bg-light">
         <h3 class="h3">Nothing to Show Yet</h3>
         <p> If you have reasonable posts you can join our community to update us </p>
         <p>Thanks ...</p>
-      </div>
     </div>
-
-  {%else%}
-  <h4 class="p-title mt-50"><b>{{category.name}}</b></h4>
-  <div class="row">
+</div>
+{%else%}
+<h4 class="p-title mt-50"><b>{{category.name}}</b></h4>
+<div class="row">
     {%for post in posts %}
-      <div class="col-md-6 col-sm-8 col-lg-4">
-       
-            <div class="row">
-              <a href="{% url 'getpost' post.slug %}" {%if post.topic|length >= 20 %} title='{{post.topic}}' {%endif%}>
-              <div class="box shadow mb-0 mr-6">
-                <img src="{{post.photos.url}}" width="200" height="200" alt="{{post.topic | truncatechars:10}}">
+    <div class="col-md-6 col-sm-8 col-lg-4">
+        <div class="row">
+            <div class="box shadow mb-0 mr-0 ">
+                <img src="{{post.photos.url}}" width="300" height="200" alt="{{post.topic | truncatechars:10}}">
                 <div class="d-flex justify-content-between mt-2">
-                
-
-                <div class="float-left">
-                  <b>{{post.topic | truncatechars:23}}</b>
+                    <div class="float-left">
+                        <a href="{% url 'getpost' post.slug %}" {%if post.topic|length >= 20 %} title='{{post.topic}}' {%endif%}>
+                            <b>{{post.topic | truncatechars:23}}</b>
+                        </a>
+                    </div>
+                    <div class="float-end">
+                        <small>
+                            <h5>
+                                <b>{{post.likes_on_post.num_of_likes}}</b> <i class="fa fa-2x fa-thumbs-up" style="color: gray;"></i>
+                            </h5>
+                        </small>
+                    </div>
                 </div>
-              
-                <div class="float-end">
-                  <small>
-                    <h5><b>{{post.likes_on_post.num_of_likes}}</b> <i class="fa fa-2x fa-thumbs-up" style="color: gray;"></i></h5>
-                  </small>
-                </div>
-            
             </div>
-           
-          </div>
-          </a>
-            
-       </div>
-       
-                  <div class="d-flex justify-content-between mt-2">   
-                   
-                    <div class="float-left"> 
-                    {% if post.post_by.profile.picture %}
-                      <img src="{{post.post_by.profile.picture.url}}" class="rounded-circle img-thumbnail avatar"  alt="{{post.post_by.get_full_name}}" />
-                    {%else%}
-                      <img src="{% static 'images/icon.jpg' %}" 
-                        class="rounded-circle img-thumbnail avatar mr-4"   alt="{{post.post_by.get_full_name}}">
-                    |
-           
-           <br>
-
-            {%endif%}
-            <p style="font-size: 0.8em">
-              <b>{{post.post_by.get_full_name | truncatechars:15}}</b>
-            </p>
-         </div>
-         <center>
-         </center>
-      <div class="float-right mr-3">
-           
-               <small style="color: red">
-            {%include 'includes/svg_clap.html'%}
-     
-                     __ {{post.clap.num_claps}} | NumFilter__
-
-               
-                 </small>
-
-                
-          </div>
         </div>
-          
-          
-             
- 
-             
-      
+        <div class="d-flex justify-content-between mt-2 mb-2 ml-0">
+            <div class="float-left">
+                {% if post.post_by.profile.picture %}
+                <img src="{{post.post_by.profile.picture.url}}" class="rounded-circle  img-thumbnail avatar" alt="{{post.post_by.get_full_name}}" />
+                {%else%}
+                <div id="circle">{{post.post_by.first_name | slice:1}}</div> &nbsp;&nbsp;&nbsp;&nbsp;|
+                <br>
+                {%endif%}
+                <p style="font-size: 0.8em">
+                    <b>{{post.post_by.get_full_name | truncatechars:15}}</b>
+                </p>
+            </div>
+            <div class="float-right">
+                <small style="color: red" ng-cloak>
+                    {%include 'includes/svg_clap.html'%}
+                    __ {{post.clap.num_claps}} | NumFilter__
+                </small>
+            </div>
         </div>
-          
-      
-     
+    </div>
     {% endfor %}
   </div>
-
-
-    
-
-  {% endif %}
+</div>
+{% endif %}
 {%endblock%}

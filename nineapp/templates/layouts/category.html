@@ -1,136 +1,91 @@
 <!doctype html>
-
+{% load static %}
 <html lang="en" ng-app="mainApp">
-  <head>
-   {%include "includes/ads.html"%}
-   <script async custom-element="amp-auto-ads"
-        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
-</script>
-  <title>{%block title%}{%endblock%}</title>
-     {% include "noscript.html" %}
-    
-  
-  <meta charset="utf-8" />
-     {%load static%}
-       <link rel="shortcut icon"  href="{% static 'images/newicon.ico' %}" type="image/x-icon">
-       <meta name="viewport" content="width=device-width, initial-scale=1">
-           {{category.get_meta_tags}}
-        <meta name="google-site-verification" content="Rwqs47WxmdshII1MGi2_Ji5MMG8-OGnsogTG0WxdiHA" />
 
+<head>
+    {%include "includes/ads.html"%}
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0">
+   
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://9blogspace.com">
+    <meta property="og:site_name" content="9 blogspace">
+    <meta property="og:image" itemprop="image primaryImageOfPage" content="{% static 'images/blg.svg'%}">
+    <link rel="shortcut icon" href="{% static 'images/newicon.ico' %}" type="image/x-icon">
+    {{category.get_meta_tags}}
+    <title>{%block title%}{%endblock%}</title>
     {% include "includes/website_index/static_files.html" %}
+    {% block head_content%}
+    {% endblock %}
+</head>
 
-  </head>
-  <body ng-controller="defaultCtrl">
-    <amp-auto-ads type="adsense"
-              data-ad-client="ca-pub-6147336652058243">
-</amp-auto-ads>
+<body ng-controller="defaultCtrl" ng-cloak>
+    <amp-auto-ads type="adsense" data-ad-client="ca-pub-6147336652058243">
+    </amp-auto-ads>
     <header>
-      {%include "includes/website_index/navs.html" %}
+        {%include "includes/website_index/navs.html" %}
     </header>
-
-    <div class="container mt-10 mb-10 pt-10 pb-10" >
+    <div class="container mt-10 mb-10 pt-10 pb-10">
         <div class="row">
-          <div class="col-lg-10 col-md-10 col-sm-10">
-            {% block content %}
-
-            {% endblock %}
- 
-          </div>
-          
-          <div class="col-sm-2 col-lg-2 col-md-2 mt-50 pt-100">
-            <div class="jumbotron text-center bg-light">
-             <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Life's Sweetness -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-6147336652058243"
-     data-ad-slot="2775206229"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+            <div class="col-lg-9 col-md-12">
+                {% block content %}
+                {% endblock %}
             </div>
-            <div class="jumbotron text-center bg-light">
-              <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Life's Sweetness -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-6147336652058243"
-     data-ad-slot="2775206229"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+            <div class="col-sm-12 col-lg-12">
+                <div class="row">
+                    <span class="jumbotron text-center bg-light">
+                    </span>
+                    <span class="jumbotron text-center bg-light">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <!-- Life's Sweetness -->
+                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6147336652058243" data-ad-slot="2775206229" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                        <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </span>
+                    <span class="jumbotron text-center bg-light">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <!-- Life's Sweetness -->
+                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6147336652058243" data-ad-slot="2775206229" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                        <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </span>
+                </div>
             </div>
-            <div class="jumbotron text-center bg-light">
-              <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Life's Sweetness -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-6147336652058243"
-     data-ad-slot="2775206229"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-            </div>
-            <div class="jumbotron text-center bg-light">
-              <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Life's Sweetness -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-6147336652058243"
-     data-ad-slot="2775206229"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-            </div>
-          </div>
-        
         </div>
         <div class="col-sm-10 col-md-10 col-lg-10">
-       <div class="d-flex justify-content-between mt-2" style="font-size: 1.2em;">
-
-      
-    
-
-    <div class="float-left">
-      {% if posts.has_previous %}
-        <a href="?page={{ posts.previous_page_number }}" style="font-size: 1.2em;"><i class="fas fa-x fa-chevron-circle-left"></i>P</a>
-      {%endif%}
-    </div>
-<a href="#">Page {{ posts.number }} of {{ posts.paginator.num_pages }}
-     </a>
-    <div class="float-right">
-      {% if posts.has_next %}
-        <a href="?page={{ posts.next_page_number }}" style="font-size: 1.2em;">
-          N<i class="fas fa-x fa-chevron-circle-right"></i>
-        </a>
-      {% endif %}
-    </div>
-  </div>
-    </div>
-      <div class="d-none d-md-block d-lg-none col-md-3"></div>         
-      <div class="col-md-6 col-lg-4">
-        <div class="pl-20 pl-md-0">
-          <div class="mtb-50">
-            
-            {% include "includes/website_index/related_posts.html" %}
-            
-          </div>
+            <div class="d-flex justify-content-between mt-2" style="font-size: 1.2em;">
+                <div class="float-left">
+                    {% if posts.has_previous %}
+                    <a href="?page={{ posts.previous_page_number }}" style="font-size: 1.2em;"><i class="fas fa-x fa-chevron-circle-left"></i>P</a>
+                    {%endif%}
+                </div>
+                <a href="#">Page {{ posts.number }} of {{ posts.paginator.num_pages }}
+                </a>
+                <div class="float-right">
+                    {% if posts.has_next %}
+                    <a href="?page={{ posts.next_page_number }}" style="font-size: 1.2em;">
+                        N<i class="fas fa-x fa-chevron-circle-right"></i>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
         </div>
-      </div>
-       <div class="d-none d-md-block d-lg-none col-md-3"></div> 
-
-   
-   </div>
+        <div class="d-none d-md-block d-lg-none col-md-3"></div>
+        <div class="col-md-6 col-lg-4">
+            <div class="pl-20 pl-md-0">
+                <div class="mtb-50">
+                    {% include "includes/website_index/related_posts.html" %}
+                </div>
+            </div>
+        </div>
+        <div class="d-none d-md-block d-lg-none col-md-3"></div>
+    </div>
     <footer>
-      {%include "includes/website_index/footer.html" %}
+        {%include "includes/website_index/footer.html" %}
     </footer>
-  </body>
+</body>
+
 </html>

@@ -1,331 +1,80 @@
 {% load static %}
-
-<script src="{% static 'js/scripts.js' %}" type="text/javascript" async></script>
-
-  <style type="text/css">
-
-  .bgd{
-    background: #191616;  
-    border-bottom: 1px solid #393d46;
-    height: 3%;
-    padding: -0.5em 2.5em 0em !important;
-    font-family: "Raleway";
-    z-index: 2;
-  }
-   .nav-item > .nav-link {
-    color: white; 
-    font-size: 1em;
-
-    }
-  .navbar-brand{ 
-    color: #f2f2f2;
-    font-size: 2.2em;
-    
-  }
-
+<style type="text/css">
   .navbar {
-    /*background-color: lightslategray; 
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    */
-    font-size: 1em;
-    
-    color: white;
-    padding: 8px 5px 8px 5px;
-}
+    -webkit-box-shadow: 0 8px 6px -6px #999;
+    -moz-box-shadow: 0 8px 6px -6px #999;
+    box-shadow: 0 8px 6px -6px #999;
 
-.navbar a {
-    text-decoration: none;
-    color: inherit;
-}
-
-.navbar-brand {
-    font-size: 1.2em;
-    font-weight: 600;
-}
-
-.navbar-item {
-    font-variant: small-caps;
-    margin-left: 30px;
-}
-
- 
-.oflow-hidden.cpc{
-  /*
-  background: #fff;
-   
-   font-family: "Open Sans";
-   padding:0.23em 0.3em 0.3em;
-   color: green;
-*/
-
-}
- .avatar{
-  margin-right: .25em;
-  display: inline-block;
-  width: 2em;
-  height: 2em;
-  border-radius: 500rem;
-  
-  /*margin-bottom: 0em;*/
-}
-.sample{
-    float: left;
-  height: 50px;
-  margin: 0 8%;
-  position: relative;
-  width: 34%;
-}
-
-.sample.two input {
-    border-radius: 15px;
-    right: 0;
-    transition: all .3s ease-in-out;
-    width: 50%;
-}
-
-
-.sample.two input{
-    border: 1px solid #ccc;
-    font-size: 12px;
-    height: 30px;
-    padding: 4px 8px;
-    position: absolute;
-    width: 50%;
-}
-
-/*
-h1 {
-  margin: 10px 0 0;
-  text-align: center;
-}
-
-p {
-  margin: 0 0 20px;
-  text-align: center;
-
-}
-*/
-input:focus {
-  outline: none;
-}
-
-button {
-  text-align: center;
-}
-button:focus {
-  outline: none;
-}
-button.btn-search, button.btn-reset {
-  background: hotpink;
-  border: none;
-  height: 30px;
-  font-size: 12px;
-  padding: 4px;
-  position: absolute;
-  width: 30px;
-}
-
-.sample {
-  float: left;
-  height: 50px;
-  margin: 0 8%;
-  position: relative;
-  width: 34%;
-}
-.sample.one input, .sample.two input {
-  border-radius: 15px;
-  right: 0;
-  transition: all 0.3s ease-in-out;
-  width: 60%;
-}
-.sample.one input:focus, .sample.two input:focus {
-  width: 100%;
-}
-.sample.one input:focus ~ button.btn-search, .sample.two input:focus ~ button.btn-search {
-  background: hotpink;
-  color: #fff;
-}
-.sample.one input:focus ~ button.btn-reset, .sample.two input:focus ~ button.btn-reset {
-  right: -22px;
-}
-.sample.one button, .sample.two button {
-  transition: all 0.3s ease-in-out;
-}
-.sample.one button.btn-search, .sample.two button.btn-search {
-  background: #ccc;
-  border-radius: 50%;
-  height: 26px;
-  right: 2px;
-  /*top: 2px;*/
-  transition: all 0.3s ease-in-out;
-  width: 26px;
-}
-.sample.one button.btn-reset, .sample.two button.btn-reset {
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 50%;
-  font-size: 10px;
-  height: 20px;
-  line-height: 20px;
-  padding: 0;
-  right: 5px;
-  /*top: 5px;*/
-  width: 20px;
-  z-index: -1;
-}
-
-@keyframes bounceRight {
-  0% {
-    transform: translateX(0px);
-  }
-  50% {
-    transform: translateX(10px);
-  }
-  100% {
-    transform: translateX(0px);
-  }
-}
-@keyframes jumpTowardSearch {
-  0% {
-    background: #ccc;
-    opacity: 1;
-    transform: rotateZ(0deg) scale(1);
-  }
-  20% {
-    background: #ccc;
-    opacity: 0;
-    transform: rotateZ(-60deg) scale(50);
-  }
-  55% {
-    background: hotpink;
-    opacity: 0;
-    transform: rotateZ(-30deg) scale(100);
-  }
-  90% {
-    background: hotpink;
-    opacity: 0;
-    transform: rotateZ(-30deg) scale(50);
-  }
-  100% {
-    background: hotpink;
-    opacity: 1;
-    transform: rotateZ(0deg) scale(1);
-  }
-}
-@keyframes jumpTowardReset {
-  0% {
-    opacity: 0;
-    transform: rotateZ(0deg) scale(1);
-  }
-  20% {
-    opacity: 0;
-    transform: rotateZ(-60deg) scale(50);
-  }
-  55% {
-    opacity: 0;
-    transform: rotateZ(-30deg) scale(100);
-  }
-  90% {
-    opacity: 0;
-    transform: rotateZ(-30deg) scale(50);
-  }
-  100% {
-    opacity: 1;
-    transform: rotateZ(0deg) scale(1);
-  }
+    /* the rest of your styling */
 }
 </style>
-
-
-
-<nav class="navbar navbar-expand-md navbar-dark bgd">
-  
+<nav class="navbar navbar-expand-md navbar-dark   bgd">
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2" ng-controller="timeCtrl">
         <ul class="navbar-nav mr-auto  text-center">
             <li class="nav-item active">
                 <a class="nav-link" href="#" title="">
-                  <font color="#4ECDC4;">
-          <b>__ today __</b></font></a>
+                    <font color="#4ECDC4;">
+                        <b ng-cloak>__ today __</b>
+                    </font>
+                </a>
             </li>
             <!--li class="nav-item">
               <a routerLinkActive="active" href="{% url 'payment' %}" class="nav-link">
                 <i class="fa fa-heart"></i><b>Support Us</b></a>
             </li-->
-          </ul>
-        
+        </ul>
         <div class="sample two form-inline my-2 my-lg-0">
-  <input type="text" id="search" class="" name="search" aria-label="Search" placeholder="search">
-  <button type="submit" class="btn btn-search fa fa-search  "></button>
-  <button type="reset" class="btn btn-reset fa fa-times"></button>
-</div>
-
-      <!--input class="form-control mr-sm-2" type="search" placeholder="Search" >
+            <input type="text" id="search" class="" name="search" aria-label="Search" placeholder="search">
+            <button type="submit" class="btn btn-search fa fa-search  "></button>
+            <button type="reset" class="btn btn-reset fa fa-times"></button>
+        </div>
+        <!--input class="form-control mr-sm-2" type="search" placeholder="Search" >
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form-->
-      
     </div>
     <div class="mx-auto order-0">
-        <a class="navbar-brand mx-auto" href="{% url 'indexpage' %}" title='' style="font-family: Lato"> <b>
-    <span>9blo</span><font color="#4ECDC4">gspace</font>.c<i class="fa fa-globe-africa" aria-hidden="true"></i>m</a></b>
+        <a class="navbar-brand mx-auto" href="{% url 'indexpage' %}" title='' style="font-family: Lato">
+          <b><span>9blo</span><font color="#4ECDC4">gspace</font>.c<i class="fa fa-globe-africa" aria-hidden="true"></i>m</b></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
-    
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto font-12">
-            
             <li class="nav-item" ng-click="show('bottom')">
-          <a routerLinkActive="active" class="nav-link" href="" title="">Go to Quick Links</a>
+                <a routerLinkActive="active" class="nav-link" href="" title="">Go to Quick Links</a>
             </li>
-            {% if  not request.user.is_authenticated %}
-             <li class="nav-item">
-              <a  class="nav-link" href="{% url 'signin' %}" title="">Log In</a>
-        </li>
-          <li  class="nav-item">
-        <a  class="nav-link text-center" href="{% url 'reg' %}" title="">
-        Join Us</a>
-      </li>
-      {%else %}
-      <li class="nav-item">
-          <a class="nav-link"  href="{% url 'edit_profile' request.user %}" title="">Edit Profile
-          </a>
-        </li>
-           <li class="nav-item">
-        <a class="nav-link" href="{% url 'dashboard' request.user %}" title="">Go To Dashboard</a>
-      </li>
-
-      {% endif %}
-       <li class="nav-item">
-        <a class="nav-link" href="{% url 'contact' %}" title="">
-        Contact Us</a>
-      </li>
-     
-     {% if request.user.is_authenticated %}
-        <li class="nav-item" >
-
-          {% if request.user.profile.picture%}
-        <a href="{% url 'dashboard' request.user %}" title="" class="nav-link" routerLinkActive="active">
-         
-            <img src="{{request.user.profile.picture.url}}" class="rounded-circle img-thumbnail  avatar"  alt="{{request.user.get_full_name}}">
-          
-          </a>
-          {%else%}
-    <a href="{% url 'dashboard' request.user.username %}"  title=""  class="nav-link ">
-    
-       <img src="{% static 'images/icon.jpg' %}" class=" rounded-circle img-thumbnail  avatar"   alt="{{request.user.get_full_name}}">
-       </a>
-        {%endif%}
-
-   
-      </li>
-        
-          {%endif%}
+            {% if not request.user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'signin' %}" title="">Log In</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-center" href="{% url 'reg' %}" title="">Join Us</a>
+            </li>
+            {%else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'edit_profile' request.user %}" title="">Edit Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'dashboard' request.user %}" title="">Go To Dashboard</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'contact' %}" title="">Contact Us</a>
+            </li>
+            {% if request.user.is_authenticated %}
+            <li class="nav-item">
+                {% if request.user.profile.picture%}
+                <a href="{% url 'dashboard' request.user %}" title="" class="nav-link" routerLinkActive="active">
+                    <img src="{{request.user.profile.picture.url}}" class="rounded-circle img-thumbnail  avatar" alt="{{request.user.get_full_name}}">
+                </a>
+                {%else%}
+                <a href="{% url 'dashboard' request.user.username %}" title="" class="nav-link ">
+                    <img src="{% static 'images/icon.jpg' %}" class=" rounded-circle img-thumbnail  avatar" alt="{{request.user.get_full_name}}">
+                </a>
+                {%endif%}
+            </li>
+            {%endif%}
         </ul>
     </div>
-
-   
-</a>
-
 </nav>
-

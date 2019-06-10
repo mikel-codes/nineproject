@@ -42,8 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'nineapp',
-    'rest_framework', 
-    'rest_framework.authtoken', 
+    'rest_framework',
+    'rest_framework.authtoken',
     'storages',
     'disqus',
     'tinymce'
@@ -60,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'nineproject.urls'
@@ -105,7 +106,7 @@ DATABASES = {
         default=config('DATABASE_URL')
     )
 }
-    
+
 
 
 SITE_ID = 1
@@ -146,12 +147,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
+"""
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'nineapp/static'),]
+"""
 STATIC_URL = '/static/'
 MEDIA_URL  = '/media/'
 MEDIA_ROOT = 'media'
-"""
+MEDIA_PREFIX="media"
+MEDIA_ROOT='media'
+STATIC_PREFIX="static"
+
+
 #AUTH_USER_MODEL = 'nineapp.User'
-"""
+
 # Add to your settings file
 
 CONTENT_TYPES = ['image', 'video', 'pdf']
@@ -169,9 +177,7 @@ MAX_IMG_SIZE = '2121440'
 # static and media prefixes
 
 
-MEDIA_PREFIX="media"
-MEDIA_ROOT='media'
-STATIC_PREFIX="static"
+
 AWS_DEFAULT_ACL = None
 
 DEFAULT_FILE_STORAGE = config("GS_CLOUD_STORAGE")
@@ -182,9 +188,6 @@ GS_BUCKET_NAME = config('GS_STORAGE_BUCKET_NAME')
 GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
     'nineproject/oxone.json'
 )
-
-#STATICFILES_DIRS = [os.path.join(BASE_DIR, 'nineapp/static'),]
-
 SEND_GRID_API_KEY = config('SGRID_API_KEY')
 EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_HOST_USER = config('SENDGRID_USER')
@@ -199,4 +202,3 @@ DISQUS_API_KEY = config('DISQUS_API_KEY')
 DISQUS_WEBSITE_SHORTNAME = config('DISQUS_WEBSITE_SHORTNAME')
 
 
- 

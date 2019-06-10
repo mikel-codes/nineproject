@@ -1,3 +1,103 @@
+/*
+const isInViewport = (elem) => {
+  var bounding = elem.getBoundingClientRect()
+  return (
+    bounding.top >= 0 && bounding.left >= 0 && bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        bounding.right <= (window.innerWidth || document.documentElement.clientWidth)
+        )
+}
+
+
+const images = document.querySelectorAll('img')
+window.onload = () => {
+  window.addEventListener('scroll', (ev) => {
+
+    Array.from(images).every(img => {
+      //first load the thumbnail(LQIP)
+
+      var thumb = new Image();
+      thumb.src = img.dataset.src;
+      console.log("This is a thumb image ",thumb)
+      thumb.onload = () => 
+        img.classList.add('placeholder .img.loaded img-small ')
+
+
+      //load the complete version of the image now
+      if (isInViewport(img)){
+        console.log('im n viewport')
+        var compImg = new Image()
+        compImg.src = img.getAttribute('data-src')
+        compImg.onload = () => {
+          img.classList.remove('placeholder img-small')
+          img.classList.add('img .img.loaded')
+        }
+      }
+    })
+  })
+}
+*/
+
+/**
+
+function fadeOutEffect() {
+    var fadeTarget = document.getElementById("target");
+    var fadeEffect = setInterval(function () {
+       fadeTarget.style.transition = opacity 1s linear;
+        if (!fadeTarget.style.opacity) {
+            fadeTarget.style.opacity = 1;
+        }
+        if (fadeTarget.style.opacity > 0) {
+
+            fadeTarget.style.opacity -= 0.1;
+        } else {
+            clearInterval(fadeEffect);
+        }
+    }, 200);
+}
+    
+    console.log("This is this the bounding of the image", bounding)
+
+  var elementBottom = elementTop + window.outerHeight();
+  console.log("Element Top is ", elementTop)
+  console.log("Element bottom is", elementBottom)
+
+  
+  var viewportTop = window.scrollTop();
+  var viewportBottom = viewportTop + window.height();
+  return elementBottom > viewportTop && elementTop < viewportBottom;
+  
+
+/**/
+/**
+<div class="placeholder" data-large="https://cdn-images-1.medium.com/max/1800/1*sg-uLNm73whmdOgKlrQdZA.jpeg">
+  <img src="https://cdn-images-1.medium.com/freeze/max/27/1*sg-uLNm73whmdOgKlrQdZA.jpeg?q=20" class="img-small">
+  <div style="padding-bottom: 66.6%;"></div>
+</div>
+
+   function showVisible() {
+**/
+      /*...Intermediate Code...*/
+      
+/**
+      if ( Array.from(document.querySelectorAll('[data-src]')).every(
+        img => img.getAttribute('data-src') === '') ) {
+        window.removeEventListener('scroll', showVisible)
+      }
+    }
+
+
+
+
+function preloadImg(event) {
+  for (let img of wrapper.querySelectorAll('img')) {
+    if (img.dataset.src && img.getBoundingClientRect().top + 100 < document.documentElement.clientHeight) {
+      img.src = img.dataset.src;
+      img.dataset.src = '';
+    }
+  }
+}
+**/
+
  // body...
   (function($){
     
