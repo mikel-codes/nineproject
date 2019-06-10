@@ -157,7 +157,7 @@ window.addEventListener('load', (e) => {
                     {% if req_post.post_by.profile.picture %}
                     <img src="{{profile.picture.url}}" class="img" alt="r req_post.post_by.profile.picture" />
                     {%else %}
-                    <div id="circle">{{req_post.post_by.first_name | slice:1}}</div>
+                    <div id="circle">{{req_post.post_by.get_full_name | slice:1}}</div>
                     {% endif %}
                 </span>
                 <span class="ml-2 text-left">
