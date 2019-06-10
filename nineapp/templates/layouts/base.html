@@ -45,7 +45,7 @@
                             {%endif%}
                             <h4 class="pt-20">
                                 <a href="{% url 'getpost' post.slug %}" {% if post.topic|length >= 20 %} title='{{post.topic}}' {%endif%}>
-                                    <b>{{post.topic | truncatechars:25}}</b>
+                                    <b>{{post.topic | truncatewords:10 }}</b>
                                 </a>
                             </h4>
                             <ul class="list-li-mr-20 pt-10 mb-30">
