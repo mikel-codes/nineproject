@@ -7,7 +7,7 @@ from io import StringIO, BytesIO
 
 import sys, os
 
-from django import forms 
+from django import forms
 from django.forms import PasswordInput, TextInput, Textarea, Select, HiddenInput
 from django.utils.translation import  ugettext_lazy as _
 from django.core.mail import send_mail, BadHeaderError, EmailMessage, EmailMultiAlternatives as EM, send_mass_mail
@@ -47,11 +47,11 @@ class SignUpForm(UserCreationForm):
     def __init__(self, request, *args, **kwargs):
         super(SignUpForm, self).__init__(*args, **kwargs)
         self.request = request
-        
+
         self.fields['password1'].widget.attrs.update({"class":"form-control reginput"})
         self.fields['password2'].widget.attrs.update({"class":"form-control reginput"})
-        
-    
+
+
     def clean_email(self):
         email = self.cleaned_data.get("email").lower()
         # find a user to match for the email
@@ -62,8 +62,8 @@ class SignUpForm(UserCreationForm):
         else:
             raise forms.ValidationError("Email is already in use")
         return email
-    
-    
+
+
     def save(self, *args, commit=True, **kwargs):
         user = super().save(commit=False)
         user.is_active = False
@@ -73,15 +73,15 @@ class SignUpForm(UserCreationForm):
             mail_subject = "Activate Your Account"
             mail_message = render_to_string('activate_acct_mail.html', {
                 'user'   : user,
-                "domain" : get_current_site(self.request).domain,      
+                "domain" : get_current_site(self.request).domain,
                 'uid':     urlsafe_base64_encode(force_bytes(user.pk)).decode(),
                 'token':   account_token.make_token(user)
             })
 
             try:
                 email = EM(
-                    mail_subject, 
-                    mail_message, 
+                    mail_subject,
+                    mail_message,
                     to=[user.email],
                     headers = {'Reply-To': 'noreply@9blogspace.com'}
                     )
@@ -89,10 +89,10 @@ class SignUpForm(UserCreationForm):
                 email.send(fail_silently=True)
             except Exception as e:
                 print("\n", e)
-            
 
 
-       
+
+
 
 class ResetPasswordForm(SetPasswordForm):
     """helps to autogenerate change password  form"""
@@ -101,6 +101,33 @@ class ResetPasswordForm(SetPasswordForm):
 class TinyMCEWidget(TinyMCE):
     def use_required_attribute(self, *args):
         return False
+
+def resize_image(*args, field=object,  **kwargs):
+        try:
+            if field:
+                with BytesIO(field.read()) as bytes_obj:
+                    print("Coming from picture ",bytes_obj)
+                    with Image.open(bytes_obj) as imgfile_obj:
+                        new_bytes_obj = BytesIO()
+                        # Resize/modify for image and thumb
+                        '''Convert to RGB if necessary'''
+                        if imgfile_obj.mode not in ('L', 'RGB'):
+                            imgfile_obj = imgfile_obj.convert('RGB')
+                        print("before ",imgfile_obj, "\n")
+                        imgfile_obj = imgfile_obj.resize((360,360), Image.ANTIALIAS)
+                        print("New bytes after", imgfile_obj, "\n")
+                        imgfile_obj.save(new_bytes_obj, format="JPEG", quality=100)
+
+                        new_bytes_obj.seek(0) # go to the first line on the stream of bytes
+
+                        field = SimpleUploadedFile(os.path.split(field.name)[-1].split('.')[0], new_bytes_obj.read(), content_type='image/jpeg')
+
+
+
+                    imgfile_obj.close()
+            return field
+        except Exception as e:
+            print("Errors", e)
 
 class PostForm(forms.ModelForm):
     """ create a form to generate Posts"""
@@ -111,34 +138,32 @@ class PostForm(forms.ModelForm):
         attrs  = {"class":"form-control reginput"}
         widgets = {
             'category': Select(attrs.copy()),
-            'topic': TextInput(attrs.copy()), 
+            'topic': TextInput(attrs.copy()),
             'tags':  TextInput({**attrs.copy(), 'placeholder': 'type a search keyword followed by a comma here', "data-role": "tagsinput"})
             }
-       
+
 
     def __init__(self, request, *args, **kwargs):
         super(PostForm, self).__init__(*args, **kwargs)
         self.request = request
 
-    def clean_photos(self):
-        try:
-            filename, file_ext = os.path.splitext(self.cleaned_data['photos'].name)
-            print(filename, "\t", file_ext)
-            self.cleaned_data['photos'].name = "%s%s" % (slugify(self.cleaned_data['topic']).lower(), file_ext)
-            print("\n", self.cleaned_data['photos'].name)
-        except Exception as e:
-            print(e)
-        else:
-            return self.cleaned_data['photos']
+
+    def clean_photos(self, *args, **kwargs):
+        filename, file_ext = os.path.splitext(self.cleaned_data['photos'].name)
+        image_object = resize_image(field=self.cleaned_data['photos'])
+        image_object.name = "{0}{1}".format(slugify(self.cleaned_data['topic']).lower(), file_ext)
+        print(image_object.name)
+        return image_object
+
 
     def save(self, commit=True):
         your_post = super(PostForm, self).save(commit=False)
         your_post.post_by = self.request.user
         if commit:
             your_post.save()
-        
 
-        
+
+
 class ProfileForm(forms.ModelForm):
     bio = forms.CharField(label=_("Describe Yourself (not more than 300chars) "),widget=forms.Textarea(), max_length=301, help_text='use less than 300 characters')
     ip_addr = forms.GenericIPAddressField(label=_('IP Address'), widget=forms.HiddenInput(), required=False)
@@ -149,7 +174,7 @@ class ProfileForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.request = request
         self.ip_addr = '1.1.1.1'
-        
+
 
     def get_client_ip(self):
         x_forwarded_for = self.request.META.get('HTTP_X_FORWARDED_FOR')
@@ -165,38 +190,16 @@ class ProfileForm(forms.ModelForm):
         return self.cleaned_data['ip_addr']
 
     def clean_picture(self, *args, **kwargs):
-        try:
-            if self.cleaned_data['picture']:
-                with BytesIO(self.cleaned_data['picture'].read()) as bytes_obj:
-                    print("Coming from picture ",bytes_obj)
-                    with Image.open(bytes_obj) as imgfile_obj:
-                        new_bytes_obj = BytesIO()
-                        # Resize/modify for image and thumb
-                        '''Convert to RGB if necessary'''
-                        if imgfile_obj.mode not in ('L', 'RGB'):
-                            imgfile_obj = imgfile_obj.convert('RGB')
-                        imgfile_obj.thumbnail((80,80), Image.ANTIALIAS)
-                        imgfile_obj.save(new_bytes_obj, format="JPEG", quality=100)
-
-                        new_bytes_obj.seek(0) # go to the first line on the stream of bytes
-                        author_name = self.request.user.username
-                        
-                        self.cleaned_data['picture'] = SimpleUploadedFile(os.path.split(self.cleaned_data['picture'].name)[-1].split('.')[0], new_bytes_obj.read(), content_type='image/jpeg')
-                        self.cleaned_data['picture'].name = "%s.jpg" % self.request.user.username
-
-                        print("Pictures identity" , self.cleaned_data['picture'])
-
-                        
-                    imgfile_obj.close()
-            return self.cleaned_data['picture']
-        except Exception as e:
-            print("Errors", e)
+        filename, file_ext = os.path.splitext(self.cleaned_data['picture'].name)
+        avatar = resize_image(field=self.cleaned_data['picture'])
+        avatar.name = "{0}{1}".format(self.request.user.username, file_ext)
+        return avatar
 
 
 def validate_file_extension(value):
     import os
     from django.core.exceptions import ValidationError
-    
+
     ext = os.path.splitext(value.name)[1]  # [0] returns path+filename
     main = os.path.splitext(value.name)[0]
     valid_extensions = ['.pdf', '.doc', '.docx', '.jpg', '.png']
@@ -212,7 +215,7 @@ class ContactForm(forms.Form):
     sender_email = forms.EmailField(label=_("Your Email"), required=True)
     message = forms.CharField(label=_("Message"),required=True, widget=forms.Textarea())
     files   = forms.FileField(
-        label = _("Select File to Upload"), 
+        label = _("Select File to Upload"),
         required = False,
         validators = [validate_file_extension],
         widget = forms.ClearableFileInput(attrs={'multiple': True, 'accept':["image/*","video/*",".pdf"]}))
@@ -220,7 +223,7 @@ class ContactForm(forms.Form):
     def __init__(self, request, *args, **kwargs):
         super(ContactForm, self).__init__(*args, **kwargs)
         self.request = request
-    
+
 
     def clean_files(self):
         content = self.cleaned_data['files']
@@ -228,10 +231,10 @@ class ContactForm(forms.Form):
             if content.size > int(settings.MAX_UPLOAD_SIZE):
                 raise forms.ValidationError("The maximum file size that can be uploaded is 5MB")
 
-          
+
         return content
-    
-    
+
+
     def save(self):
         cleaned_data = self.cleaned_data
         try:
@@ -276,5 +279,5 @@ class NewsUsersForm(forms.ModelForm):
 
 
 
-        
+
 
