@@ -1,158 +1,120 @@
 {% load static %}
-<footer class="bg-191 color-ccc" style="font-family: Lato">
- {% include "noscript.html" %}
- {%include "includes/website_index/static_js.html" %} 
-  <div class="container">
-    <div class="pt-50 pb-20 pos-relative">
-      <div class="abs-tblr pt-50 z--1 text-center">
-        <div class="h-80 pos-relative">
-          <img class="opacty-1 h-100 w-auto" src="{%  static 'images/map.png'%} " alt="footer background"></div>
-        </div>
-        <div class="row">
+<footer class="bg-191 color-ccc">
 
-
-          <div class="col-sm-3 col-lg-3 col-md-3">
-            <div class="mb-30">
-             
-              <p class="foots logo"> 
-                <img src="{% static 'images/blg.svg' %}" width="100" height="100" alt="9blogspace icon">
-              </p>
-              <p class="mtb-20 color-ccc">
-                Is a virtual company that connects bloggers and empowers you the blogger, to share your blogs world wide in 
-                politics, entertainment and technology etc.
-                <br>
-                
-                <b>your space | your story</b>
-                <br>
-                <i class="fa fa-star"></i>Write Read Learn Blog<i class="fa fa-star"></i>
-              
-              </p>
-              <p class="color-ash">
-                Copyright ©  
-                <script>document.write(new Date().getFullYear());</script> 
-                ceodevelopers
-              </p>
-         
-            </div><!-- mb-30 -->
-          </div><!-- col-md-4 -->
-          <style>
-            .color-white:active, a:active, .active{
-              color: #4ECDC4;
-
-            }
-
-
-          </style>
-          <div class="col-sm-3 col-lg-3 col-md-3">
-            <div class="mb-30">
-              <h4 id="bottom" class="ptitle color-primary mb-10"><b>Quick Links</b></h4>
-              
-              <div style="font-family: Raleway" >
-              {% if categories %}
-                {% for cat in categories %}
-                  <div class="mb-10" >
-                 <a class="color-white" href="{% url 'listposts' cat.slug %}" title=''><b>{{cat.name}}</b></a>
-                  
-                  
-                  </div>
-
-                {%endfor%}
-
-              {%endif%}
-                <button class="btn btn-round btn-primary"  ng-click="show('top')">
-                      <i class="fa fa-arrow-up"></i>Go to Top
-                    </button>
+    <div class="container">
+        <div class="pt-50 pb-20 pos-relative">
+            <div class="abs-tblr pt-50 z--1 text-center">
+                <div class="h-80 pos-relative">
+                    <img class="opacty-1 h-100 w-auto" src="{%  static 'images/map.png'%} " alt="footer background"></div>
             </div>
-            </div><!-- mb-30 -->
+            <div class="row">
+                <div class="col-sm-3 col-lg-3 col-md-3">
+                    <div class="mb-30">
+                        <p class="foots logo">
+                            <img src="{% static 'images/blg.svg' %}" width="100" height="100" alt="9blogspace icon">
+                        </p>
+                        <p class="mtb-20 color-ccc">
+                            Is a virtual company that connects bloggers and empowers you the blogger, to share your blogs world wide in
+                            politics, entertainment and technology etc.
+                            <br>
+                            <b>your space | your story</b>
+                            <br>
+                            <i class="fa fa-star"></i>Write Read Learn Blog<i class="fa fa-star"></i>
+                        </p>
+                        <p class="color-ash">
+                            Copyright © 2019
+                            ceodevelopers
+                        </p>
+                    </div><!-- mb-30 -->
+                </div><!-- col-md-4 -->
+                <div class="col-sm-3 col-lg-3 col-md-3">
+                    <div class="mb-30">
+                        <h4 id="bottom" class="ptitle color-primary mb-10"><b>Quick Links</b></h4>
+                        <div style="font-family: Raleway">
+                            {% if categories %}
+                            {% for cat in categories %}
+                            <div class="mb-10">
+                                <a class="color-white" href="{% url 'listposts' cat.slug %}" title=''><b>{{cat.name}}</b></a>
+                            </div>
+                            {%endfor%}
+                            {%endif%}
+                            <button class="btn btn-round btn-primary" ng-click="show('top')">
+                                <i class="fa fa-arrow-up"></i>Go to Top
+                            </button>
+                        </div>
+                    </div><!-- mb-30 -->
+                </div><!-- col-md-4 -->
+                <div class="col-sm-3 col-lg-3 col-md-3">
+                    <div class="mb-30">
+                        <h5 class="color-primary mb-20"><b>EXPLORE</b></h5>
+                        <div class="mb-20">
+                            {% if head_post %}
+                            <a class="color-white" href="{% url 'getpost' head_post.slug %}" title=''>
+                                <b>
+                                    {{head_post.topic}}
+                                </b>
+                            </a>
+                            <h6 class="mt-10">{{ head_post.modified}} </h6>
+                            {%endif %}
+                        </div>
+                        {%if last_p%}
+                        <div class="brdr-ash-1 opacty-2 mr-30"></div>
+                        <div class="mt-20">
+                            <a class="color-white" href="{% url 'getpost' last_p.slug %}" title=''>
+                                <b>
+                                    {{last_p.topic}}
+                                </b></a>
+                            <h6 class="mt-10">{{last_p.modified}} </h6>
+                        </div>
+                        {%endif%}
+                    </div><!-- mb-30 -->
+                </div><!-- col-md-4 -->
+                </style>
+                <div class="col-sm-3 col-lg-3 col-md-3">
+                    <div class="mb-30">
+                        <h5 class="color-primary mb-20 text-center">
+                            <b class="explore">Advertise</b>
+                        </h5>
+                        <div class="jumbotron bg-dark mb-20">
+                            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                            <!-- Life's Sweetness -->
+                            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6147336652058243" data-ad-slot="2775206229" data-ad-format="auto" data-full-width-responsive="true">
+                            </ins>
+                            <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                            </script>
+                        </div>
 
-          </div><!-- col-md-4 -->
-          <div class="col-sm-3 col-lg-3 col-md-3">
-            <div class="mb-30">
-              <h5 class="color-primary mb-20"><b>EXPLORE</b></h5>
-              <div class="mb-20">
-                {% if head_post  %}
-                <a class="color-white" href="{% url 'getpost' head_post.slug %}" title=''>
-                  <b>
-                    {{head_post.topic}} 
-                  </b>
+                        <a href="#" title="" class=" text-center go-top">
+                            <i class="fa fa-angle-up"></i>
+                        </a>
+                    </div><!-- mb-30 -->
+                </div><!-- col-md-4 -->
+                <a href="#" title="" class=" text-center go-top">
+                    <i class="fa fa-angle-up"></i>
                 </a>
-                <h6 class="mt-10">{{ head_post.modified}} </h6>
-                {%endif %}
-              </div>
-              {%if last_p%}
-              <div class="brdr-ash-1 opacty-2 mr-30"></div>
-             
-              <div class="mt-20">
-                <a class="color-white" href="{% url 'getpost' last_p.slug %}" title=''>
-                  <b>
-                    {{last_p.topic}}
-                  </b></a>
-                <h6 class="mt-10">{{last_p.modified}} </h6>
-              </div>
-              {%endif%}
-            </div><!-- mb-30 -->
-          </div><!-- col-md-4 -->
-
-          <div class="col-sm-3 col-lg-3 col-md-3">
-            <div class="mb-30">
-              <h5 class="color-primary mb-20 text-center">
-                <b class="explore">Advertise</b>
-              </h5>
-              <div class="mb-20">
-                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- IamBlessed -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-6147336652058243"
-     data-ad-slot="7255420404"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-                <div class="bgd-191">
- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Life's Sweetness -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-6147336652058243"
-     data-ad-slot="2775206229"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-              </div>
-
-              <a href="#" title="" class=" text-center go-top">
-                <i class="fa fa-angle-up"></i>
-              </a>
-            </div><!-- mb-30 -->
-          </div><!-- col-md-4 -->
-          <a href="#" title="" class=" text-center go-top">
-            <i class="fa fa-angle-up"></i>
-          </a>
-        </div><!-- row -->
-      </div><!-- ptb-50 -->
-
-      <div class="brdr-ash-1 opacty-2"></div>
-
-      <div class="oflow-hidden color-ash font-9 text-sm-center ptb-sm-5">
-
-        <ul class="float-left float-sm-none list-a-plr-10 list-a-plr-sm-5 list-a-ptb-15 list-a-ptb-sm-10">
-          <li><a class="pl-0 pl-sm-10" href="#">Terms &amp; Conditions</a></li>
-          <li><a href="#">Privacy policy</a></li>
-          <li><a href="{% url 'contact' %}" title=''>Jobs advertising</a></li>
-          <li><a href="{% url 'contact' %}" title=''>Contact us</a></li>
-        </ul>
-        <ul class="float-right float-sm-none list-a-plr-10 list-a-plr-sm-5 list-a-ptb-15 list-a-ptb-sm-5">
-          <li><a class="pl-0 pl-sm-10" href="#" title=""><i class="ion-social-facebook"></i></a></li>
-          <li><a href="#">  Copyright &copy; <script>document.write(new Date().getFullYear());</script> ceodevelopers</a></li>
-          <li><a href="#" title=""><i class="ion-social-google"></i></a></li>
-          <li><a href="#" title=""><i class="ion-social-instagram"></i></a></li>
-          <li><a href="#" title=""><i class="ion-social-bitcoin"></i></a></li>
-        </ul>
-
-      </div><!-- oflow-hidden -->
+            </div><!-- row -->
+        </div><!-- ptb-50 -->
+        <div class="brdr-ash-1 opacty-2"></div>
+        <div class="oflow-hidden color-ash font-9 text-sm-center ptb-sm-5">
+            <ul class="float-left float-sm-none list-a-plr-10 list-a-plr-sm-5 list-a-ptb-15 list-a-ptb-sm-10">
+                <li><a class="pl-0 pl-sm-10" href="#">Terms &amp; Conditions</a></li>
+                <li><a href="#">Privacy policy</a></li>
+                <li><a href="{% url 'contact' %}" title=''>Jobs advertising</a></li>
+                <li><a href="{% url 'contact' %}" title=''>Contact us</a></li>
+            </ul>
+            <ul class="float-right float-sm-none list-a-plr-10 list-a-plr-sm-5 list-a-ptb-15 list-a-ptb-sm-5">
+                <li><a class="pl-0 pl-sm-10" href="#" title=""><i class="ion-social-facebook"></i></a></li>
+                <li><a href="#"> Copyright &copy; <script>
+                        document.write(new Date().getFullYear());
+                        </script> ceodevelopers</a></li>
+                <li><a href="#" title=""><i class="ion-social-google"></i></a></li>
+                <li><a href="#" title=""><i class="ion-social-instagram"></i></a></li>
+                <li><a href="#" title=""><i class="ion-social-bitcoin"></i></a></li>
+            </ul>
+        </div><!-- oflow-hidden -->
     </div><!-- container -->
-  </footer>
+</footer>
+
+    {% include "noscript.html" %}
+    {%include "includes/website_index/static_js.html" %}
