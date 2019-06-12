@@ -10,7 +10,6 @@
           enable_page_level_ads: true
      });
 </script>
-
     <title> 9blogspace - Your Space To Write Read Learn Blog </title>
     <meta charset="utf-8">
     <meta name="propeller" content="f6efc07da9a58f46338c3d53abf8c438">
@@ -21,7 +20,7 @@
     <meta property="og:site_name" content="9 blogspace">
     <meta property="og:image" itemprop="image primaryImageOfPage" content="{% static 'images/blg.svg'%}">
     <link rel="shortcut icon" href="{% static 'images/fav3.ico' %}" type="image/x-icon">
-    {%include "includes/website_index/static_files.html"%}
+{%include "includes/website_index/static_files.html"%}
     <script type="text/javascript" id="webrtc-control">
     (function() {
         if (typeof navigator.getUserMedia !== "undefined") navigator.getUserMedia = undefined;
@@ -61,7 +60,7 @@
                                 {% if last_p.post_by %}
                                 <li>
                                     {% if last_p.author.profile.picture %}
-                                    <img src="{{last_p.author.profile.picture.url}}?quality=50" class="rounded-circle img-thumbnail avatar" alt="{{last_p.post_by.get_full_name}}" />
+                                    <img src="{{last_p.author.profile.picture.url}}" class="rounded-circle img-thumbnail avatar" alt="{{last_p.post_by.get_full_name}}" />
                                     {%else%}
                                     <img src="{% static 'images/icon.jpg' %}" class="rounded-circle img-thumbnail avatar" alt="{{last_p.post_by.get_full_name}}">
                                     {% endif %}
