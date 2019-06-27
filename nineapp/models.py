@@ -34,7 +34,7 @@ class Profile(TimeMixin):
         (2, 'superblogger'),
         (3, ''),
         )
-    
+
     author = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     bio    = models.TextField(_("Describe Yourself"), max_length=200,error_messages = {'max_length': "Exceed limit of 200 characters)"}, default="I am a blogger")
     role   = models.PositiveSmallIntegerField(choices=ROLES, default=1, null=True, blank=True)
