@@ -4,6 +4,22 @@
 {{req_post.topic}}
 {%endblock%}
 {% block head_content%}
+<meta name="description" content="{{req_post.content | truncatewords:30 }}">
+<meta name="keywords" content="">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="">
+<meta name="twitter:title" content="{{req_post.topic}}">
+<meta name="twitter:description" content="{{req_post.content | truncatewords:30 }}">
+<meta name="twitter:image" content="{% static 'images/blg.svg'%}">
+<meta name="twitter:url" content="https://9blogspace.com/{{req_post.slug}}">
+<meta name="twitter:creator" content="">
+<meta property="og:title" content="{{req_post.topic}}">
+<meta property="og:type" content="article">
+<meta property="og:description="{{req_post.content | truncatewords:30 }}">
+<meta property="og:locale" content="en-US">
+<meta property="fb:app_id" content="">
+<meta name="og:url" content="https://9blogspace.com/{{req_post.slug}}">
+<meta name="article" content="">
 {{req_post.get_meta_tags}}
 <style type="text/css">
 body {
@@ -148,6 +164,7 @@ window.addEventListener('load', (e) => {
         </div>
     </div>
 </p>
+
 {%if req_post.post_by.profile %}
 <div class="quote-primary mt-10">
     <div class="d-flex justify-content-between mt-2">
