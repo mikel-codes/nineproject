@@ -59,23 +59,23 @@
                     <div class="row">
                         {% for post in posts %}
                         <div class="col-sm-6">
-                            <div class="card box mt-2" style="background-color: white; z-index: 1, width:22rem; height: 24rem;">
+                            <div class="card box mt-2" style="background-color: white; z-index: 1, width:22rem; height: 25rem;">
                           <img class="card-img-top" src='{{post.photos.url}}' height="50%
                           " alt="image loading...">
                                 <div class="card-body">
                                     <a href="{% url 'getpost' post.slug %}" class="card-link">
-                                        <span style="font-size: 0.8em" ><i class="fa fa-bookmark"></i> {{req_post.category}}</span>
+                                        <span style="font-size: 0.8em" ><i class="fa fa-bookmark"></i> {{post.category}}</span>
                                         <h3 class="card-title" style="color: black">
-                                            {{post.topic | safe |  truncatewords:30}}
+                                            {{post.topic | safe |  truncatewords:20}}
                                         </h3>
                                     </a>
                                         <!--p>{{post.content | safe | truncatewords:16 }}</p-->
                                         <div class="d-flex justify-content-between mt-1">
                                             <span class="float-right">
-                                              {% if not req_post.post_by.profile.picture %}
-<div id="ccircle">{{req_post.post_by.first_name | slice:1}}</div>
+                                              {% if not post.post_by.profile.picture %}
+<div id="ccircle">{{post.post_by.first_name | slice:1}}</div>
 {% else %}
-<img src="{{req_post.post_by.profile.picture.url}}" height="40" width="50" class="avatar circle">
+<img src="{{post.post_by.profile.picture.url}}" height="40" width="50" class="avatar circle">
 {% endif %} 
                     <b style="font-size: 0.8em">{{post.post_by.get_full_name | truncatechars:15}}
                     <p> <span id="momentum" class="font-3 gray mr-10">
