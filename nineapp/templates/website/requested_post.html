@@ -4,6 +4,7 @@
 {{req_post.topic}}
 {%endblock%}
 {% block head_content%}
+{% load static %}
 <meta name="description" content="{{req_post.content | truncatewords:30 }}">
 <meta name="keywords" content="">
 <meta name="twitter:card" content="summary_large_image">
