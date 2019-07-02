@@ -64,8 +64,8 @@
                           " alt="image loading...">
                                 <div class="card-body">
                                     <a href="{% url 'getpost' post.slug %}" class="card-link">
-                                        <i class="fa fa-bookmark"></i>
-                                        <h3 class="card-title">
+                                        <span style="font-size: 0.8em" ><i class="fa fa-bookmark"></i> {{req_post.category}}</span>
+                                        <h3 class="card-title" style="color: black">
                                             {{post.topic | safe |  truncatewords:30}}
                                         </h3>
                                     </a>
