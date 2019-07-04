@@ -5,18 +5,18 @@
 {%endblock%}
 {% block head_content%}
 {% load static %}
-<meta name="description" content="{{req_post.content | truncatewords:30 }}">
+<meta name="description" content="{{req_post.description}}">
 <meta name="keywords" content="">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="">
 <meta name="twitter:title" content="{{req_post.topic}}">
-<meta name="twitter:description" content="{{req_post.content | truncatewords:30 }}">
+<meta name="twitter:description" content="{{req_post.description}}">
 <meta name="twitter:image" content="{% static 'images/blg.svg'%}">
 <meta name="twitter:url" content="https://9blogspace.com/{{req_post.slug}}">
 <meta name="twitter:creator" content="">
 <meta property="og:title" content="{{req_post.topic}}">
 <meta property="og:type" content="article">
-<meta property="og:description="{{req_post.content | truncatewords:30 }}">
+<meta property="og:description" content="{{req_post.description}}">
 <meta property="og:locale" content="en-US">
 <meta property="fb:app_id" content="">
 <meta name="og:url" content="https://9blogspace.com/{{req_post.slug}}">
@@ -73,15 +73,7 @@ h4 {
 }
 </style>
 <script>
-readingTime = () => {
 
-    const wordsPerMinute = 200;
-    const text = document.querySelector("#loop").innerHTML
-    const noOfWords = text.split(/\s/g).length;
-    const minutes = noOfWords / wordsPerMinute;
-    const readTime = Math.ceil(minutes);
-    document.querySelector("#rt").innerHTML = readTime
-}
 
 const checkforTags = () => {
 
@@ -93,7 +85,7 @@ const checkforTags = () => {
 
 
 
-        Array.from(h1_tags).every((h1) => {
+        Array.from(h1_tags, (h1) => {
             console.log("This is h1", h1)
             h2.innerHTML = h1.innerHTML
             h1.replaceWith(h2)
@@ -123,7 +115,7 @@ window.addEventListener('load', (e) => {
 <ul class="list-li-mr-20 mtb-15 text-left">
     <li><b>{{req_post.post_by.get_full_name}}</b></li>
     <br />
-    <li> {{ req_post.modified | date:"F jS, Y"}} . <span id="rt"></span> mins read </li>
+    <li> {{ req_post.modified | date:"F jS, Y"}} . <span id="rt">{{req_post.read_time}}</span> mins read </li>
     <br />
     <li>
         viewed <view-dir link="{% url 'view_update' req_post.id %}">
@@ -138,9 +130,9 @@ window.addEventListener('load', (e) => {
 <h1 class="text-left " style="font-size: 3em;">{{req_post.topic}}</h1>
 <br><br>
 <img src="{{ req_post.photos.url }}" alt="{{req_post.topic | truncatechars:10 }}" />
-<span class="mtb-15 text-left" id="loop">
+<article class="mtb-15 text-left" id="loop">
     {{ req_post.content | safe }}
-</span>
+</article>
 <p class="mt-30">
     <div class="d-flex justify-content-between mt-2">
         <div class="float-left">
@@ -170,20 +162,28 @@ window.addEventListener('load', (e) => {
 <div class="quote-primary mt-10">
     <div class="d-flex justify-content-between mt-2">
         <div class="float-left">
-            <h6>
-                <span>
+             <div class="d-flex justify-content-between mt-2">
+        
+                <span class="float-left">
                     {% if req_post.post_by.profile.picture %}
                     <img src="{{profile.picture.url}}" class="img" alt="r req_post.post_by.profile.picture" />
                     {%else %}
                     <div id="circle">{{req_post.post_by.get_full_name | slice:1}}</div>
                     {% endif %}
                 </span>
-                <span class="ml-2 text-left">
-                    <p><b>{{req_post.post_by.get_full_name}}</b></p>
-                    <p>{{ req_post.post_by.profile.bio | linebreaks}}</p>
+
+                <span class="float-right">
+                    <ul>
+                        <li><h5>About Me.</h5></li>
+                    <li><b>{{req_post.post_by.get_full_name}}</b></li><br>
+                    <li>{{ req_post.post_by.profile.bio | linebreaks}}</li>
+        </ul>
                 </span>
-            </h6>
+
         </div>
+    </div>
+        <!-- end of second parent float   -->
+    <!-- end of the first parent float/-->
         <div class="float-right">
             <h6>
                 <clap-dir clapid="{{req_post.clap.id}}" usertoken="'{{token}}'" owner="{{req_post.post_by.id}}" clapper="{{request.user.id}}" counter="{{clap_count}}">

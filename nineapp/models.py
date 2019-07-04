@@ -93,10 +93,12 @@ class Category(TimeMixin, MetaTagsMixin):
 class Post(TimeMixin, MetaTagsMixin):
     """docstring for Post"""
     category = models.ForeignKey(Category,models.CASCADE, related_name="posts_in_category")
-    topic    = models.CharField(_("Topic"), max_length=400, unique=True, error_messages={'unique': 'This topic has already been used', 'max_length':'The length should not exceed 500 characters'})
-    #content  = models.TextField(_("Blog Content"),  max_length=12000, null=False, blank=False)
+    topic    = models.CharField(_("Topic"), max_length=110, unique=True, error_messages={'unique': 'This topic has already been used', 'max_length':'The length should not exceed 500 characters'})
+    #content = models.TextField(_("Blog Content"),  max_length=12000, null=False, blank=False)
+    description = models.CharField(_('Meta Description'), max_length=300, unique=True, null=True, blank=True, error_messages={'unique': 'This has already been used', 'max_length': 'Exceeded 1000 characters' })
     content  = HTMLField(_('Blog Content'))
-    slug     = models.SlugField(unique=True, max_length=500, null=True, blank=True)
+    read_time = models.PositiveIntegerField(blank=False, null=False, default=0)
+    slug     = models.SlugField(unique=True, max_length=220, null=True, blank=True)
     photos   = models.ImageField(storage=gpostc(), blank=False,null=False)
     post_by  = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     tags     = models.TextField(max_length=200, blank=True, null=True)
@@ -113,8 +115,10 @@ class Post(TimeMixin, MetaTagsMixin):
         return self.tags.split(',')
 
     def save(self):
+        if not self.description:
+            self.description = self.topic
         self.meta_keywords = self.tags
-        self.meta_description = '%s: %s' % (self.category.name, self.topic)
+        self.meta_description = self.description
         self.meta_author = self.post_by.get_full_name()
         self.slug = slugify(self.topic).lower()
         self.meta_copyright = str(self.modified)

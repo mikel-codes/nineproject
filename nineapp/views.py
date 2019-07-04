@@ -13,7 +13,7 @@ from django.contrib.auth import login, authenticate, logout, update_session_auth
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.contrib import messages
-from django.http import Http404, HttpResponse 
+from django.http import Http404, HttpResponse
 
 #necessary for email confirmation
 from django.template.loader import render_to_string
@@ -78,14 +78,14 @@ def list_posts(request, slug=None):
     category = get_object_or_404(Category, slug=slug)
     posts_from_category = Post.objects.filter(category=category).order_by('-id', '-modified')
     # for the explore footer
-    head_post = Post.objects.all().first()  
+    head_post = Post.objects.all().first()
     last_p = Post.objects.all().last()
-    
+
     paginator = Paginator(posts_from_category, 9) # Show 1 post per page
     page = request.GET.get('page') #paginate returns the page key for post(s)
     posts = paginator.get_page(page)
     categories = Category.objects.all()
-    
+
     context = {'categories': categories,  'posts': posts, 'category':category, 'head_post': head_post, 'last_p': last_p}
     return render(request, "website/category_posts.html", context)
 
@@ -98,7 +98,7 @@ def getpost(request, slug=None):
     except Exception:
         related_posts = None
         posts = None
-        
+
     recipe_for_req = Post.objects.filter(pk=req_post.id)
     categories = Category.objects.all()
     head_post = Post.objects.all().first()
@@ -112,7 +112,7 @@ def getpost(request, slug=None):
         clap_count = 0
     if request.user.is_authenticated:
          token = str(Token.objects.get_or_create(user=request.user)[0].key)
-    context_1 = newsletter(request) 
+    context_1 = newsletter(request)
     try:
         profile = get_object_or_404(Profile, pk=req_post.post_by)
     except:
@@ -123,7 +123,7 @@ def getpost(request, slug=None):
 
 
 
-        
+
 
 def contact(request):
     categories = Category.objects.all()
@@ -135,7 +135,7 @@ def contact(request):
         form = ContactForm(request, request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            messages.info(request, "Message Sent")        
+            messages.info(request, "Message Sent")
             return redirect(reverse("contact"))
     context = {"form": form, "categories": categories, 'head_post': head_post,'last_p': last_p}
     return render(request, 'website/contact.html', context)
@@ -162,13 +162,13 @@ def email_password_reset(request):
         mail.attach_alternative(message, "text/html")
         mail.content_subtype = "html"
         mail.mixed_type = "related"
-        mail.send()     
+        mail.send()
     except(BadHeaderError, ValueError, Exception):
         messages.info(request, "link sent to email")
         return redirect("signin")
     else:
         messages.info(request, "sent you an email")
-        return redirect("signin")    
+        return redirect("signin")
 
 
 def password_reset_confirm(request, uidb64, token):
@@ -215,14 +215,14 @@ def activate(request, uidb64, token):
 
 
 def userlogin(request):
-    
+
     if request.POST:
         username = request.POST['username']
         password = request.POST['password']
         user     = authenticate(request, username=username, password=password)
         if user is not None and user.is_active: # if the account of the user is still active
                 login(request, user)
-                request.session["identity"] = request.user.id 
+                request.session["identity"] = request.user.id
                 messages.success(request,"Welcome %s your dashboard" % request.user.username)
                 return redirect(reverse('dashboard', args=(request.user.username,)))
         else:
@@ -243,13 +243,13 @@ def reset(request):
     else:
         form = ResetPasswordForm(request.user)
     return render(request, "dashboard/reset.html",{"form": form})
-    
+
 @never_cache
 @login_required(login_url = "signin")
 def dashboard(request,  username):
     try:
         username = request.user.username
-        profile = get_object_or_404(Profile, author=request.user)  
+        profile = get_object_or_404(Profile, author=request.user)
         user = get_object_or_404(User, username=username)
         try:
 
@@ -287,12 +287,12 @@ def create_content(request):
     for p in Post.objects.filter(post_by=request.user):
         claps += p.clap.num_claps
     if request.method == "POST":
-        form = PostForm(request, request.POST, request.FILES)    
+        form = PostForm(request, request.POST, request.FILES)
         if form.is_valid():
             form.save()
             messages.info(request, "Your post was added successfully")
             return redirect(reverse("dashboard", args=(request.user.username,)))
-    
+
     form = PostForm(request)
     profile = get_object_or_404(Profile, pk=request.user.id)
     apiKey="qyg9booc56vxgcp2hprjqey5yg92id22iani4etzttugrj7w"
@@ -302,7 +302,7 @@ def create_content(request):
 @login_required(login_url='signin')
 def edit_post(request, pk):
    post = get_object_or_404(Post, pk=pk)
-   profile = get_object_or_404(Profile, pk=post.post_by.id)  
+   profile = get_object_or_404(Profile, pk=post.post_by.id)
    form = PostForm(request, request.POST or None,request.FILES or None, instance=post)
    if form.is_valid():
         form.save()
@@ -336,7 +336,7 @@ def edit_profile(request, name):
         claps = 0
         for p in Post.objects.filter(post_by=request.user):
             claps += p.clap.num_claps
-        name = request.user.username 
+        name = request.user.username
         profile = get_object_or_404(Profile, pk=request.user.id)
         form = ProfileForm(request, request.POST or None, request.FILES or None, instance=profile)
         if form.is_valid():

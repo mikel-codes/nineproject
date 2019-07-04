@@ -21,6 +21,10 @@
     border-radius: 500rem;
     /* margin-bottom: 0em; */
   }
+  hr{
+    width: 60%;
+    font-weight: 800px;
+  }
 </style>
 <ul class="nav">
   <li class="nav-item active">
@@ -35,8 +39,8 @@
        <b>{{ request.user.get_full_name }}</b> 
       </p>
     {%else%}
-      <p class="centered">
-        <img src="{% static 'images/unknown.png' %}" width="100" height="100" class="img thumbnail rounded-circle">
+      <p class="centered" style="color: purple;">
+        <img src="{% static 'images/unknown.png' %}" style="background-color: purple;" width="100" height="100" class="img thumbnail rounded-circle">
         </p>
              <p class="centered">
         <b><small>{{ request.user.get_full_name }}</small> </b>
@@ -47,14 +51,15 @@
   
       </li>
       {% if profile.bio %}
-      <li class="nav-item"  style="
-
-      
-       margin: 10px 10px; 
+      <li class="nav-item"  style="margin: 10px 10px;
        font-family: Raleway;">
         <span>
           <h6 class="centered" >
-           <em style="background: whitsmoke; color: gray"> {{ profile.bio}}</em>
+             
+            <hr/>
+          
+            {{ profile.bio | lower | capfirst}}
+           <hr/>
           </h6>
         </span>
       </li>
@@ -95,8 +100,7 @@
           <p>Logout </p>
         </a>
       </li>
-}
-}
+
 
  </ul>
  

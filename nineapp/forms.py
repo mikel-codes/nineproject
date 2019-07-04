@@ -8,7 +8,7 @@ from io import StringIO, BytesIO
 import sys, os
 
 from django import forms
-from django.forms import PasswordInput, TextInput, Textarea, Select, HiddenInput
+from django.forms import PasswordInput, TextInput, Textarea, Select, HiddenInput, NumberInput
 from django.utils.translation import  ugettext_lazy as _
 from django.core.mail import send_mail, BadHeaderError, EmailMessage, EmailMultiAlternatives as EM, send_mass_mail
 #from django.contrib.auth.models import User
@@ -131,14 +131,15 @@ def resize_image(*args, field=object,  **kwargs):
 
 class PostForm(forms.ModelForm):
     """ create a form to generate Posts"""
-    #content = forms.CharField(label=_("Blog Content"), min_length=500, widget=forms.Textarea(attrs= { 'rows':"30", 'cols':'50'}))
     class Meta:
         model  = Post
-        fields = ("category","topic", "content", "photos", "tags")
+        fields = ("category","topic", "read_time", "content",  "photos", 'read_time', "description",  "tags")
         attrs  = {"class":"form-control reginput"}
         widgets = {
             'category': Select(attrs.copy()),
             'topic': TextInput(attrs.copy()),
+            'read_time': NumberInput({**attrs.copy(), 'disabled': 'disabled'}),
+            'description': Textarea({**attrs.copy(), 'rows': '5', 'cols': '5', 'disabled': 'disabled','placeholder': 'summarise your content in not less than 100 characters and not more than 500 characters'}),
             'tags':  TextInput({**attrs.copy(), 'placeholder': 'type a search keyword followed by a comma here', "data-role": "tagsinput"})
             }
 
