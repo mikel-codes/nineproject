@@ -22,7 +22,6 @@
             {% if form.errors%}
             <p class="alert alert-danger centered">
                 Form could not be saved
-
             </p>
             {% endif %}
             <legend>{{legend | upper}}</legend>
@@ -34,7 +33,6 @@
                 <div class='input-group'>
                     {{field}}
                     {{field.help_text}}
-
                     <ul>
                         <li style="color:indianred;">
                             <small>{{field.errors}}</small>
@@ -59,7 +57,6 @@
 </div>
 <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=qyg9booc56vxgcp2hprjqey5yg92id22iani4etzttugrj7w"></script>
 <script>
-
 function submit() {
     document.forms[0].submit();
 }
@@ -76,7 +73,9 @@ tinymce.init({
             document.getElementById("character_count").innerHTML = "Characters: " + count;
         });
         ed.on('mouseleave', (e) => {
-            return ValidateCharacterLength()
+            evalMeta()
+            readingTime()
+            ValidateCharacterLength()
         });
     }
 });
@@ -86,13 +85,21 @@ const evalMeta = () => {
     try {
         let content = tinymce.get('id_content').getBody()
         const ps = content.querySelectorAll('p')
+        let observer = 0
         Array.from(ps, p => {
 
-          let arr = p.innerHTML.split(' ')
-          if (arr.length > 10 & arr.length < 30){
-            document.querySelector('#id_description').innerHTML = p.innerHTML
-            return
-          }
+            let arr = p.innerHTML.split(' ')
+
+            if (arr.length > 10 & arr.length < 33) {
+                document.querySelector('#id_description').innerHTML = p.innerHTML
+                return
+                if (observer >= 3) {
+                    document.querySelector('#id_description').innerHTML = p.innerHTML.slice(0, 100)
+                    return
+                }
+                observer++;
+
+            }
         })
 
 
@@ -119,6 +126,7 @@ readingTime = () => {
     document.querySelector("#id_read_time").value = readTime
     console.log('read time for this article is ', readTime)
 }
+
 function CountCharacters() {
     var body = tinymce.get("id_content").getBody();
     var content = tinymce.trim(body.innerText || body.textContent);
@@ -148,19 +156,15 @@ function ValidateCharacterLength() {
         subm.setAttribute("disabled", "disabled")
         return false
     } else {
-      try{
-        evalMeta()
-       readingTime()
-        subm.removeAttribute("disabled", "disabled")
-      }
-      catch(e){
-        console.log("Errors when trying to validate this form ==> ", e)
-      }
+        try {
+
+            subm.removeAttribute("disabled", "disabled")
+        } catch (e) {
+            console.log("Errors when trying to validate this form ==> ", e)
+        }
 
     }
     return;
 }
-
-
 </script>
 {% endblock %}

@@ -73,7 +73,7 @@
                                         <h3 class="card-title" style="color: black; font-family: Lato" {% if post.topic|length >= 50 %} 
                                             title="{{post.topic}}"
                                             {%endif%}>
-                                            {{post.topic | capfirst | safe | truncatechars:50}}
+                                            {{post.topic | capfirst | safe | linebreaks |truncatechars:50 }}
                                         </h3>
                                     </a>
                                     <!--p>{{post.content | safe | truncatewords:16 }}</p-->

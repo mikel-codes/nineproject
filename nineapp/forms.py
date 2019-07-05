@@ -133,12 +133,12 @@ class PostForm(forms.ModelForm):
     """ create a form to generate Posts"""
     class Meta:
         model  = Post
-        fields = ("category","topic", "read_time", "content",  "photos", 'read_time', "description",  "tags")
+        fields = ("category","topic",  "content", "read_time", "photos", 'read_time', "description",  "tags")
         attrs  = {"class":"form-control reginput"}
         widgets = {
             'category': Select(attrs.copy()),
             'topic': TextInput(attrs.copy()),
-            'read_time': NumberInput({**attrs.copy(), 'disabled': 'disabled'}),
+            'read_time': NumberInput({**attrs.copy(), 'editable': 'false'}),
             'description': Textarea({**attrs.copy(), 'rows': '5', 'cols': '5', 'disabled': 'disabled','placeholder': 'summarise your content in not less than 100 characters and not more than 500 characters'}),
             'tags':  TextInput({**attrs.copy(), 'placeholder': 'type a search keyword followed by a comma here', "data-role": "tagsinput"})
             }
