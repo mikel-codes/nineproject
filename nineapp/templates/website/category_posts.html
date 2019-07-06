@@ -5,37 +5,6 @@
 {%endblock%}
 {%block head_content %}
 <style type="text/css">
-/*
-  position: absolute;
-  padding-top: 300%;
-  padding-left: 350%;
-  margin-left: -20px!important;
-  margin-top: -120%;
-  */
-/*
-  .row {
-    margin: 0rem;
-  }
-
-.button:focus{
-  outline: none;
-}
-  .button:after {
-  content: "";
-  background: #90EE90;
-  opacity: 0;
-  outline: none;
-  transition: all 0.8s
-}
-
-.button:active:after {
-  padding: 0;
-  outline: none;
-  margin: 0;
-  opacity: 1;
-  transition: 0s
-}
-*/
 
 .box {
     background: #fff;
@@ -111,7 +80,8 @@
                 {% if post.post_by.profile.picture %}
                 <img src="{{post.post_by.profile.picture.url}}" class="rounded-circle  img-thumbnail avatar" alt="{{post.post_by.get_full_name}}" />
                 {%else%}
-                <div id="circle">{{post.post_by.first_name | slice:1}}</div> &nbsp;&nbsp;&nbsp;&nbsp;|
+                <div id="circle">
+                {{post.post_by.first_name | slice:1}}</div> &nbsp;&nbsp;&nbsp;&nbsp;|
                 <br>
                 {%endif%}
                 <p style="font-size: 0.8em">

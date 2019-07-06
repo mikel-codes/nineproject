@@ -8,13 +8,13 @@ body {
     background: #f9f7f6;
     color: #404d5b;
     font-weight: 500;
-   
+
     font-family: 'Raleway', Arial, sans-serif;
 }
 
 </style>
 
-   
+
 <div class="modal fade"  id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel3" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-zoom" role="document">
     <div class="modal-content">
@@ -43,19 +43,19 @@ body {
 
  <form method="post" action="{% url "signin" %}" class="bgcolor-3 form-login">
       {%csrf_token%}
- 
-            
+
+
     <legend class="text-center border-bottom" style='font-family:"Lato"'>Log In  to Clap or Like</legend>
       <div class="vertical-form">
-             
+
         <div class="form-group">
-          <input type="text" name="username" placeholder="Username" 
+          <input type="text" name="username" placeholder="Username"
               class="form-control" />
         </div>
         <div class="form-group">
-          <input type="password" name="password" placeholder="Password" 
+          <input type="password" name="password" placeholder="Password"
               class="form-control"/>
-    
+
         </div>
         <div class='input-group-sm mb-2'>
           <button type="submit" value="Log In" class="btn btn-block btn-success">
@@ -66,13 +66,13 @@ body {
 
 
       </div>
-      
-    
+
+
      </form>
    </div>
    <div class="modal-footer">
                 <p class="float-center" style="color:#444;">
-          New Guest? 
+          New Guest?
         </p>
         <button type="button" class="btn btn-primary"><a href="{%url 'reg'%}">Sign Up!</a></button>
       </div>
@@ -82,4 +82,3 @@ body {
 </div>
 
 
-    
