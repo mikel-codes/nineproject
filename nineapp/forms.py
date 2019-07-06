@@ -138,8 +138,8 @@ class PostForm(forms.ModelForm):
         widgets = {
             'category': Select(attrs.copy()),
             'topic': TextInput(attrs.copy()),
-            'read_time': NumberInput({**attrs.copy(), 'editable': 'false'}),
-            'description': Textarea({**attrs.copy(), 'rows': '5', 'cols': '5', 'disabled': 'disabled','placeholder': 'summarise your content in not less than 100 characters and not more than 500 characters'}),
+            'read_time': NumberInput({**attrs.copy(), 'readonly': 'readonly'}),
+            'description': Textarea({**attrs.copy(), 'rows': '5', 'cols': '5', 'readonly': 'readonly','placeholder': 'summarise your content in not less than 100 characters and not more than 500 characters'}),
             'tags':  TextInput({**attrs.copy(), 'placeholder': 'type a search keyword followed by a comma here', "data-role": "tagsinput"})
             }
 

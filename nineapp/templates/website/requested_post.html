@@ -23,21 +23,22 @@
 <meta name="article" content="">
 {{req_post.get_meta_tags}}
 <style type="text/css">
-body {
 
-    box-sizing: border-box;
-    word-wrap: break-word;
-    font-family: Montserrat, Lato;
-    background-color: #fff;
-}
 
-p,
+
 h1,
 h2,
 h3,
 h4 {
-    font-weight: 200 !important;
+    font-weight: 400 !important;
+    font-family: Lato;
 
+
+}
+article > p{
+    font-size: 1.4em;
+    font-family: Montserrat;
+    font-weight: 300px;
 }
 
 #circle {
@@ -130,8 +131,8 @@ window.addEventListener('load', (e) => {
 <h1 class="text-left " style="font-size: 3em;">{{req_post.topic}}</h1>
 <br><br>
 <img src="{{ req_post.photos.url }}" alt="{{req_post.topic | truncatechars:10 }}" />
-<article class="mtb-15 text-left" id="loop">
-    {{ req_post.content | safe }}
+<article class="mtb-15 text-left"  id="loop" style="font-family: Montserrat;">
+   {{ req_post.content | safe }}
 </article>
 <p class="mt-30">
     <div class="d-flex justify-content-between mt-2">
@@ -166,7 +167,7 @@ window.addEventListener('load', (e) => {
         
                 <span class="float-left">
                     {% if req_post.post_by.profile.picture %}
-                    <img src="{{profile.picture.url}}" class="img" alt="r req_post.post_by.profile.picture" />
+                    <img src="{{profile.picture.url}}" class="img" />
                     {%else %}
                     <div id="circle">{{req_post.post_by.get_full_name | slice:1}}</div>
                     {% endif %}
@@ -175,8 +176,9 @@ window.addEventListener('load', (e) => {
                 <span class="float-right">
                     <ul>
                         <li><h5>About Me.</h5></li>
-                    <li><b>{{req_post.post_by.get_full_name}}</b></li><br>
-                    <li>{{ req_post.post_by.profile.bio | linebreaks}}</li>
+                    <li><b>{{req_post.post_by.get_full_name}}</b></li>
+                    <br>
+                    <li style="font-size: 0.5em;">{{ req_post.post_by.profile.bio | linebreaks}}</li>
         </ul>
                 </span>
 

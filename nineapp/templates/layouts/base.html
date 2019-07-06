@@ -70,10 +70,11 @@
                                 <div class="card-body">
                                     <a href="{% url 'getpost' post.slug %}" class="card-link">
                                         <span style="font-size: 0.8em"><i class="fa fa-bookmark"></i> {{post.category}}</span>
-                                        <h3 class="card-title" style="color: black; font-family: Lato" {% if post.topic|length >= 50 %} 
+                                        <h3 class="card-title" style="color: black;"
+                                        {% if post.topic|length >= 50 %}
                                             title="{{post.topic}}"
                                             {%endif%}>
-                                            {{post.topic | capfirst | safe | linebreaks |truncatechars:50 }}
+                                            {{post.topic | capfirst }}
                                         </h3>
                                     </a>
                                     <!--p>{{post.content | safe | truncatewords:16 }}</p-->
