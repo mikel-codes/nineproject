@@ -1,8 +1,8 @@
 #-*- coding:utf-8 -*-
 from  __future__ import unicode_literals
 from django.urls import path, re_path
-from .views import  (registration, dashboard, userlogin, 
-userlogout, reset, create_content, page_not_found, getpost, edit_post, delete_post, activate, edit_profile, 
+from .views import  (registration, dashboard, userlogin,
+userlogout, reset, create_content, page_not_found, getpost, edit_post, delete_post, activate, edit_profile,
  contact, index, list_posts, activate, email_password_reset, password_reset_confirm, stripepay,no_js)
 
 from django.conf.urls import url
@@ -19,8 +19,8 @@ urlpatterns = [
         path("posts/edit/<int:pk>", edit_post, name="edit_post"),
         path("contact", contact, name="contact"),
         path("category/<str:slug>", list_posts, name="listposts"),
-        
-        # api views  ----------------------- 
+
+        # api views  -----------------------
         path("clap/<int:pk>/by/<int:clapper_pk>/for/<int:user_pk>", ClapUpdate.as_view(), name="clap_update"),
         #path('clap/<int:pk>', ClapDetail.as_view(), name="clap_detail"),
         path('like/change/<int:pk>', UpdateLike.as_view(), name="update_like"),
@@ -28,7 +28,7 @@ urlpatterns = [
         # ----------------------------------------------------------------
 
         path('member/login/email/password/reset', email_password_reset, name="email_reset"),
-        
+
         path("disabled/javascript", no_js, name="no_js"),
         path('oops!',page_not_found, name="page_not_found" ),
         path('topic/<str:slug>', getpost, name ="getpost"),
