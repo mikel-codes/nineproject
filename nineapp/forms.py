@@ -74,7 +74,7 @@ class SignUpForm(UserCreationForm):
             mail_message = render_to_string('activate_acct_mail.html', {
                 'user'   : user,
                 "domain" : get_current_site(self.request).domain,
-                'uid':     urlsafe_base64_encode(force_bytes(user.pk)).decode(),
+                'uid':     urlsafe_base64_encode(force_bytes(user.pk)),
                 'token':   account_token.make_token(user)
             })
 
@@ -277,8 +277,3 @@ class NewsUsersForm(forms.ModelForm):
     class Meta:
         model = NewsUsers
         fields = ('email',)
-
-
-
-
-
