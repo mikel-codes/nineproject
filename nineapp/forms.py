@@ -57,7 +57,7 @@ class SignUpForm(UserCreationForm):
         # find a user to match for the email
         try:
             User.objects.get(email=email)
-        except (Exception, IOError):
+        except (Exception, User.DoesNotExist):
             print("User Email is new, Preparing to save")
         else:
             raise forms.ValidationError("Email is already in use")
