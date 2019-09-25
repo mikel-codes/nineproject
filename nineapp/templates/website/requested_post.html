@@ -40,7 +40,7 @@ h4 {
 }
 article > p{
     font-size: 1.4em;
-    font-family: Montserrat;
+    font-family: "Book Antiqua";
     font-weight: 300px;
 }
 
@@ -115,7 +115,7 @@ window.addEventListener('load', (e) => {
 {% endblock %}
 {% block header %}
 <section class="ptb-0">
-    <div class="mt-30  opacty-2"></div>
+    <div class="mt-30  opacity-2"></div>
     <div class="container">
       {% if not req_post.post_by.profile.picture %}
       <div id="circle">{{req_post.post_by.first_name | slice:1}}</div>
@@ -140,7 +140,7 @@ window.addEventListener('load', (e) => {
 <h1 class=" h1 text-left" >{{req_post.topic}}</h1>
 <br><br>
 <img src="{{ req_post.photos.url }}" alt="{{req_post.topic | truncatechars:10 }}" height="500" />
-<article class="mtb-15 text-left"  id="loop" style="font-family: Montserrat;">
+<article class="mtb-15 text-left"  id="loop" >
    {{ req_post.content | safe }}
 </article>
 <p class="mt-30">
