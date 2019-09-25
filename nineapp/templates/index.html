@@ -135,8 +135,8 @@
                         {% if recent_posts %}
                         {% for post in recent_posts %}
                         <div class="col-sm-6">
-                            <div class="card  mb-40 ml-20 " style="width:18rem; height: 25rem;">
-                                <img class="card-img-top" src='{{post.photos.url}}' height='40%' width="100%" alt="image loading...">
+                            <div class="card  mb-40 ml-20 " style="width:18rem; height: 20rem;">
+                                <img class="card-img-top" src='{{post.photos.url}}' height='50%' width="100%" alt="image loading...">
                                 <div class="card-body">
                                     <a href="{% url 'getpost' post.slug %}" class="card-link">
                                         <span class="badge badge-secondary">
