@@ -27,18 +27,9 @@
 
 <style type="text/css">
 
-
-
-h1
-h2,
-h3,
-h4 {
-    font-weight: 400 !important;
-
-}
-article > p{
+article , article > p{
     font-size: 1.4em;
-    font-family: "Book Antiqua";
+    font-family: "Book Antiqua" !important;
     font-weight: 300px;
 }
 
@@ -48,6 +39,7 @@ article > p{
     border-radius: 50%;
     font-size: 50px;
     color: white;
+    font-family: Lato;
     line-height: 80px;
     text-align: center;
     background-color: gray;
@@ -58,9 +50,8 @@ article > p{
     margin-right: 0.3em;
 }
 
-.h1 .text-left {
+h1, h2,h3, h4 {
       font-family: 'Book Antiqua', arial;
-      font-size: 48px;
       text-shadow: 4px 4px 4px #aaa;
     }
 
@@ -135,7 +126,7 @@ window.addEventListener('load', (e) => {
   </section>
 {% endblock header %}
 {% block content %}
-<h1 class=" h1 text-left" >{{req_post.topic}}</h1>
+<h1 class="h1 text-left" >{{req_post.topic}}</h1>
 <br><br>
 <img src="{{ req_post.photos.url }}" alt="{{req_post.topic | truncatechars:10 }}" height="500" />
 <article class="mtb-15 text-left"  id="loop" >
