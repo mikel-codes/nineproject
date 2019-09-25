@@ -21,18 +21,21 @@
 <meta property="fb:app_id" content="">
 <meta name="og:url" content="https://9blogspace.com/{{req_post.slug}}">
 <meta name="article" content="">
+<link href="http://allfont.net/allfont.css?fonts=book-antiqua" rel="stylesheet" type="text/css" />
+
 {{req_post.get_meta_tags}}
+
 <style type="text/css">
 
+body{
+  font-family: 'Book Antiqua' !important;
+}
 
-
-h1,
+h1
 h2,
 h3,
 h4 {
     font-weight: 400 !important;
-    font-family: Lato;
-
 
 }
 article > p{
@@ -56,6 +59,13 @@ article > p{
     background-position: 97% 75%;
     margin-right: 0.3em;
 }
+
+.h1 .text-left {
+      font-family: 'Book Antiqua', arial;
+      font-size: 48px;
+      text-shadow: 4px 4px 4px #aaa;
+    }
+
 
 .img {
     width: 5rem;
@@ -95,8 +105,7 @@ const checkforTags = () => {
 }
 window.addEventListener('load', (e) => {
     try {
-        readingTime();
-        checkforTags();
+      checkforTags();
     } catch (error) {
         console.log("errors in event handling", error)
     }
@@ -109,8 +118,8 @@ window.addEventListener('load', (e) => {
     <div class="mt-30  opacty-2"></div>
     <div class="container">
       {% if not req_post.post_by.profile.picture %}
-<div id="circle">{{req_post.post_by.first_name | slice:1}}</div>
-{% else %}
+      <div id="circle">{{req_post.post_by.first_name | slice:1}}</div>
+      {% else %}
 <img src="{{req_post.post_by.profile.picture.url}}" height="40" width="60" class="img">
 {% endif %}
 <ul class="list-li-mr-20 mtb-15 text-left">
@@ -128,9 +137,9 @@ window.addEventListener('load', (e) => {
   </section>
 {% endblock header %}
 {% block content %}
-<h1 class="text-left " style="font-size: 3em;">{{req_post.topic}}</h1>
+<h1 class=" h1 text-left" >{{req_post.topic}}</h1>
 <br><br>
-<img src="{{ req_post.photos.url }}" alt="{{req_post.topic | truncatechars:10 }}" />
+<img src="{{ req_post.photos.url }}" alt="{{req_post.topic | truncatechars:10 }}" height="500" />
 <article class="mtb-15 text-left"  id="loop" style="font-family: Montserrat;">
    {{ req_post.content | safe }}
 </article>
@@ -164,7 +173,7 @@ window.addEventListener('load', (e) => {
     <div class="d-flex justify-content-between mt-2">
         <div class="float-left">
              <div class="d-flex justify-content-between mt-2">
-        
+
                 <span class="float-left">
                     {% if req_post.post_by.profile.picture %}
                     <img src="{{profile.picture.url}}" class="img" />
