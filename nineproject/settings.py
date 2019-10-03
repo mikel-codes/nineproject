@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.sitemaps',
     'nineapp',
     'rest_framework',
     'rest_framework.authtoken',
@@ -200,5 +201,3 @@ EMAIL_BACKEND = config('BACKEND')
 
 DISQUS_API_KEY = config('DISQUS_API_KEY')
 DISQUS_WEBSITE_SHORTNAME = config('DISQUS_WEBSITE_SHORTNAME')
-
-

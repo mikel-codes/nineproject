@@ -21,7 +21,7 @@ from utils.modelmixins import TimeMixin, MetaTagsMixin
 from tinymce.models import HTMLField
 #from django.contrib.gis.utils import GeoIP
 from django.contrib.auth.models import Group
-
+from django.urls import reverse
 from nineproject.storages.gcloud import GsPictureProfileCloud as gppc, GsPostCloud as gpostc
 # Create your models here.
 
@@ -110,6 +110,10 @@ class Post(TimeMixin, MetaTagsMixin):
 
     def __str__(self):
         return self.topic
+
+    def get_absolute_url(self):
+        return "/topic/%s" % self.topic
+
 
     def tags_list(self):
         return self.tags.split(',')

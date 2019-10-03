@@ -18,12 +18,23 @@ from django.urls import path
 from django.conf.urls import include
 from django.conf.urls.static import static
 from django.conf import settings
+from django.contrib.sitemaps.views import sitemap
+from .sitemaps import StaticViewSitemap, DynamicPostSiteMap
+
+
+sitemaps = {
+    'static': StaticViewSitemap,
+    'posts': DynamicPostSiteMap
+}
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("nineapp.urls")),
     #path('summernote/', include('django_summernote.urls')),
     path('tinymce/', include('tinymce.urls')),
+    path('sitemap.xml/', sitemap, {'sitemaps': sitemaps},
+     name='django.contrib.sitemaps.views.sitemap'),
 ]
 
 if settings.DEBUG:
