@@ -1,6 +1,6 @@
 from django.contrib import sitemaps
 from django.urls import reverse
-from  nineapp.models import Post
+from  nineapp.models import Post, Category
 
 class StaticViewSitemap(sitemaps.Sitemap):
     priority = 0.5
@@ -19,6 +19,19 @@ class DynamicPostSiteMap(sitemaps.Sitemap):
 
     def items(self):
         return Post.objects.all()
+
+    def location(self, obj):
+        return obj.get_absolute_url()
+
+    def lastmod(self, obj):
+        return obj.modified
+
+class DynamicCategorySiteMap(sitemaps.Sitemap):
+    priority = 1.0
+    changefreq = 'daily'
+
+    def items(self):
+        return Category.objects.all()
 
     def location(self, obj):
         return obj.get_absolute_url()

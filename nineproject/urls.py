@@ -19,12 +19,13 @@ from django.conf.urls import include
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.sitemaps.views import sitemap
-from .sitemaps import StaticViewSitemap, DynamicPostSiteMap
+from .sitemaps import StaticViewSitemap, DynamicCategorySiteMap,DynamicPostSiteMap
 
 
 sitemaps = {
     'static': StaticViewSitemap,
-    'posts': DynamicPostSiteMap
+    'posts': DynamicPostSiteMap,
+    'categories': DynamicCategorySiteMap
 }
 
 
