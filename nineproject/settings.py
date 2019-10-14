@@ -30,8 +30,9 @@ SECRET_KEY = config('SECRET_KEY')
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 DEBUG = config('DEBUG', default=True, cast=bool)
 # DEBUG:
-
-GOOGLE_RECAPTCHA_SECRET_KEY=config('GOOGLE_RECAPTCHA_KEY')
+#EBUG=False
+GOOGLE_RECAPTCHA_SECRET_KEY="6LdxzbsUAAAAALzNl58s_wg5ssE6pdqdrysjY8ti"
+#OOGLE_RECAPTCHA_SECRET_KEY=config('GOOGLE_RECAPTCHA_KEY')
 
 # Application definition
 
