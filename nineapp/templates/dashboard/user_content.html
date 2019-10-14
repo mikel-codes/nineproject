@@ -90,42 +90,41 @@ tinymce.init({
             readingTime()
             ValidateCharacterLength()
         });
+
+       ed.on('submit', (e) => {
+         set_imgdata_src()
+       })
     }
 });
 
 
+
 const evalMeta = () => {
-    console.log('in eval meta')
+
     try {
-        let content = tinymce.get('id_content').getBody()
+      let content = tinymce.get('id_content').getBody();
+
         const ps = content.querySelectorAll('p')
-        let observer = 0
-        Array.from(ps, p => {
-            observer = 0
-            let arr = p.innerHTML.split(' ')
+        let fps = Array.from(ps).filter(p => p.innerHTML.split(' ').length > 30)[0].innerHTML.slice(0, 100)
+        document.querySelector("#id_description").innerHTML = fps
 
-            if (arr.length > 10 & arr.length < 33) {
-                document.querySelector('#id_description').innerHTML = p.textContent
-                if (observer > 2){
-                    document.querySelector("#id_description").innerHTML = p.textContent.slice(0, 100)
-                    return
-                }
-                observer++;
-
-                return
-            }
-        })
-        ps = []
-
-
-    } catch (e) {
-        console.log('Errors occurred in processing', e)
-        return
+    } catch(e) {
+      console.log('Errors in eval meter orange => ', e)
     }
-
-
 }
-readingTime = () => {
+
+const set_imgdata_src  = () => {
+  let content = tinymce.get('id_content').getBody();
+   const imgs = content.querySelectorAll('img')
+
+    Array.from(imgs, img => {
+      img.setAttribute('data-src', img.getAttribute('src'))
+      img.src = "data/image.gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+
+  })
+}
+
+const readingTime = () => {
 
     const wordsPerMinute = 200;
     const text = tinymce.get('id_content').getBody().innerText
@@ -174,6 +173,12 @@ function ValidateCharacterLength() {
 
     }
     return;
+}
+
+
+document.forms[0].onsubmit = () => {
+  console.log('submit -> form ok')
+  set_imgdata_src()
 }
 </script>
 {% endblock %}
