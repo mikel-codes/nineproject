@@ -29,7 +29,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = config('SECRET_KEY')
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 DEBUG = config('DEBUG', default=True, cast=bool)
+# DEBUG:
 
+GOOGLE_RECAPTCHA_SECRET_KEY=config('GOOGLE_RECAPTCHA_KEY')
 
 # Application definition
 

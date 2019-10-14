@@ -109,7 +109,7 @@ window.addEventListener('load', (e) => {
       {% if not req_post.post_by.profile.picture %}
       <div id="circle">{{req_post.post_by.first_name | slice:1}}</div>
       {% else %}
-<img src="{{req_post.post_by.profile.picture.url}}" height="40" width="60" class="img">
+<img data-src="{{req_post.post_by.profile.picture.url}}" height="40" src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' width="60" class="img" alt={{req_post.topic|lower}}>
 {% endif %}
 <ul class="list-li-mr-20 mtb-15 text-left">
     <li><b>{{req_post.post_by.get_full_name}}</b></li>
@@ -128,7 +128,7 @@ window.addEventListener('load', (e) => {
 {% block content %}
 <h1 class="h1 text-left" >{{req_post.topic}}</h1>
 <br><br>
-<img src="{{ req_post.photos.url }}" alt="{{req_post.topic | truncatechars:10 }}" height="500" />
+<img data-src="{{ req_post.photos.url }}" alt="{{req_post.topic | lower }}"  height="400" src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'/>
 <article class="mtb-15 text-left"  id="loop" >
    {{ req_post.content | safe }}
 </article>
@@ -165,7 +165,7 @@ window.addEventListener('load', (e) => {
 
                 <span class="float-left">
                     {% if req_post.post_by.profile.picture %}
-                    <img src="{{profile.picture.url}}" class="img" />
+                    <img data-src="{{profile.picture.url}}" class="img" src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'/>
                     {%else %}
                     <div id="circle">{{req_post.post_by.get_full_name | slice:1}}</div>
                     {% endif %}

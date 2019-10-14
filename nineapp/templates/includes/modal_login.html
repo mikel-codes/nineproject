@@ -4,13 +4,6 @@
 .modal.fade .modal-dialog.modal-dialog-zoom {-webkit-transform: translate(0,0)scale(.5);transform: translate(0,0)scale(.5);}
 .modal.show .modal-dialog.modal-dialog-zoom {-webkit-transform: translate(0,0)scale(1);transform: translate(0,0)scale(1);}
 
-body {
-    background: #f9f7f6;
-    color: #404d5b;
-    font-weight: 500;
-
-    font-family: 'Raleway', Arial, sans-serif;
-}
 
 </style>
 
@@ -25,7 +18,6 @@ body {
       </div>
 
       <div class="modal-body">
-        <div class="vertical-form" style="border: 1px 1px 1px 0px solid black; border-color: red;">
          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- Life's Sweetness -->
 <ins class="adsbygoogle"
@@ -41,16 +33,15 @@ body {
               <img src="{% static "images/blg.svg" %}" width="80" height="80">
             </h2>
 
- <form method="post" action="{% url "signin" %}" class="bgcolor-3 form-login">
+ <form method="post"  action="{% url "signin" %}" >
       {%csrf_token%}
 
 
-    <legend class="text-center border-bottom" style='font-family:"Lato"'>Log In  to Clap or Like</legend>
-      <div class="vertical-form">
+    <legend class="text-center border-bottom" >Log In to Clap or Like</legend>
 
         <div class="form-group">
           <input type="text" name="username" placeholder="Username"
-              class="form-control" />
+               class="form-control"/>
         </div>
         <div class="form-group">
           <input type="password" name="password" placeholder="Password"
@@ -65,11 +56,11 @@ body {
         </div>
 
 
-      </div>
+
 
 
      </form>
-   </div>
+
    <div class="modal-footer">
                 <p class="float-center" style="color:#444;">
           New Guest?
@@ -80,5 +71,3 @@ body {
   </div>
 </div>
 </div>
-
-

@@ -102,6 +102,7 @@ let scroller = (e, img) => {
 		requestAnimationFrame(isimginView(img))
 	}, 300);
 }
+
       		//item.appendChild(main_img)
 
 

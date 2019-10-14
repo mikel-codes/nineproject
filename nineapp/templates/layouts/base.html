@@ -38,6 +38,15 @@
         border: 3px solid gray;
         padding: 0.2px 0.2px;
     }
+
+    div img[data-src] {
+      filter: blur(0.2em);
+    }
+
+    div img {
+      filter: blur(0em);
+      transition: filter 0.5s;
+    }
     </style>
 </head>
 
@@ -65,7 +74,7 @@
                         {% for post in posts %}
                         <div class="col-sm-6">
                             <div class="card box mt-2" style="background-color: white; z-index: 1, width:22rem; height: 25rem;">
-                                <img class="card-img-top" src='{{post.photos.url}}' height="50%
+                                <img class="card-img-top" data-src='{{post.photos.url}}' height="50% 
                           " alt="image loading...">
                                 <div class="card-body">
                                     <a href="{% url 'getpost' post.slug %}" class="card-link">

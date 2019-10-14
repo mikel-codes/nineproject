@@ -68,34 +68,38 @@
               </span>
 
  <span class="input input--chisato">
+   <div class='input-group-sm mb-2'>
+   <script src='https://www.google.com/recaptcha/api.js'></script>
+   <div class="g-recaptcha" data-sitekey="6LdxzbsUAAAAAMw5nDFRS9s9e7fAVzxz3conHcxI"></div>
+   </div>
           <div class='input-group-sm mb-2'>
-          <button type="submit" value="Log In" class="btn btn-block btn-secondary">
+          <button type="submit" value="Log In" class="btn btn-block btn-secondary" >
             <i class="fa fa-lock"></i>
           Log In
           </button>
                <p class="float-left" style="color:#444;">
           New Guest? <a href="{%url 'reg' %}">Sign Up!</a>
         </p>
-        <p> 
+        <p>
            <a data-toggle="modal" href="{% url 'email_reset' %}" data-target="#myModal" class="float-right">
            Forgot Password?</a>
         </p>
-      
+
 
         </div>
-        
-     
+
+
     </span>
       </form>
       </section>
 
  {% include "includes/register/forgot_pass.html" %}
- 
- 
+
+
 </div>
 
 <script type="text/javascript" src="{% static 'js/classie.js' %}"></script>
- 
+
     <script>
       (function() {
         // trim polyfill : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
@@ -133,4 +137,3 @@
     </script>
 
 {% endblock %}
-

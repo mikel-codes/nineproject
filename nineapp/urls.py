@@ -1,10 +1,7 @@
 #-*- coding:utf-8 -*-
 from  __future__ import unicode_literals
 from django.urls import path, re_path
-from .views import  (registration, dashboard, userlogin,
-userlogout, reset, create_content, page_not_found, getpost, edit_post, delete_post, activate, edit_profile,
- contact, index, list_posts, activate, email_password_reset, password_reset_confirm, stripepay,no_js)
-
+from .views import *
 from django.conf.urls import url
 
 from .apiviews import  ClapUpdate, UpdateLike, ViewUpdate
@@ -30,7 +27,6 @@ urlpatterns = [
         path('member/login/email/password/reset', email_password_reset, name="email_reset"),
 
         path("disabled/javascript", no_js, name="no_js"),
-        path('oops!',page_not_found, name="page_not_found" ),
         path('topic/<str:slug>', getpost, name ="getpost"),
         path('delete/<pk>', delete_post, name='deletepost'),
         path('<str:name>/profile', edit_profile, name="edit_profile"),

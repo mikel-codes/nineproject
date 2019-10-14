@@ -12,7 +12,7 @@
 </script>
     <title> 9blogspace - Your Space To Write Read Learn Blog </title>
     <meta charset="utf-8">
-    <meta name="propeller" content="f6efc07da9a58f46338c3d53abf8c438">
+    <!--meta name="propeller" content="f6efc07da9a58f46338c3d53abf8c438"-->
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0">
     <meta name="description" content="9blogspace is a virtual company for online blogging. The world's top hub to blog, read and write content. We are passionate and motive driven. its your space to write out loud!">
     <meta property="og:type" content="website">
@@ -21,6 +21,16 @@
     <meta property="og:image" itemprop="image primaryImageOfPage" content="{% static 'images/blg.svg'%}">
     <link rel="shortcut icon" href="{% static 'images/fav3.ico' %}" type="image/x-icon">
 {%include "includes/website_index/static_files.html"%}
+<style>
+div img[data-src] {
+  filter: blur(0.2em);
+}
+
+div img {
+  filter: blur(0em);
+  transition: filter 0.5s;
+}
+</style>
 
 </head>
 
@@ -129,14 +139,14 @@
     <section>
         <div class="container">
             <div class="row">
-                <div class="col-md-12 col-lg-8">
+                <div class="col-md-12 col-lg-8 col-sm-12">
                     <h4 class=" p-title"><b>WHAT WE'VE BEEN <i class="fa fa-pen"></i>RITING</b></h4>
                     <div class="row">
                         {% if recent_posts %}
                         {% for post in recent_posts %}
                         <div class="col-sm-6">
-                            <div class="card  mb-40 ml-20 " style="width:18rem; height: 20rem;">
-                                <img class="card-img-top" src='{{post.photos.url}}' height='50%' width="100%" alt="image loading...">
+                            <div class="card  mb-40 ml-10 " style="width:18rem; height: 20rem;">
+                                <img class="card-img-top" data-src='{{post.photos.url}}' height='50%' src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'   width="100%" alt="image loading...">
                                 <div class="card-body">
                                     <a href="{% url 'getpost' post.slug %}" class="card-link">
                                         <span class="badge badge-secondary">
@@ -163,7 +173,7 @@
                     <a class="dplay-none btn-brdr-primary mt-20 mb-md-50" href="#"></a>
                 </div>
                 <div class="d-none d-md-block d-lg-none col-md-3"></div>
-                <div class="col-md-3 col-lg-4">
+                <div class="col-md-3 col-lg-4 col-sm-3">
                     <div class="pl-20 pl-md-0">
                         <ul class="list-block list-li-ptb-15 list-btm-border-white  text-center">
                             <li>
@@ -186,7 +196,7 @@
                             {% for post in side_posts %}
                             <a class="oflow-hidden pos-relative mb-20 dplay-block" href="{% url 'getpost' post.slug  %}" title="">
                                 <div class="wh-100x abs-tlr">
-                                    <img src="{{post.photos.url}}" width="80" height="80" alt="{{post.topic| truncatechars:10}}" data-src="{{post.photos.url}}"></div>
+                                    <img data-src="{{post.photos.url}}"  width="80" height="80" alt="{{post.topic| truncatechars:10}}" src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'  ></div>
                                 <div class="ml-120 min-h-100x">
                                     <p class='h6'><b>{{post.topic}}</b></p>
                                     <p class="color-lite-black pt-10"><span class="color-black"><b>

@@ -35,7 +35,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from rest_framework.authtoken.models import Token
 from .models import View,Like,Clap, Post, Profile, Category, Clap, Profile
 from django.conf import settings
-
+from .decorators import check_recaptcha
 
 def highest_clapper_post():
     claps_count = []
@@ -179,18 +179,17 @@ def password_reset_confirm(request, uidb64, token):
         user.refresh_from_db()
         login(request, user)
         return redirect(reverse("reset_password"))
-    else:
-        return redirect("page_not_found")
 
 
 
 
 #considering request.post as a dictionary get a value from a key(say request.POST.get("email"))
+@check_recaptcha
 def registration(request):
     signupform = SignUpForm(request)
     if request.POST:
         signupform = SignUpForm(request, request.POST)
-        if signupform.is_valid():
+        if signupform.is_valid() and request.recaptcha_is_valid is True:
             signupform.save()
             return HttpResponse('PLEASE CHECK EMAIL FOR FURTHER INSTRUCTIONS / ALSO CHECK SPAM FOLDER INCASE')
     return render(request, "registration/signup.html",{"signupform": signupform, 'fterms': ("Username","Email")})
@@ -198,36 +197,32 @@ def registration(request):
 
 
 def activate(request, uidb64, token):
-    try:
-        uid = force_text(urlsafe_base64_decode(uidb64))
-        user = User.objects.get(pk=uid)
-        if account_token.check_token(user, token):
-            user.refresh_from_db()
-            user.is_active = True
-            user.save()
-            login(request, user)
-            messages.success(request,"registration completed successfully")
-            return redirect(reverse("dashboard", args=(user.username,)))
-    except Exception as e:
-        user = None
-        print("found this exception while trying to activate ", e)
-        return redirect("page_not_found")
+    uid = force_text(urlsafe_base64_decode(uidb64))
+    user = get_object_or_404(User, pk=uid)
+    if account_token.check_token(user, token):
+        user.refresh_from_db()
+        user.is_active = True
+        user.save()
+        login(request, user)
+        messages.success(request,"registration completed successfully")
+        return redirect(reverse("dashboard", args=(user.username,)))
 
-
+@check_recaptcha
 def userlogin(request):
 
     if request.POST:
         username = request.POST['username']
         password = request.POST['password']
-        user     = authenticate(request, username=username, password=password)
-        if user is not None and user.is_active: # if the account of the user is still active
+        user = authenticate(request, username=username, password=password)
+        if request.recaptcha_is_valid is not None:
+            if user is not None and user.is_active: # if the account of the user is still active
                 login(request, user)
                 request.session["identity"] = request.user.id
                 messages.success(request,"Welcome %s your dashboard" % request.user.username)
                 return redirect(reverse('dashboard', args=(request.user.username,)))
-        else:
-            context = {"errors" : "login details are invalid"}
-            return render(request, "registration/login.html", context)
+            else:
+                context = {"errors" : "login details are invalid"}
+                return render(request, "registration/login.html", context)
     else:
         return render(request, "registration/login.html", {})
 
@@ -312,14 +307,10 @@ def edit_post(request, pk):
 
 @login_required(login_url="signin")
 def delete_post(request, pk):
-    try:
-        post = get_object_or_404(Post, id=pk)
-        post.delete()
-    except Exception:
-        return redirect("page_not_found")
-    else:
-        messages.info(request, "The post was successfully removed")
-        return redirect("dashboard", args=(request.user.username))
+    post = get_object_or_404(Post, id=pk)
+    post.delete()
+    messages.info(request, "The post was successfully removed")
+    return redirect("dashboard", args=(request.user.username))
 
 @login_required(login_url="signin")
 def search_posts(request):
@@ -348,8 +339,7 @@ def edit_profile(request, name):
         print('I could not save this profile form , reasons are \n', e)
 
 
-def page_not_found(request):
-    return render(request, "404.html", {})
+
 
 
 def stripepay(request):

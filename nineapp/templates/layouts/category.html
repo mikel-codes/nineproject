@@ -17,6 +17,16 @@
     {% include "includes/website_index/static_files.html" %}
     {% block head_content%}
     {% endblock %}
+    <style>
+    div img[data-src] {
+      filter: blur(0.2em);
+    }
+
+    div img {
+      filter: blur(0em);
+      transition: filter 0.5s;
+    }
+    </style>
 </head>
 
 <body ng-controller="defaultCtrl" ng-cloak>
