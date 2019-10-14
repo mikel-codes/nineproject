@@ -214,15 +214,14 @@ def userlogin(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
-        if request.recaptcha_is_valid is not None:
-            if user is not None and user.is_active: # if the account of the user is still active
-                login(request, user)
-                request.session["identity"] = request.user.id
-                messages.success(request,"Welcome %s your dashboard" % request.user.username)
-                return redirect(reverse('dashboard', args=(request.user.username,)))
-            else:
-                context = {"errors" : "login details are invalid"}
-                return render(request, "registration/login.html", context)
+        if user is not None and user.is_active and request.recaptcha_is_valid: # if the account of the user is still active
+            login(request, user)
+            request.session["identity"] = request.user.id
+            messages.success(request,"Welcome %s your dashboard" % request.user.username)
+            return redirect(reverse('dashboard', args=(request.user.username,)))
+        else:
+            context = {"errors" : "login details are invalid"}
+            return render(request, "registration/login.html", context)
     else:
         return render(request, "registration/login.html", {})
 
