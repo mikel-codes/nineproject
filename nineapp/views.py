@@ -66,7 +66,8 @@ def index(request):
         related_posts_first = Post.objects.filter(category=head_post.category).order_by("topic", "modified").exclude(pk=head_post.id)[:1]
         recipe_for_head     = Post.objects.filter(pk=head_post.id)
         side_posts = list(v.post for v in View.objects.order_by('-num')[:5])
-        recent_posts = list(l.post for l in Like.objects.order_by("-num_of_likes"))[:8]
+        #recent_posts = list(l.post for l in Like.objects.order_by("-num_of_likes"))[:8]
+        recent_posts = list(Post.objects.order_by('-id').exclude(id=head_post.id)[:5])
         top_posts = Post.objects.all()[:2]
 
     context = {'top_blogs': top_blogs, 'head_post': head_post, 'related_posts_first': related_posts_first, 'recipe_for_head':recipe_for_head, 'top_posts': top_posts, 'recent_posts': recent_posts, 'side_posts': side_posts, 'categories': categories, 'last_p': last_p,}
