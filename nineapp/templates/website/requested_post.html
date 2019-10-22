@@ -107,9 +107,9 @@ window.addEventListener('load', (e) => {
     <div class="mt-30  opacity-2"></div>
     <div class="container">
       {% if not req_post.post_by.profile.picture %}
-      <div id="circle">{{req_post.post_by.first_name | slice:1}}</div>
+      <div id="circle" class="img-fluid">{{req_post.post_by.first_name | slice:1}}</div>
       {% else %}
-<img data-src="{{req_post.post_by.profile.picture.url}}" height="40" src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' width="60" class="img" alt={{req_post.topic|lower}}>
+<img class="img img-fluid" data-src="{{req_post.post_by.profile.picture.url}}" height="40" src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' width="60" class="img-fluid" alt={{req_post.topic|lower}}>
 {% endif %}
 <ul class="list-li-mr-20 mtb-15 text-left">
     <li><b>{{req_post.post_by.get_full_name}}</b></li>
@@ -128,7 +128,7 @@ window.addEventListener('load', (e) => {
 {% block content %}
 <h1 class="h1 text-left" >{{req_post.topic}}</h1>
 <br><br>
-<img data-src="{{ req_post.photos.url }}" alt="{{req_post.topic | lower }}"  height="400" src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'/>
+<img class="img-fluid" data-src="{{ req_post.photos.url }}" alt="{{req_post.topic | lower }}"  height="300" src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'/>
 <article class="mtb-15 text-left"  id="loop" >
    {{ req_post.content | safe }}
 </article>
@@ -165,18 +165,19 @@ window.addEventListener('load', (e) => {
 
                 <span class="float-left">
                     {% if req_post.post_by.profile.picture %}
-                    <img data-src="{{profile.picture.url}}" class="img" src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'/>
+                    <img data-src="{{profile.picture.url}}" class="img img-fluid" src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'/>
                     {%else %}
-                    <div id="circle">{{req_post.post_by.get_full_name | slice:1}}</div>
+                    <div id="circle" class="mx-auto my-auto d-block">{{req_post.post_by.get_full_name | slice:1}}</div>
                     {% endif %}
                 </span>
 
                 <span class="float-right">
                     <ul>
-                        <li><h5>About Me.</h5></li>
+                        <li><h6 class="mx-auto my-auto d-block">About Me.</h6></li>
+
                     <li><b>{{req_post.post_by.get_full_name}}</b></li>
                     <br>
-                    <li style="font-size: 0.5em;">{{ req_post.post_by.profile.bio | linebreaks}}</li>
+                    <li><h6>{{ req_post.post_by.profile.bio | linebreaks}}</h6></li>
         </ul>
                 </span>
 
@@ -188,16 +189,18 @@ window.addEventListener('load', (e) => {
             <h6>
                 <clap-dir clapid="{{req_post.clap.id}}" usertoken="'{{token}}'" owner="{{req_post.post_by.id}}" clapper="{{request.user.id}}" counter="{{clap_count}}">
                     {% include "includes/clapsholder.html"%}
-                    <b>__claps | NumFilter __ </b>
+                    <b>__ claps | NumFilter __ </b>
                 </clap-dir>
             </h6>
         </div>
     </div>
-    <div class="float-right" class="d-flex justify-content-between mt-2">
-        <div class="float-left"> </div>
-    </div><!-- quote-primary -->
+
 </div>
+
+
 {%endif%}
+
+
 {% endblock %}
 {%block disqus%}
 {% load disqus_tags %}
